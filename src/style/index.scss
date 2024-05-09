@@ -1,0 +1,27 @@
+//全局样式
+@font-face {
+    font-family: 'DDJingBu';
+    src: url('@/assets/font/钉钉进步体.woff2') format('woff2'),
+        url('@/assets/font/钉钉进步体.woff') format('woff');
+}
+
+body {
+    font-family: 'DDJingBu'; //在此只能修改除ui组件外的字体样式
+}
+
+.shadow-card {
+    border: 1px solid rgba(165, 164, 164, 0.6);
+    border-radius: 20px;
+    box-shadow: 3px 5px 10px rgb(165, 165, 165);
+    padding: 24px 20px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.border {
+    border: 1px solid red;
+}
