@@ -1,20 +1,59 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Layout from '@/layout/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/home',
+    component: Layout,
+    children: [
+      {
+        path: 'home',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          title: '首页'
+        },
+        children: [
+          {
+            path: 'owner-question',
+            component: () => import('@/views/question/ownerQuestion/index.vue'),
+            meta: {
+              title: '我的问卷'
+            }
+          },
+          {
+            path: 'star-question',
+            component: () => import('@/views/question/starQuestion/index.vue'),
+            meta: {
+              title: '收藏问卷'
+            }
+          },
+          {
+            path: 'recycle-question',
+            component: () => import('@/views/question/recycleQuestion/index.vue'),
+            meta: {
+              title: '回收站'
+            }
+          }
+        ]
+      },
+      {
+        path: 'edit-question',
+        component: () => import('@/views/question/editQuestion/index.vue'),
+        meta: {
+          title: '编辑问卷'
+        }
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/test',
+    component: () => import('@/views/test.vue'),
+    meta: {
+      title: '测试页面'
+    }
   }
+
 ]
 
 const router = createRouter({
