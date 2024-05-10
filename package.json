@@ -9,16 +9,21 @@
     "fix": "vue-cli-service  lint --fix"
   },
   "dependencies": {
+    "@types/lodash-es": "^4.17.12",
     "ant-design-vue": "4.x",
     "core-js": "^3.8.3",
+    "lodash-es": "^4.17.21",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.0",
+    "uuid": "^9.0.1",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.1",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",

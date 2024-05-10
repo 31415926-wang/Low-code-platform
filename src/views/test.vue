@@ -1,16 +1,26 @@
 <template>
-    测试页面
+    <div class="out">
+        <div class="in">11</div>
+        <div class="in">22</div>
+        <div class="in">33</div>
+        <div class="in">44</div>
+    </div>
 
 </template>
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-
-// const $store = useStore()
-// console.log('仓库2', $store)
-// console.log('仓库1', $store.state.schemaStore.prop1)
-// console.log('仓库2', $store.commit('updateProp'))
-// console.log('仓库3', $store.state.schemaStore.prop1)
 
 </script>
 
-<style></style>
+<style scoped lang='scss'>
+.out {
+    width: 50%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    .in {
+        width: 48%;
+        border: 1px solid red;
+    }
+}
+</style>
