@@ -1,12 +1,17 @@
 <template>
     <div class="middle-box">
-        <qs-title></qs-title>
-
-        <!-- 尝试编写物料实例化的样式 -->
+        <component v-for="item in $store.state.editorStore.components" :is="item.name" :key="item.id"
+        :props="item.props"
+        >
+        </component>
     </div>
 </template>
 
 <script setup lang='ts'>
+import { useStore } from '@/store/index' // 采用重写后的useStore方法
+
+const $store = useStore()
+// console.log('断点', $store.state.editorStore.components)
 
 </script>
 

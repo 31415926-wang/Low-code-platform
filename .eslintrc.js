@@ -20,6 +20,7 @@ module.exports = {
     indent: ['off', 2], // 关闭校验空格规则
     'no-unused-vars': 'off', // 关闭 "is assigned a value but never used" 警告
     '@typescript-eslint/no-explicit-any': ['off'], // 允许any类型
-    'space-before-function-paren': ['off']
+    'space-before-function-paren': ['off'],
+    '@typescript-eslint/ban-ts-comment': 0 // 0关闭 1警告 2报错
   }
 }

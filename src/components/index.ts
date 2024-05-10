@@ -18,6 +18,10 @@ function register(fileList: any, app: App) {
         */
         const file = fileList(key).default // || fileList(key)
         // console.log('单个文件', file) // 获取具体的文件
-        app.component(file.__name, file)
+        const reg = /.*\/(.*)\.vue/
+        if (reg.exec(key)) {
+            // @ts-ignore
+            app.component(reg.exec(key)[1], file)
+        }
     })
 }
