@@ -9,20 +9,19 @@ export const defaultCommonProps: commonProps = {
     width: '100%',
     paddingLeft: '0px',
     paddingRight: '0px',
-    paddingTop: '0px',
-    paddingBottom: '0px',
+    paddingTop: '10px',
+    paddingBottom: '10px',
     opacity: 1
 }
 
 export const defaultTextProps: textProps = {
-    text: '文字内容',
     fontSize: '16px',
-    fontFamily: '',
+    fontFamily: '"SimSun","STSong"',
     fontWeight: 'normal',
     fontStyle: 'normal',
     lineHeight: 1,
     textAlign: 'left',
-    color: 'red'
+    color: 'black'
 }
 
 // 样式的key数组

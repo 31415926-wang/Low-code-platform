@@ -1,3 +1,5 @@
+import { VNode } from 'vue'
+
 // 物料的prop属性
 export declare type commonProps = {
     tag?: string,
@@ -11,7 +13,9 @@ export declare type commonProps = {
     opacity: number
 }
 export declare type textProps = {
-    text: string,
+    // 通过初始值去决定表单项
+    textValue?: string,
+    titleValue?: string,
     fontSize: string,
     fontFamily: string,
     fontWeight: string,
@@ -39,7 +43,45 @@ export declare interface widgetData {
     title: string
 }
 
+// 左侧物料模版的结构
 export declare interface widgetTemplate {
     label: string,
     widgetList: widgetData[]
+}
+
+// 右侧属性表单项的映射
+
+// 目前已经出现的组件名称，方便后面再次出现时提示
+type HasFormItemName = 'a-textarea' | 'a-input' | 'a-radio-group'
+    | 'a-slider' | 'a-select' | 'a-input-number' | 'fields-color'
+    | 'fields-select'
+
+export type PropsToForm = {
+    components: HasFormItemName, // 对应要渲染的组件
+    subComponent?: string,
+    label: string, // 标签名称
+    value?: string, // 表单项对应初始值与存储值的地方，约定好value作为key
+    // 其它需约束表单项的属性
+    extraProps?: {
+        size?: string,
+        type?: string
+        // 输入框
+        placeholder?: string,
+        //  滑动输入器
+        max?: number,
+        min?: number,
+        step?: number,
+        'tip-formatter'?: (param: number) => number | string
+        //  单选
+        options?: {
+            label: string | VNode
+            value: string | number | null | undefined
+        }[],
+        optionType?: 'default' | 'button',
+        // 数字输入器
+        formatter?: (param: number) => number | string // 回显的格式
+        parser?: (param: number) => number | string // 赋值的格式
+    },
+    reverseFormat?: (param: number | string) => number | string // 翻转处理格式
+
 }
