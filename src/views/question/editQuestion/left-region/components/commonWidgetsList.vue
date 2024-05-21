@@ -2,18 +2,25 @@
     <div class="widget-template-box" v-for="(item, index) in defaultTemplate" :key="index">
         <h3>{{ item.label }}</h3>
         <a-row class="widget-type-box">
-            <a-col class="widget-item" :span="11" v-for="(widget, inIndex) in item.widgetList" :key="inIndex">
-                <span class="icon-box flex-center">
-                    <component :is="widget.icon"></component>
-                </span>
-                <h4 class="title">{{ widget.title }}</h4>
+            <a-col :span="11" v-for="(widget, inIndex) in item.widgetList" :key="inIndex">
+                <WidgetWrapper class="widget-item" :widget="widget">
+                    <span class="icon-box flex-center">
+                        <IconSvg :name='widget.icon'></IconSvg>
+                    </span>
+                    <h4 class="title">{{ widget.title }}</h4>
+                </WidgetWrapper>
             </a-col>
         </a-row>
     </div>
+
+    <!-- <pre>
+        {{ defaultTemplate }}
+    </pre> -->
 </template>
 
 <script setup lang='ts'>
 import defaultTemplate from '@/widgets/defaultTemplate'
+import WidgetWrapper from './widgetWrapper.vue'
 // console.log('模版', defaultTemplate)
 
 </script>
@@ -31,8 +38,10 @@ import defaultTemplate from '@/widgets/defaultTemplate'
         text-align: center;
 
         .icon-box {
-            width: 38%;
+            width: 36%;
+            padding: 3px 0;
 
+            // 若是ant库的图标
             .anticon {
                 height: 100%;
             }

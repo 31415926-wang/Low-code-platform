@@ -3,7 +3,7 @@ import type { App } from 'vue'
 // 统一注册全局组件（也包括物料）
 export function useGlobalComponent(app: App) {
     // 读取公用组件components文件下
-    const componentList = require.context('@/components', false, /\.vue$/)
+    const componentList = require.context('@/components', true, /\.(vue|tsx)$/)
     register(componentList, app)
     // 读取物料
     const widgetsList = require.context('@/widgets', true, /\.vue$/)
@@ -18,8 +18,10 @@ function register(fileList: any, app: App) {
         */
         const file = fileList(key).default // || fileList(key)
         // console.log('单个文件', file) // 获取具体的文件
-        const reg = /.*\/(.*)\.vue/
+        const reg = /.*\/(.*)\.(vue|tsx)/
         if (reg.exec(key)) {
+            // @ts-ignore
+            // console.log('单个文件2', reg.exec(key)[1]) // 获取具体的文件
             // @ts-ignore
             app.component(reg.exec(key)[1], file)
         }

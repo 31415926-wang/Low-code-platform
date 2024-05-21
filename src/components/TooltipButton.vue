@@ -3,7 +3,7 @@
         <template #title>
             {{ tip }}
         </template>
-        <a-button :shape="shape" v-bind="$attrs">
+        <a-button :shape="shape" v-bind="$attrs" @click="$emit('click')">
             <template #icon>
                 <component :is="icon" />
             </template>
@@ -14,7 +14,7 @@
 <script setup lang='ts'>
 import { useAttrs, withDefaults } from 'vue'
 withDefaults(
-     // eslint-disable-next-line
+    // eslint-disable-next-line
     defineProps<{
         tip: string,
         icon: string,
@@ -22,7 +22,10 @@ withDefaults(
     }>(), {
     shape: 'circle'
 })
-
+// eslint-disable-next-line
+const $emit = defineEmits<{ //vue3中，接收了就是自定义事件
+    (e: 'click'): void
+}>()
 const $attrs = useAttrs()
 
 </script>

@@ -3,12 +3,18 @@ import { createStore, useStore as vuexUseStore } from 'vuex'
 import editorStore from './modules/editorStore'
 import userStore from './modules/userStore'
 import type { storeData } from '@/type/store/index'
+import VuexPersistence from 'vuex-persist'
+
+const vuexLocal = new VuexPersistence({
+    storage: window.sessionStorage
+})
 
 const store = createStore({
     modules: {
         editorStore,
         userStore
-    }
+    },
+    plugins: [vuexLocal.plugin]
 })
 
 export default store
