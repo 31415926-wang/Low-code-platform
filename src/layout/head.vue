@@ -10,7 +10,7 @@
 
 <script setup lang='ts'>
 import IndexHead from '@/views/home/components/head.vue'
-import QuestionHead from '@/views/question/editQuestion/components/head.vue'
+import QuestionHead from '@/views/question/editQuestion/head-region/head-region.vue'
 import { useRoute } from 'vue-router'
 
 const $router = useRoute()

@@ -14,7 +14,9 @@ const $props = defineProps<{
 const $store = useStore()
 
 const handleClick = () => {
-    $store.commit('editorStore/addWidget', $props.widget)
+    $store.commit('editorStore/addWidget', {
+        widgetData: $props.widget
+    })
 }
 </script>
 

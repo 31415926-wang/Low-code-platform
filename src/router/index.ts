@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/test',
-    component: () => import('@/views/test.vue'),
+    component: () => import('@/views/testGroup/test.vue'),
     meta: {
       title: '测试页面'
     }

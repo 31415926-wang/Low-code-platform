@@ -21,7 +21,7 @@
 <script setup lang='ts'>
 import leftRegion from './left-region/left-region.vue'
 import rightRegion from './right-region/right-region.vue'
-import middleRegion from './components/middle-region.vue'
+import middleRegion from './middle-region/middle-region.vue'
 
 </script>
 
