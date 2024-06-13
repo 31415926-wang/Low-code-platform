@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang='ts'>
-import HeadTools from './head-tools.vue'
+import HeadTools from './components/head-tools.vue'
 import { useRouter } from 'vue-router'
 const $router = useRouter()
 

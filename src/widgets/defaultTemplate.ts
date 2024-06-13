@@ -1,11 +1,18 @@
 
 import { widgetTemplate } from '@/type/widgets/index'
-import { defaultCommonProps, defaultTextProps } from '@/widgets/defaultProps'
+import { defaultCommonProps, defaultTextProps, defaultImgProps } from '@/widgets/defaultProps'
 
 // 默认的属性及其值
 const paramTextProps = {
     ...defaultCommonProps,
     ...defaultTextProps
+}
+const paramImgProps = {
+    ...defaultCommonProps,
+    paddingTop: '0px',
+    paddingBottom: '0px',
+    width: '40%',
+    ...defaultImgProps
 }
 
 // console.log('断点0', paramTextProps)
@@ -53,6 +60,20 @@ export const defaultTemplate: widgetTemplate[] = [
                 },
                 icon: 'CopyOutlined',
                 title: '段落'
+            }
+        ]
+    },
+    {
+        label: '图片类型',
+        widgetList: [
+            {
+                name: 'QsImg',
+                props: {
+                    ...paramImgProps
+                },
+                // icon: 'editor-img',
+                icon: 'PictureOutlined',
+                title: '图片'
             }
         ]
     }

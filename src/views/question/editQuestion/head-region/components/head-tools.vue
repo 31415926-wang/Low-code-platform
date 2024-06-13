@@ -1,8 +1,8 @@
 <template>
 
-    <a-popconfirm title="确定删除选择组件吗" ok-text="确定" cancel-text="取消" @confirm="hanldDelect">
-        <TooltipButton icon='DeleteOutlined' :disabled="disabled" tip="删除"></TooltipButton>
-    </a-popconfirm>
+    <!-- <a-popconfirm title="确定删除选择组件吗" ok-text="确定" cancel-text="取消"> -->
+        <TooltipButton icon='DeleteOutlined' :disabled="disabled" tip="删除"  @click="hanldDelect"></TooltipButton>
+    <!-- </a-popconfirm> -->
 
     <TooltipButton icon='EyeInvisibleOutlined' disabled tip="隐藏"></TooltipButton>
     <TooltipButton icon='LockOutlined' disabled tip="解锁/锁定" type="primary"></TooltipButton>
@@ -21,7 +21,7 @@
 
 <script setup lang='ts'>
 import { useStore } from '@/store/index'
-import { computed, h } from 'vue'
+import { computed } from 'vue'
 import { notification } from 'ant-design-vue'
 
 const $store = useStore()
@@ -31,7 +31,6 @@ const disabled = computed(() => {
 })
 
 const hanldDelect = () => {
-    console.log('删除')
     $store.commit('editorStore/deleteWidget')
     openNotification('删除选中组件成功')
 }

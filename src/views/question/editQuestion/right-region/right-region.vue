@@ -1,10 +1,10 @@
 <template>
-    <a-tabs v-model:activeKey="activeKey" :tabBarGutter="12">
+    <a-tabs v-model:activeKey="activeKey" :tabBarGutter="19">
         <a-tab-pane :key=1>
             <template #tab>
                 <BgColorsOutlined />属性
             </template>
-            <propsTable></propsTable>
+            <propsSection></propsSection>
         </a-tab-pane>
         <a-tab-pane :key=2>
             <template #tab>
@@ -17,7 +17,7 @@
 
 <script setup lang='ts'>
 import { ref } from 'vue'
-import propsTable from './components/props-table.vue'
+import propsSection from './components/props-section.vue'
 
 const activeKey = ref(1)
 </script>

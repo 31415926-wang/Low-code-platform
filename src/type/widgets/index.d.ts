@@ -24,23 +24,30 @@ export declare type textProps = {
     textAlign: any, // 类型未知原因
     color: string
 }
+export declare type imgProps = {
+    src: string
+}
 
-export declare type AllWidgetProps = commonProps & textProps
+export declare type AllWidgetProps = commonProps & textProps & imgProps
 
-// 业务组件的名称
-export declare type WidgetName = 'QsText'
+/* 完整物料的结构 */
+export declare type WidgetName = 'QsText' | 'QsImg' // 业务组件的名称
 
 // 单个完整物料的数据结构
 export declare interface widgetData {
     // 物料添加到编辑区的唯一id
     id?: string,
-    // 元素的属性
-    props: Partial<AllWidgetProps>,
     // 对应业务(物料)组件库的组件名称
     name: WidgetName,
+    // 元素的属性
+    props: Partial<AllWidgetProps>,
     // 公用物料图标
     icon: string,
-    title: string
+    title: string,
+    // 图层名称
+    layerName?: string,
+    isHidden?:boolean,
+    isLocked?:boolean
 }
 
 // 左侧物料模版的结构
@@ -54,13 +61,13 @@ export declare interface widgetTemplate {
 // 目前已经出现的组件名称，方便后面再次出现时提示
 type HasFormItemName = 'a-textarea' | 'a-input' | 'a-radio-group'
     | 'a-slider' | 'a-select' | 'a-input-number' | 'fields-color'
-    | 'fields-select'
+    | 'fields-select' | 'fields-img'
 
 export type PropsToForm = {
     components: HasFormItemName, // 对应要渲染的组件
     subComponent?: string,
     label: string, // 标签名称
-    value?: string, // 表单项对应初始值与存储值的地方，约定好value作为key
+    value?: string, // 表单项对应初始值与存储值的地方，渲染右侧表单时会用来赋初始值
     // 其它需约束表单项的属性
     extraProps?: {
         size?: string,

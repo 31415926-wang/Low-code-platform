@@ -1,9 +1,9 @@
 <template>
-    <a-tooltip placement="bottom">
+    <a-tooltip :placement="placement">
         <template #title>
             {{ tip }}
         </template>
-        <a-button :shape="shape" v-bind="$attrs" @click="$emit('click')">
+        <a-button :shape="shape" v-bind="$attrs" @click="($event) => $emit('click', $event)">
             <template #icon>
                 <component :is="icon" />
             </template>
@@ -18,13 +18,15 @@ withDefaults(
     defineProps<{
         tip: string,
         icon: string,
-        shape?: string
+        shape?: string,
+        placement?: string
     }>(), {
-    shape: 'circle'
+    shape: 'circle',
+    placement: 'bottom'
 })
 // eslint-disable-next-line
 const $emit = defineEmits<{ //vue3中，接收了就是自定义事件
-    (e: 'click'): void
+    (e: 'click', param: Event): void
 }>()
 const $attrs = useAttrs()
 

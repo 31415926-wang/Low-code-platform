@@ -1,4 +1,4 @@
-import { commonProps, textProps } from '@/type/widgets/index'
+import { commonProps, textProps, imgProps } from '@/type/widgets/index'
 import { without } from 'lodash-es'
 // 物料的props默认值
 
@@ -24,6 +24,11 @@ export const defaultTextProps: textProps = {
     color: 'black'
 }
 
-// 样式的key数组
+export const defaultImgProps: imgProps = {
+    src: ''
+}
+
+// 样式的key数组，物料样式会用到
 export const commonStyleKeys = without(Object.keys(defaultCommonProps), 'url')
 export const textStyleKeys = without(Object.keys(defaultTextProps), 'text').concat(commonStyleKeys)
+export const imgStyleKeys = commonStyleKeys

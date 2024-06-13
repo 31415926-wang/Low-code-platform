@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, watch, computed } from 'vue'
+import { computed } from 'vue'
 import { useStore } from '@/store/index'
 import { propsToFormFn } from '@/widgets/propsTableMap'
 
@@ -57,7 +57,7 @@ const update = (goalvalue: string | number, goalkey: string, reverseFn?: (param:
 
     .props-item {
         display: flex;
-        gap: 10px;
+        gap: 0px;
         margin-top: 15px;
 
         .item-label {

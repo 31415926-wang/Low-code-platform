@@ -5,6 +5,8 @@
         url('@/assets/font/钉钉进步体.woff') format('woff');
 }
 
+@import url(./customAnt.scss);
+
 body {
     font-family: 'DDJingBu'; //在此只能修改除ui组件外的字体样式
 }

@@ -2,7 +2,7 @@ import { AllWidgetProps } from '@/type/widgets/index'
 import { cloneDeep } from 'lodash-es'
 import { PropsToForm } from '@/type/widgets'
 import type { SelectProps } from 'ant-design-vue'
-import { StyleValue, VNode } from 'vue'
+import { VNode } from 'vue'
 
 export type PropsTableMap = {
     [propName in keyof AllWidgetProps]?: PropsToForm // 注意该写法
@@ -18,6 +18,12 @@ const commonSliderPxReverseFormat = (v: number | string) => String(v).indexOf('p
 const commonNumberPxFormatter = (v: number | string) => String(v).indexOf('px') === -1 ? v + 'px' : v
 
 // 单独抽离每一个物料的
+export const imgPropsMap: PropsTableMap = {
+    src: {
+        components: 'fields-img',
+        label: '图片设置'
+    }
+}
 export const textPropsMap: PropsTableMap = {
     textValue: {
         components: 'a-textarea',
@@ -146,7 +152,8 @@ export const propsTableMap: PropsTableTitleMap[] = [
     {
         label: '组件属性',
         build: {
-            ...textPropsMap
+            ...textPropsMap,
+            ...imgPropsMap
         }
     },
     {
