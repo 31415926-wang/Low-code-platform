@@ -1,4 +1,4 @@
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 
 export default function (key: string, fn: () => void, isInitOpenKeyPress = false) {
     const isOpenKeyPress = ref(isInitOpenKeyPress)// 手动决定是否添加键盘事件

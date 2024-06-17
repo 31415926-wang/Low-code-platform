@@ -4,5 +4,7 @@ export interface editorState {
     // 编辑器已添加的组件/物料列表
     components: widgetData[],
     // 选中的物料组件
-    currentComponent: string
+    currentComponent: string,
+    // 复制选中的物料
+    copiedComponent: widgetData | null
 }

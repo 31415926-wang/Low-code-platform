@@ -29,8 +29,8 @@ const $store = useStore()
 
 // 渲染的props模版
 const propsTemplate = computed(() => {
-    return $store.getters['editorStore/currentComponentWidget']
-        ? propsToFormFn($store.getters['editorStore/currentComponentWidget'].props)
+    return $store.getters['editorStore/selectedWidget']
+        ? propsToFormFn($store.getters['editorStore/selectedWidget'].props)
         : []
 })
 

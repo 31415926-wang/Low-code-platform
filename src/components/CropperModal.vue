@@ -47,7 +47,7 @@ const handleCropper = async () => {
     cropper = new Cropper(cropperImage, {
         aspectRatio: 16 / 9,
         crop(event) {
-            console.log('裁剪', event)
+            // console.log('裁剪', event)
         }
     })
 }

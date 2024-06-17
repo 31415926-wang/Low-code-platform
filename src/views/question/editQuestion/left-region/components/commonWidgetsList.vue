@@ -2,7 +2,7 @@
     <div class="widget-template-box" v-for="(item, index) in defaultTemplate" :key="index">
         <h3>{{ item.label }}</h3>
         <!-- 拖拽跨组件需注意样式问题 -->
-        <VueDraggableNext v-model="item.widgetList" :sort="false" class="widget-type-box"
+        <VueDraggableNext :disabled="true" v-model="item.widgetList" :sort="false" class="widget-type-box"
             :group="{ name: 'draggableGroup', pull: 'clone', put: false }" @dragstart="onDragstart()">
             <a-col :span="11" v-for="(widget, inIndex) in item.widgetList" :key="inIndex">
                 <WidgetWrapper class="widget-item" :widget="widget">

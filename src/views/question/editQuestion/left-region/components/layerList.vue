@@ -68,7 +68,7 @@ const componentsList = computed({
             margin-left: 3px;
             font-size: 14px;
             font-weight: lighter;
-            color: rrgb(53, 52, 52)
+            color: rgb(53, 52, 52)
         }
     }
 

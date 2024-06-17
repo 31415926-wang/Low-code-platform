@@ -18,7 +18,7 @@ import { computed } from 'vue'
 const $store = useStore()
 
 const currentComponent = computed(() => {
-    return $store.getters['editorStore/currentComponentWidget']
+    return $store.getters['editorStore/selectedWidget']
 })
 
 </script>

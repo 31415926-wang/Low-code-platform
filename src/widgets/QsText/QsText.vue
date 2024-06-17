@@ -1,5 +1,5 @@
 <template>
-    <component :is="$props.tag" :style="styleProps">
+    <component :is="$props.tag" :style="styleProps" >
         {{ $props.textValue || $props.titleValue || $props.widgetTitle }}</component>
 
 </template>
@@ -14,6 +14,9 @@ const $props = defineProps<commonProps & textProps & {
 }>()
 
 const { styleProps } = useHandleWidget<commonProps & textProps & { widgetTitle: string }>($props, textStyleKeys)
+
+// console.log('断点1', textStyleKeys)
+// console.log('断点2', styleProps)
 
 </script>
 

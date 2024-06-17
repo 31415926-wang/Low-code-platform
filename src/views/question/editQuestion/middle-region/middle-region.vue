@@ -1,35 +1,60 @@
 <template>
-    <div class="middle-box ">
-        <!-- 可能需要符合文档流的元素才能排序 -->
-        <VueDraggableNext class="VueDraggableNext" v-model="dragComponentsData" :sort="false" group="draggableGroup">
-            <editWrapper v-for="item in $store.state.editorStore.components" :key="item.id" :widgetId="item.id!"
-                @selectWidget="selectWidget"
-                :isActive="item.id == $store.state.editorStore.currentComponent && !item.isHidden">
+    <div class="middle-box custom-scrollbar">
+        <!-- 排序功能暂时屏蔽：海报模式有问题 -->
+        <VueDraggableNext :disabled="true" class="VueDraggableNext" v-model="dragComponentsData" :sort="false"
+            :force-fallback="true" group="draggableGroup">
+            <!-- 定位相关样式同时也挂载到父包裹层 -->
+            <editWrapper ref="EditWrapper" v-for="item in $store.state.editorStore.components" :key="item.id"
+                :widgetId="item.id!" @selectWidget="selectWidget" @updateWidgetProps="updateWidgetProps"
+                :isActive="item.id == $store.state.editorStore.currentComponent && !item.isHidden"
+                :style="{ ...getParentWrapperStyle(item.props) }">
                 <template v-if="!item.isHidden">
                     <component :is="item.name" v-bind="item.name == 'QsText' ?
-                        { ...item.props, widgetTitle: item.title } : { ...item.props }">
+                        { ...item.props, widgetTitle: item.title } : { ...item.props }" :id="item.id">
                     </component>
                 </template>
             </editWrapper>
         </VueDraggableNext>
     </div>
 
-    <!-- <pre>{{ $store.getters['editorStore/currentComponentWidget'] }}</pre> -->
+    <!-- <pre>{{ $store.getters['editorStore/selectedWidget'] }}</pre> -->
     <!-- <pre>{{ $store.state.editorStore.components }}</pre> -->
 </template>
 
 <script setup lang='ts'>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useStore } from '@/store/index' // 采用重写后的useStore方法
 import editWrapper from './components/edit-wrapper.vue'
 import type { widgetData } from '@/type/widgets/index'
+import { AllWidgetProps } from '@/type/widgets/index'
+import { parentWrapperStyleKeys } from '@/widgets/defaultProps'
+import { pick } from 'lodash-es'
 
 const $store = useStore()
+const EditWrapper = ref()
+
+const getParentWrapperStyle = (widgetsOwnProps: Partial<AllWidgetProps>) => {
+    return pick(widgetsOwnProps, parentWrapperStyleKeys)
+}
 
 const selectWidget = (id: string) => {
     $store.commit('editorStore/selectWidget', id)
 }
+
+interface updateWidgetPropsParams {
+    Key: keyof AllWidgetProps,
+    Value: string | number | boolean
+}
+const updateWidgetProps = ({ Key, Value }: updateWidgetPropsParams) => {
+    $store.commit('editorStore/updateWidget', {
+        changeKey: Key,
+        changeValue: Value,
+        changeType: 'props'
+    })
+}
+
+// 拖拽库响应的数据更新
 const dragComponentsData = computed({
     get() {
         return $store.state.editorStore.components
@@ -59,8 +84,13 @@ const dragComponentsData = computed({
 
 <style scoped lang='scss'>
 .middle-box {
+    position: relative;
+    height: 100%;
     background-color: white;
     padding: 24px 20px;
+    // border: 1px solid red;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 // 确保有拖拽区域
