@@ -5,19 +5,6 @@ const webpack = require('webpack')
 const configObj = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
-    // 添加 svg loader
-    // const svgRule = config.module.rule('svg')
-    // svgRule.uses.clear()
-    // svgRule.test(/\.svg$/)
-    //   .include.add(path.resolve(__dirname, './src/assets/icons'))
-    //   .end()
-    //   .use('svg-sprite-loader')
-    //   .loader('svg-sprite-loader')
-    //   .options({
-    //     symbolId: 'icon-[name]'
-    //   })
-    //   .end()
-
     // 有一些svg不加入处理
     config.module
       .rule('svg')
@@ -42,6 +29,14 @@ const configObj = defineConfig({
         }
       })
       .end()
+  },
+  // 解决scss样式传入共享的全局变量找不到的问题，引入的全局变量文件不要包含其它内容（根据vue-cli官网）
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: '@import "~@/style/scscsVariable.scss";'
+      }
+    }
   },
   configureWebpack: {
     resolve: {

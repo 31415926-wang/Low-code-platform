@@ -10,7 +10,10 @@ export declare type commonProps = {
     paddingRight: string;
     paddingTop: string;
     paddingBottom: string;
-    opacity: number
+    opacity: number,
+    position: string,
+    top?: string,
+    left?: string,
 }
 export declare type textProps = {
     // 通过初始值去决定表单项
@@ -46,8 +49,8 @@ export declare interface widgetData {
     title: string,
     // 图层名称
     layerName?: string,
-    isHidden?:boolean,
-    isLocked?:boolean
+    isHidden?: boolean,
+    isLocked?: boolean
 }
 
 // 左侧物料模版的结构

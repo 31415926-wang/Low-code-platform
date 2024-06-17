@@ -1,5 +1,5 @@
 <template>
-    <a-row class="">
+    <a-row style="height: 100%; ">
         <a-col :span="5" :xxl="4">
             <div class="shadow-card">
                 <leftRegion></leftRegion>
@@ -22,6 +22,9 @@
 import leftRegion from './left-region/left-region.vue'
 import rightRegion from './right-region/right-region.vue'
 import middleRegion from './middle-region/middle-region.vue'
+import addHotKeys from '@/plugins/hotKeys'
+
+addHotKeys() // 为编辑器注册快捷键
 
 </script>
 
@@ -42,6 +45,7 @@ import middleRegion from './middle-region/middle-region.vue'
     }
 
     .middle-col {
+        height: 100%;
         padding: 27px 0;
     }
 }

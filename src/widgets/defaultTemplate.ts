@@ -11,7 +11,7 @@ const paramImgProps = {
     ...defaultCommonProps,
     paddingTop: '0px',
     paddingBottom: '0px',
-    width: '40%',
+    width: '150px',
     ...defaultImgProps
 }
 

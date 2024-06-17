@@ -1,7 +1,7 @@
 <template>
 
     <!-- <a-popconfirm title="确定删除选择组件吗" ok-text="确定" cancel-text="取消"> -->
-        <TooltipButton icon='DeleteOutlined' :disabled="disabled" tip="删除"  @click="hanldDelect"></TooltipButton>
+    <TooltipButton icon='DeleteOutlined' :disabled="disabled" tip="删除" @click="hanldDelect"></TooltipButton>
     <!-- </a-popconfirm> -->
 
     <TooltipButton icon='EyeInvisibleOutlined' disabled tip="隐藏"></TooltipButton>
@@ -32,7 +32,7 @@ const disabled = computed(() => {
 
 const hanldDelect = () => {
     $store.commit('editorStore/deleteWidget')
-    openNotification('删除选中组件成功')
+    // openNotification('删除选中组件成功')
 }
 
 const openNotification = (tip: string) => {
