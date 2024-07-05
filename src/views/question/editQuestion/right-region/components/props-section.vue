@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang='ts'>
-import propsTable from './props-table.vue'
+import propsTable from './props-panel.vue'
 import { useStore } from '@/store/index'
 import { computed } from 'vue'
 const $store = useStore()

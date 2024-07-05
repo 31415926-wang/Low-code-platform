@@ -2,7 +2,7 @@
     --design-width: 750
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -126,4 +126,8 @@ html[gray-model] {
 html.color-weak-model,
 html[color-weak-model] {
     filter: invert(80%)
+}
+
+pre {
+    margin: 0;
 }

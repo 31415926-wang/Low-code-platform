@@ -47,7 +47,7 @@ const componentsList = computed({
         return $store.state.editorStore.components
     },
     set(val) {
-        $store.commit('editorStore/setList', val)
+        $store.commit('editorStore/setList', { newlist: val })
     }
 })
 </script>

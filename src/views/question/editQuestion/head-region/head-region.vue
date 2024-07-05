@@ -1,12 +1,15 @@
 <template>
     <div class="question-head-box">
         <div class="head-left">
-            <a-button type="default" size="large" href="/">
+            <a-button type="default" size="" href="/">
                 <template #icon>
                     <RollbackOutlined />
                 </template>
             </a-button>
-            问卷名称
+            <div class="work-name">
+                <IconSvg name="index-work" fill="#f4801a"></IconSvg>
+                <InlineEdit :value="$store.state.editorStore.page.name" @update:value="setPageName"></InlineEdit>
+            </div>
         </div>
 
         <div class="head-middle">
@@ -27,6 +30,9 @@
 <script setup lang='ts'>
 import HeadTools from './components/head-tools.vue'
 import { useRouter } from 'vue-router'
+import { useStore } from '@/store/index'
+
+const $store = useStore()
 const $router = useRouter()
 
 const handleSave = () => {
@@ -35,6 +41,12 @@ const handleSave = () => {
 const handlePublish = () => {
     console.log()
     $router.push({ path: '/' })
+}
+
+const setPageName = (val: string) => {
+    console.log('修改', val)
+    // $store.state.editorStore.page.name = val
+    $store.commit('editorStore/setPageName', val)
 }
 </script>
 
@@ -46,9 +58,19 @@ const handlePublish = () => {
 
     .head-left {
         display: flex;
-        gap: 15px;
+        gap: 22px;
         align-items: center;
-        font-size: 20px;
+        font-size: 18px;
+
+        .work-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            svg {
+                font-size: 30px !important;
+            }
+        }
     }
 
     .head-middle {
@@ -62,5 +84,10 @@ const handlePublish = () => {
         display: flex;
         gap: 15px;
     }
+}
+
+::v-deep() .ant-input-affix-wrapper-sm {
+    padding: 4px 11px;
+    font-size: 16px;
 }
 </style>

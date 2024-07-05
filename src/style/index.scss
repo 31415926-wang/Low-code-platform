@@ -1,5 +1,3 @@
-
-
 //全局样式
 @font-face {
     font-family: 'DDJingBu';
@@ -18,7 +16,10 @@ body {
     border-radius: 20px;
     box-shadow: 3px 5px 10px rgb(165, 165, 165);
     padding: 24px 20px;
+    overflow: auto;
 }
+
+
 
 .flex-center {
     display: flex;
@@ -28,6 +29,10 @@ body {
 
 .border {
     border: 1px solid red;
+}
+
+.relative {
+    position: relative;
 }
 
 //自定义滚动条样式

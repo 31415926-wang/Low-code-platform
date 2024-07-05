@@ -1,4 +1,3 @@
-import { VNode } from 'vue'
 
 // 物料的prop属性
 export declare type commonProps = {
@@ -6,14 +5,24 @@ export declare type commonProps = {
     url?: string,
     height: string,
     width: string,
-    paddingLeft: string;
-    paddingRight: string;
-    paddingTop: string;
-    paddingBottom: string;
+    'padding-left': string;
+    'padding-right': string;
+    'padding-top': string;
+    'padding-bottom': string;
     opacity: number,
     position: string,
     top?: string,
     left?: string,
+    'border-radius': string,
+    'border-color': string,
+    'border-style': string,
+    'border-width': string,
+    'background-color': string,
+    'background-image': string,
+    'box-shadow': string
+    rotate: string,
+    scale: number,
+    'text-shadow': string
 }
 export declare type textProps = {
     // 通过初始值去决定表单项
@@ -34,7 +43,7 @@ export declare type imgProps = {
 export declare type AllWidgetProps = commonProps & textProps & imgProps
 
 /* 完整物料的结构 */
-export declare type WidgetName = 'QsText' | 'QsImg' // 业务组件的名称
+export declare type WidgetName = 'QsText' | 'QsImg' | 'QsStyleFont'// 业务组件的名称
 
 // 单个完整物料的数据结构
 export declare interface widgetData {
@@ -45,7 +54,7 @@ export declare interface widgetData {
     // 元素的属性
     props: Partial<AllWidgetProps>,
     // 公用物料图标
-    icon: string,
+    icon?: string,
     title: string,
     // 图层名称
     layerName?: string,
@@ -53,45 +62,28 @@ export declare interface widgetData {
     isLocked?: boolean
 }
 
-// 左侧物料模版的结构
-export declare interface widgetTemplate {
-    label: string,
-    widgetList: widgetData[]
+// 单个历史记录的格式
+export type operatePropsLevel = 'widgetProps' | 'widget' | 'page'
+export declare interface updateProps {
+    props: keyof AllWidgetProps | keyof widgetData | keyof AllWidgetProps[], // 还需添加page的props
+    level: operatePropsLevel,
+    newValue: any, // 游标到该记录应显示新值，回退显示旧值
+    oldValue: any,
+    id: string // 确定是哪个物料
+}
+export declare interface operateWidgetList {
+    // 代表索引index，也可以代表物料ID,如果是同时改变很多物料顺序，可按ID前后的顺序还原
+    beforeIndexOrId: number | string[], // 通过-1区分新增/删除
+    afterIndexOrId: number | string[],
+    widgetData?: widgetData,
+}
+export declare interface historyRecord {
+    type: 'changeList' | 'changeProps', // 从两个层级记录：物料列表、物料单体/页面设置
+    data: operateWidgetList | updateProps,
 }
 
-// 右侧属性表单项的映射
-
-// 目前已经出现的组件名称，方便后面再次出现时提示
-type HasFormItemName = 'a-textarea' | 'a-input' | 'a-radio-group'
-    | 'a-slider' | 'a-select' | 'a-input-number' | 'fields-color'
-    | 'fields-select' | 'fields-img'
-
-export type PropsToForm = {
-    components: HasFormItemName, // 对应要渲染的组件
-    subComponent?: string,
-    label: string, // 标签名称
-    value?: string, // 表单项对应初始值与存储值的地方，渲染右侧表单时会用来赋初始值
-    // 其它需约束表单项的属性
-    extraProps?: {
-        size?: string,
-        type?: string
-        // 输入框
-        placeholder?: string,
-        //  滑动输入器
-        max?: number,
-        min?: number,
-        step?: number,
-        'tip-formatter'?: (param: number) => number | string
-        //  单选
-        options?: {
-            label: string | VNode
-            value: string | number | null | undefined
-        }[],
-        optionType?: 'default' | 'button',
-        // 数字输入器
-        formatter?: (param: number) => number | string // 回显的格式
-        parser?: (param: number) => number | string // 赋值的格式
-    },
-    reverseFormat?: (param: number | string) => number | string // 翻转处理格式
-
+// page的数据结构
+export declare type PageDate = {
+    name: string,
+    props: Partial<commonProps> // 样式取自部分公用属性
 }

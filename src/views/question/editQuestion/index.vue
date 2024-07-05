@@ -1,7 +1,7 @@
 <template>
     <a-row style="height: 100%; ">
         <a-col :span="5" :xxl="4">
-            <div class="shadow-card">
+            <div class="shadow-card relative">
                 <leftRegion></leftRegion>
             </div>
         </a-col>
@@ -11,7 +11,7 @@
         </a-col>
         <a-col :span="2" :xxl="4"></a-col>
         <a-col :span="7" :xxl="5">
-            <div class="shadow-card">
+            <div class="shadow-card custom-scrollbar relative">
                 <rightRegion></rightRegion>
             </div>
         </a-col>
