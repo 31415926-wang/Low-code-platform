@@ -1,29 +1,13 @@
 <template>
-    <div class="box" @click="click">
-        <div class="inbox"></div>
-    </div>
+    <a-input v-model:value="value" placeholder="Basic usage" />
+    <a-input v-model:value.lazy="value1" autofocus placeholder="Lazy usage" @input="change" />
 </template>
+<script lang="ts" setup>
+import { watch, ref } from 'vue'
+const value = ref<string>('')
+const value1 = ref<string>('')
 
-<script setup lang='ts'>
-
-const click = function () {
-    console.log('点击', click)
-    // //1111
-    console.log('22')
+const change = () => {
+    console.log('改变')
 }
 </script>
-
-<style scoped lang='scss'>
-.box {
-    position: absolute;
-    border: 1px solid red;
-    top: 200px;
-
-    .inbox {
-        width: 100px;
-        height: 100px;
-        border: 1px solid blue;
-
-    }
-}
-</style>

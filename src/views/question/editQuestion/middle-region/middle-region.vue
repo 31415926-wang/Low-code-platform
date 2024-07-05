@@ -1,28 +1,28 @@
 <template>
-    <div class="middle-box custom-scrollbar">
+    <div class="middle-box custom-scrollbar" :style="{ ...pageStyle }">
         <!-- 排序功能暂时屏蔽：海报模式有问题 -->
-        <VueDraggableNext :disabled="true" class="VueDraggableNext" v-model="dragComponentsData" :sort="false"
-            :force-fallback="true" group="draggableGroup">
-            <!-- 定位相关样式同时也挂载到父包裹层 -->
-            <editWrapper ref="EditWrapper" v-for="item in $store.state.editorStore.components" :key="item.id"
-                :widgetId="item.id!" @selectWidget="selectWidget" @updateWidgetProps="updateWidgetProps"
-                :isActive="item.id == $store.state.editorStore.currentComponent && !item.isHidden"
-                :style="{ ...getParentWrapperStyle(item.props) }">
-                <template v-if="!item.isHidden">
-                    <component :is="item.name" v-bind="item.name == 'QsText' ?
-                        { ...item.props, widgetTitle: item.title } : { ...item.props }" :id="item.id">
-                    </component>
-                </template>
-            </editWrapper>
-        </VueDraggableNext>
+        <!-- <VueDraggableNext :disabled="true" class="VueDraggableNext" v-model="dragComponentsData" :sort="false"
+            :force-fallback="true" group="draggableGroup"> -->
+        <!-- 定位相关样式同时也挂载到父包裹层 -->
+        <editWrapper ref="EditWrapper" v-for="(item, index) in $store.state.editorStore.components" :key="item.id"
+            :widgetId="item.id!" @selectWidget="selectWidget" @updateWidgetProps="updateWidgetProps"
+            :isActive="item.id == $store.state.editorStore.currentComponent && !item.isHidden"
+            :style="{ ...getParentWrapperStyle(item.props), 'z-index': index }">
+            <template v-if="!item.isHidden">
+                <component :is="item.name" v-bind="{ ...item.props, widgetTitle: item.title }" :id="item.id">
+                </component>
+                <!-- <pre> {{ item.props }}</pre> -->
+            </template>
+        </editWrapper>
+        <!--  </VueDraggableNext> -->
     </div>
 
     <!-- <pre>{{ $store.getters['editorStore/selectedWidget'] }}</pre> -->
-    <!-- <pre>{{ $store.state.editorStore.components }}</pre> -->
+    <!-- <pre>{{ $store.state.editorStore.page }}</pre> -->
 </template>
 
 <script setup lang='ts'>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useStore } from '@/store/index' // 采用重写后的useStore方法
 import editWrapper from './components/edit-wrapper.vue'
@@ -30,9 +30,14 @@ import type { widgetData } from '@/type/widgets/index'
 import { AllWidgetProps } from '@/type/widgets/index'
 import { parentWrapperStyleKeys } from '@/widgets/defaultProps'
 import { pick } from 'lodash-es'
+import contextMenu, { MenuListItem } from '@/plugins/contextMenu'
 
 const $store = useStore()
 const EditWrapper = ref()
+
+const pageStyle = computed<any>(() => {
+    return $store.state.editorStore.page.props
+})
 
 const getParentWrapperStyle = (widgetsOwnProps: Partial<AllWidgetProps>) => {
     return pick(widgetsOwnProps, parentWrapperStyleKeys)
@@ -43,14 +48,14 @@ const selectWidget = (id: string) => {
 }
 
 interface updateWidgetPropsParams {
-    Key: keyof AllWidgetProps,
-    Value: string | number | boolean
+    Key: keyof AllWidgetProps | string[],
+    Value: any
 }
 const updateWidgetProps = ({ Key, Value }: updateWidgetPropsParams) => {
     $store.commit('editorStore/updateWidget', {
         changeKey: Key,
         changeValue: Value,
-        changeType: 'props'
+        changeType: 'widgetProps'
     })
 }
 
@@ -79,6 +84,39 @@ const dragComponentsData = computed({
         }
     }
 })
+
+// 右键鼠标功能
+const menuList = ref<MenuListItem[]>([
+    {
+        name: '拷贝图层',
+        tip: '⌘C / Ctrl+C',
+        fn: () => {
+            $store.commit('editorStore/copyComponent')
+        }
+    },
+    {
+        name: '粘贴图层',
+        tip: '⌘V / Ctrl+V',
+        fn: () => {
+            $store.commit('editorStore/pasteComponent')
+        }
+    },
+    {
+        name: '删除图层',
+        tip: 'Backspace / Delete',
+        fn: () => {
+            $store.commit('editorStore/deleteWidget', {})
+        }
+    },
+    {
+        name: '取消选中',
+        tip: 'ESC',
+        fn: () => {
+            $store.commit('editorStore/selectWidget', '')
+        }
+    }
+])
+contextMenu(menuList.value, '.edit-wrapper')
 
 </script>
 

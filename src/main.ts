@@ -14,7 +14,7 @@ import '@/utils/antConfig'
 import {
     Button, ConfigProvider, Menu, Card, Row, Col, Divider, Image, Upload, Modal,
     Tooltip, Avatar, Tabs, Input, Slider, Radio, Select, Tag, InputNumber, Popconfirm,
-    Empty
+    Empty, Collapse
 } from 'ant-design-vue' // 自动按需引入
 
 const app = createApp(App)
@@ -26,7 +26,7 @@ app.use(Button).use(Menu).use(Card).use(Row).use(
     Col).use(Divider).use(Tooltip).use(Avatar).use(Tabs
     ).use(Upload).use(ConfigProvider).use(Input).use(Slider).use(Radio
     ).use(Select).use(Tag).use(InputNumber).use(Popconfirm).use(Image).use(Modal
-    ).use(Empty)
+    ).use(Empty).use(Collapse)
 
 app.use(store)
 app.use(router).mount('#app')

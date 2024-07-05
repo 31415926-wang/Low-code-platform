@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" @click="handleClick">
+    <div class="widget-wrapper" @click="handleClick">
         <slot></slot>
     </div>
 </template>
@@ -21,7 +21,7 @@ const handleClick = () => {
 </script>
 
 <style scoped lang='scss'>
-.wrapper {
+.widget-wrapper {
     cursor: pointer;
 }
 </style>

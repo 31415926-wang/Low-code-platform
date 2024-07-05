@@ -1,5 +1,5 @@
 <template>
-    <a-tabs v-model:activeKey="activeKey" :tabBarGutter="14">
+    <a-tabs v-model:activeKey="activeKey" :tabBarGutter="14" >
         <a-tab-pane :key=1>
             <template #tab>
                 <AppstoreOutlined />组件
@@ -26,4 +26,14 @@ import layerListPractice from './components/layerListPractice.vue'
 const activeKey = ref(1)
 </script>
 
-<style scoped lang='scss'></style>
+<style scoped lang='scss'>
+// 只让面板设置面板宽占满
+::v-deep() .ant-tabs-tabpane[id$='panel-2'] {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+::v-deep() .ant-tabs-content {
+    position: static;
+}</style>

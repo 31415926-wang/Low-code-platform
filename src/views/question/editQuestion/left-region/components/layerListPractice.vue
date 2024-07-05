@@ -16,7 +16,7 @@
             <InlineEdit :value="item.layerName!"
                 @update:value="(event) => changeLayerStatus(item.id!, 'layerName', event)" class="name"></InlineEdit>
 
-            <TooltipButton icon='DragOutlined'  placement="right" tip="移动图层" class="dragButton"></TooltipButton>
+            <TooltipButton icon='DragOutlined' placement="right" tip="移动图层" class="dragButton"></TooltipButton>
         </li>
     </ul>
 
@@ -62,7 +62,7 @@ const onDropEnter = (endIndex: number, event: DragEvent) => {
             start,
             end
         } = dragData
-        // arrayMoveMutable($store.state.editorStore.components, start, end) // 直接修改有时候不一定能影响到仓库，可能是开启了持久化，需要仓库有内容变动
+        // arrayMoveMutable($store.state.editorStore.components, start, end) // 直接修改有时候不一定能影响到仓库，可能是开启了持久化，需要仓库有内容变动（需要mutations）
         $store.commit('editorStore/adjustList', {
             start,
             end

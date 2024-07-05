@@ -1,5 +1,5 @@
 
-import { widgetTemplate } from '@/type/widgets/index'
+import { widgetTemplate } from '@/type/template/widgetAndprops'
 import { defaultCommonProps, defaultTextProps, defaultImgProps } from '@/widgets/defaultProps'
 
 // 默认的属性及其值
@@ -15,11 +15,19 @@ const paramImgProps = {
     ...defaultImgProps
 }
 
+const paramStyleFontProps = {
+    ...defaultCommonProps,
+    ...defaultTextProps,
+    fontSize: '17px',
+    paddingLeft: '10px',
+    paddingRight: '10px'
+}
+
 // console.log('断点0', paramTextProps)
 
 export const defaultTemplate: widgetTemplate[] = [
     {
-        label: '文本类型',
+        label: '普通文本',
         widgetList: [
             {
                 name: 'QsText',
@@ -76,7 +84,109 @@ export const defaultTemplate: widgetTemplate[] = [
                 title: '图片'
             }
         ]
+    },
+    {
+        label: '艺术字体',
+        isRenderCard: true,
+        renderStyleKey: 'fontFamily',
+        widgetList: [
+            {
+                name: 'QsStyleFont',
+                props: {
+                    ...paramStyleFontProps,
+                    fontFamily: '"KaiTi","STKaiti"',
+                    textValue: '楷体标题'
+                },
+                title: '楷体标题'
+            },
+
+            {
+                name: 'QsStyleFont',
+                props: {
+                    ...paramStyleFontProps,
+                    fontFamily: '"Arial", "sans-serif"',
+                    textValue: 'Arial'
+                },
+                title: 'Arial'
+            },
+            {
+                name: 'QsStyleFont',
+                props: {
+                    ...paramStyleFontProps,
+                    fontFamily: '"FangSong","STFangsong"',
+                    textValue: '仿宋正文'
+                },
+                title: '仿宋正文'
+            },
+            {
+                name: 'QsStyleFont',
+                props: {
+                    ...paramStyleFontProps,
+                    fontFamily: '"Comic Sans MS"',
+                    textValue: 'Comic Sans'
+                },
+                title: 'Comic Sans'
+            },
+            {
+                name: 'QsStyleFont',
+                props: {
+                    ...paramStyleFontProps,
+                    fontFamily: '"Courier New", monospace',
+                    textValue: 'Courier New'
+                },
+                title: 'Courier New'
+            },
+
+            {
+                name: 'QsStyleFont',
+                props: {
+                    ...paramStyleFontProps,
+                    fontFamily: '"Times New Roman", serif',
+                    textValue: 'Times New Roman'
+                },
+                title: 'Times New Roman'
+            }
+        ]
+    },
+    {
+        label: '形状图案',
+        isRenderCard: true,
+        widgetList: [
+            {
+                name: 'QsImg',
+                props: {
+                    ...paramImgProps
+                },
+                icon: 'PictureOutlined',
+                title: '三角形'
+            },
+            {
+                name: 'QsImg',
+                props: {
+                    ...paramImgProps
+                },
+                icon: 'PictureOutlined',
+                title: '圆形'
+            },
+            {
+                name: 'QsImg',
+                props: {
+                    ...paramImgProps
+                },
+                icon: 'PictureOutlined',
+                title: '正方形'
+            },
+            {
+                name: 'QsImg',
+                props: {
+                    ...paramImgProps
+                },
+                icon: 'PictureOutlined',
+                title: '长方形'
+            }
+        ]
     }
+
 ]
 
 export default defaultTemplate

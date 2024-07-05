@@ -1,47 +1,59 @@
 <template>
 
     <!-- <a-popconfirm title="确定删除选择组件吗" ok-text="确定" cancel-text="取消"> -->
-    <TooltipButton icon='DeleteOutlined' :disabled="disabled" tip="删除" @click="hanldDelect"></TooltipButton>
+    <TooltipButton icon='DeleteOutlined' :disabled="!hasSelectWidget" tip="删除"
+        @click="$store.commit('editorStore/deleteWidget', {})"></TooltipButton>
     <!-- </a-popconfirm> -->
 
-    <TooltipButton icon='EyeInvisibleOutlined' disabled tip="隐藏"></TooltipButton>
-    <TooltipButton icon='LockOutlined' disabled tip="解锁/锁定" type="primary"></TooltipButton>
+    <TooltipButton :icon="selectWidget?.isHidden ? 'EyeOutlined' : 'EyeInvisibleOutlined'" :disabled="!hasSelectWidget"
+        :tip="selectWidget?.isHidden ? `显示` : `隐藏`" @click="changeWidgetStatus('isHidden', !selectWidget?.isHidden)">
+    </TooltipButton>
+    <TooltipButton :icon="selectWidget?.isLocked ? 'UnlockOutlined' : 'LockOutlined'" :disabled="!hasSelectWidget"
+        :tip="selectWidget?.isLocked ? `解锁` : `锁定`" @click="changeWidgetStatus('isLocked', !selectWidget?.isLocked)">
+    </TooltipButton>
 
     <a-divider class="divider" type="vertical" />
 
-    <TooltipButton icon='CopyOutlined' :disabled="disabled" tip="复制"></TooltipButton>
-    <TooltipButton icon='SnippetsOutlined' disabled tip="粘贴"></TooltipButton>
+    <TooltipButton icon='CopyOutlined' @click="$store.commit('editorStore/copyComponent')" :disabled="!hasSelectWidget"
+        tip="复制"></TooltipButton>
+    <TooltipButton icon='SnippetsOutlined' @click="$store.commit('editorStore/pasteComponent')"
+        :disabled="!$store.state.editorStore.copiedComponent" tip="粘贴"></TooltipButton>
 
     <a-divider class="divider" type="vertical" />
 
-    <TooltipButton icon='UndoOutlined' disabled tip="撤销"></TooltipButton>
-    <TooltipButton icon='RedoOutlined' disabled tip="重做"></TooltipButton>
+    <TooltipButton icon='UndoOutlined' @click="undoOrRedo('undo')" :disabled="!$store.getters['editorStore/allowUndo']"
+        tip="撤销"></TooltipButton>
+    <TooltipButton icon='RedoOutlined' @click="undoOrRedo('redo')" :disabled="!$store.getters['editorStore/allowRedo']"
+        tip="重做"></TooltipButton>
 
 </template>
 
 <script setup lang='ts'>
 import { useStore } from '@/store/index'
 import { computed } from 'vue'
-import { notification } from 'ant-design-vue'
+import { widgetData } from '@/type/widgets/index'
 
 const $store = useStore()
 
-const disabled = computed(() => {
-    return !($store.state.editorStore.currentComponent.length > 0)
+const hasSelectWidget = computed(() => {
+    return $store.state.editorStore.currentComponent !== ''
 })
 
-const hanldDelect = () => {
-    $store.commit('editorStore/deleteWidget')
-    // openNotification('删除选中组件成功')
+const selectWidget = computed<widgetData | null>(() => {
+    return $store.getters['editorStore/selectedWidget']
+})
+
+const undoOrRedo = (type: 'undo' | 'redo') => {
+    $store.dispatch('editorStore/' + type)
 }
 
-const openNotification = (tip: string) => {
-    notification.success({
-        message: tip,
-        duration: 2.5
+const changeWidgetStatus = (key: string, newValue: boolean | string) => {
+    $store.commit('editorStore/updateWidget', {
+        changeKey: key,
+        changeValue: newValue,
+        changeType: 'widget'
     })
 }
-
 </script>
 
 <style scoped lang='scss'>
