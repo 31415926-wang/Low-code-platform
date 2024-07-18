@@ -6,14 +6,16 @@ import type { Module } from 'vuex'
 import type { apiState } from '@/type/store/modules/apiStore'
 
 const baseUrl = process.env.VUE_APP_BASE_URL
+const staticUrl = process.env.VUE_APP_STATIC_URL
 
 const apiStore: Module<apiState, any> = {
     namespaced: true,
     state: {
-        fileUploadApi: baseUrl + '/upload',
-        imgEchoApi: baseUrl + '/qsImgs/'
+        // fileUploadApi: baseUrl + '/upload',
+        // imgEchoApi: baseUrl + '/qsImgs/'
+        fileUploadApi: baseUrl + '/api/utils/upload-img',
+        imgEchoApi: staticUrl + '/qsImgs/'
     }
-
 }
 
 export default apiStore

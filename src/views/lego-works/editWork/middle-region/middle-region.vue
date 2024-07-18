@@ -126,7 +126,7 @@ contextMenu(menuList.value, '.edit-wrapper')
     height: 100%;
     background-color: white;
     padding: 24px 20px;
-    // border: 1px solid red;
+    border: 1px solid rgb(241, 203, 193);
     overflow-x: hidden;
     overflow-y: auto;
 }

@@ -37,8 +37,12 @@ const $emit = defineEmits<{
     (e: 'update:value', param: string): void
 }>()
 
-const handleChange = (param: string) => {
-    $emit('update:value', param)
+const handleChange = (param: string | { urls: string[] }) => {
+    if (typeof param !== 'string') {
+        $emit('update:value', param.urls[0])
+    } else {
+        $emit('update:value', param)
+    }
 }
 
 </script>
@@ -63,6 +67,7 @@ const handleChange = (param: string) => {
 }
 
 ::v-deep() .ant-image {
+    height: 86px !important;
     border-radius: 10px;
     overflow: hidden;
     border: 1px rgb(122, 122, 122, .5) dashed;

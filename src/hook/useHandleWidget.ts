@@ -1,6 +1,7 @@
 import { StyleValue, computed } from 'vue'
 import { pick } from 'lodash-es'
 
+// 如果是带-的，转为驼峰
 function handleHumpNameArr(arr: string[]) {
     return arr.map((item: string) => {
         const msgIndex = item.indexOf('-')

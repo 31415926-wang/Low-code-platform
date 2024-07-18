@@ -1,11 +1,11 @@
 <template>
 
     <div class="nav-box ">
-        <a-button type="primary" href="/edit-question">
+        <a-button type="primary" href="/edit-work">
             <template #icon>
                 <PlusOutlined />
             </template>
-            新建问卷
+            新建作品
         </a-button>
         <a-menu class="menu" mode="inline" :selectedKeys="selectedKeys" :items="items" @click="handleClick" />
         <router-link to="/test">测试页面</router-link>
@@ -29,17 +29,22 @@ const selectedKeys = ref([$route.fullPath]) // 初始化选中的路由
 
 const items = ref([
     {
-        key: '/home/owner-question',
+        key: '/home/hot-template',
         icon: () => h(ProfileFilled),
-        label: '我的问卷'
+        label: '热门模版'
     },
     {
-        key: '/home/star-question',
+        key: '/home/my-works',
+        icon: () => h(ProfileFilled),
+        label: '我的作品'
+    },
+    {
+        key: '/home/my-template',
         icon: () => h(StarFilled),
-        label: '收藏问卷'
+        label: '个人模版'
     },
     {
-        key: '/home/recycle-question',
+        key: '/home/recycle-work',
         icon: () => h(DeleteFilled),
         label: '回收站'
     }
@@ -58,11 +63,12 @@ const handleClick: MenuProps['onClick'] = menuInfo => {
 }
 
 .menu {
+    font-size: 15px;
     margin: 30px 0;
 }
 
-.ant-menu-light{
+.ant-menu-light {
     background-color: transparent;
-    border-inline-end:none !important;
+    border-inline-end: none !important;
 }
 </style>

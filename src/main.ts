@@ -11,22 +11,14 @@ import '@/components/IconSvg/index' // svg-sprite-loader插件需要处理svg图
 // 修改ant全局的函数配置
 import '@/utils/antConfig'
 
-import {
-    Button, ConfigProvider, Menu, Card, Row, Col, Divider, Image, Upload, Modal,
-    Tooltip, Avatar, Tabs, Input, Slider, Radio, Select, Tag, InputNumber, Popconfirm,
-    Empty, Collapse
-} from 'ant-design-vue' // 自动按需引入
+// ant-design-vue的组件按需引入
+import antDesignImport from '@/utils/antDesignImport'
 
 const app = createApp(App)
 
 setIcons(app)// 按需在全局注册图标
 useGlobalComponent(app)// 统一注册全局组件
-
-app.use(Button).use(Menu).use(Card).use(Row).use(
-    Col).use(Divider).use(Tooltip).use(Avatar).use(Tabs
-    ).use(Upload).use(ConfigProvider).use(Input).use(Slider).use(Radio
-    ).use(Select).use(Tag).use(InputNumber).use(Popconfirm).use(Image).use(Modal
-    ).use(Empty).use(Collapse)
+antDesignImport(app)
 
 app.use(store)
 app.use(router).mount('#app')

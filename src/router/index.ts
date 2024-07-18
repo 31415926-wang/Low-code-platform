@@ -1,64 +1,35 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout/index.vue'
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    redirect: '/home',
-    component: Layout,
-    children: [
-      {
-        path: 'home',
-        component: () => import('@/views/home/index.vue'),
-        meta: {
-          title: '首页'
-        },
-        children: [
-          {
-            path: 'owner-question',
-            component: () => import('@/views/question/ownerQuestion/index.vue'),
-            meta: {
-              title: '我的问卷'
-            }
-          },
-          {
-            path: 'star-question',
-            component: () => import('@/views/question/starQuestion/index.vue'),
-            meta: {
-              title: '收藏问卷'
-            }
-          },
-          {
-            path: 'recycle-question',
-            component: () => import('@/views/question/recycleQuestion/index.vue'),
-            meta: {
-              title: '回收站'
-            }
-          }
-        ]
-      },
-      {
-        path: 'edit-question',
-        component: () => import('@/views/question/editQuestion/index.vue'),
-        meta: {
-          title: '编辑问卷'
-        }
-      }
-    ]
-  },
-  {
-    path: '/test',
-    component: () => import('@/views/testGroup/test.vue'),
-    meta: {
-      title: '测试页面'
-    }
-  }
-
-]
+import { createRouter, createWebHistory } from 'vue-router'
+import routes from './routes'
+import { useStore } from '@/store/index'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => { // next写了就必须要用
+  const $store = useStore()
+  const whiteList = ['/phoneLogin', '/accountLogin', '/test']
+
+  if (!$store.state.userStore.token && !whiteList.includes(to.path)) { // 无token且不在白名单中
+    next({
+      path: '/phoneLogin',
+      query: { redirect: to.fullPath }
+    })
+  } else {
+    // 如果是有token的情况下，不要去登录页了
+    if ($store.state.userStore.token && to.path === '/phoneLogin') {
+      next('/')
+    } else {
+      next()
+    }
+    // 如果有token，没有用户信息，请求一下
+    if ($store.state.userStore.token) {
+      if (Object.keys($store.state.userStore.userInfo).length === 0) {
+        $store.dispatch('userStore/getUserInfo')
+      }
+    }
+  }
 })
 
 export default router

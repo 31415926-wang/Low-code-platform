@@ -22,7 +22,7 @@ import Footer from './footer.vue'
 
 <style scoped lang='scss'>
 $head_height: 67px;
-$footer_height: 60px;
+$footer_height: 45px;
 $box_padding: 16px 20px;
 
 .container {

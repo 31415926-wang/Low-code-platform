@@ -8,13 +8,20 @@
         <div :class="item.isRenderCard ? 'widget-card-box' : 'widget-type-box'">
             <a-col :span="11" v-for="(widget, inIndex) in item.widgetList" :key="inIndex">
                 <WidgetWrapper class="widget-item" :widget="widget">
-                    <span v-if="!item.isRenderCard" class="icon-box flex-center">
-                        <IconSvg :name='widget.icon'></IconSvg>
-                    </span>
-                    <h4 class="title"
-                        :style="item.renderStyleKey ? { [item.renderStyleKey]: widget.props[item.renderStyleKey] } : {}">
-                        {{ widget.title }}
-                    </h4>
+                    <template v-if="!item.needRenderWidget">
+                        <span v-if="!item.isRenderCard" class="icon-box flex-center">
+                            <IconSvg :name='widget.icon'></IconSvg>
+                        </span>
+                        <h4 class="title"
+                            :style="item.renderStyleKey ? { [item.renderStyleKey]: widget.props[item.renderStyleKey] } : {}">
+                            {{ widget.title }}
+                        </h4>
+                    </template>
+                    <template v-else>
+                        <component style="transform: scale(0.8)" :is="widget.name"
+                            v-bind="{ ...widget.props, widgetTitle: widget.title }">
+                        </component>
+                    </template>
                 </WidgetWrapper>
             </a-col>
         </div>
@@ -24,8 +31,8 @@
     <!-- <div style="color:red">{{ $store.state.editorStore.history.index }}</div>
     <pre>{{ test() }}</pre> -->
     <!-- <pre>
-        {{ defaultTemplate }}
-    </pre> -->
+    {{ defaultTemplate }}
+</pre> -->
 </template>
 
 <script setup lang='ts'>
@@ -88,6 +95,10 @@ const test = () => {
         }
     }
 
+    ::v-deep() svg {
+        width: auto !important;
+        height: 100% !important;
+    }
 }
 
 .widget-card-box {
@@ -105,6 +116,9 @@ const test = () => {
     }
 
     .widget-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         // border: 1px solid red;
         padding-top: 15px;
@@ -114,11 +128,6 @@ const test = () => {
             font-weight: 500;
         }
     }
-}
-
-::v-deep() svg {
-    width: auto !important;
-    height: 100% !important;
 }
 </style>
 

@@ -1,11 +1,11 @@
 <template>
     <div class="index-box">
         <div class="index-content">
-            <a-row>
-                <a-col :span="5" :xxl="3">
+            <a-row :gutter="10">
+                <a-col :span="4" :xxl="3">
                     <Nav></Nav>
                 </a-col>
-                <a-col :span="19" :xxl="21">
+                <a-col :span="20" :xxl="21">
                     <Content></Content>
                 </a-col>
             </a-row>
@@ -28,15 +28,27 @@ import Content from './components/content.vue'
     .index-content {
         height: 100%;
         margin: 0 auto;
-        width: 80%;
+        width: 69%;
         display: flex;
 
         .ant-row {
             width: 100%;
 
+            .ant-col {
+                height: 100%
+            }
+
             .ant-col>* {
                 height: 100%;
             }
+        }
+    }
+}
+
+@media screen and (max-width:1550px) {
+    .index-box {
+        .index-content {
+        width: 92%;
         }
     }
 }

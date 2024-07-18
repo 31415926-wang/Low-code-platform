@@ -1,5 +1,5 @@
 <template>
-    回收问卷列表
+    热门模版
 </template>
 
 <script setup lang='ts'>

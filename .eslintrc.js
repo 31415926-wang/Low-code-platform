@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 0, // 0关闭 1警告 2报错
     '@typescript-eslint/no-non-null-assertion': 'off',
     'no-empty-function': 'off',
-    'no-empty-arrow-function': 'off'
+    'no-empty-arrow-function': 'off',
+    'prefer-promise-reject-errors':'off'
   }
 }
