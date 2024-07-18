@@ -1,7 +1,13 @@
 
 import type { Module, ActionContext } from 'vuex'
-import type { editorState } from '@/type/store/modules/editorStore'
-import type { widgetData, AllWidgetProps, operateWidgetList, updateProps, operatePropsLevel, historyRecord } from '@/type/widgets/index'
+import type {
+    editorState,
+    updateWidgetParam,
+    addWidgetParam,
+    deleteWidgetParam,
+    SetListParams
+} from '@/type/store/modules/editorStore'
+import type { widgetData, AllWidgetProps, operateWidgetList, updateProps, historyRecord } from '@/type/widgets/index'
 import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep } from 'lodash-es'
 import { arrayMoveMutable } from 'array-move'
@@ -100,28 +106,6 @@ const currentHistoryUndoOrRedoOperate = (type: 'undo' | 'redo', action: ActionCo
             updateFn(data.props, type === 'undo' ? data.oldValue : data.newValue)
         }
     }
-}
-
-interface updateWidgetParam {
-    changeKey: keyof AllWidgetProps | keyof widgetData | keyof AllWidgetProps[],
-    changeValue: any,
-    changeType?: operatePropsLevel,
-    widgetId: string,
-    noRecord?: boolean // 如果是历史记录的前进、后退操作的仓库，不加入记录
-}
-interface addWidgetParam {
-    widgetData: widgetData,
-    widgetIndex?: number, // 指定插入的位置
-    entireWidget?: boolean, // 完整插入物料属性
-    noRecord?: boolean
-}
-interface deleteWidgetParam {
-    deleteIndex?: number,
-    noRecord?: boolean
-}
-interface SetListParams {
-    newlist: widgetData[]
-    noRecord?: boolean
 }
 
 const editorStore: Module<editorState, any> = {
@@ -249,7 +233,7 @@ const editorStore: Module<editorState, any> = {
                     level: changeType,
                     newValue: changeValue,
                     oldValue,
-                    id: goalWidget.id!
+                    id: goalWidget && goalWidget.id!
                 })
             }
         },

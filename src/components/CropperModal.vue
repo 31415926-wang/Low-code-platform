@@ -13,7 +13,18 @@ import { ref, computed, nextTick, watch } from 'vue'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
 import useDefaultImg from '@/hook/useDefaultImg'
-import { reqUploadFile } from '@/api/common/index'
+import { reqUploadImg } from '@/api/common/index'
+
+const $props = defineProps<{
+    showModal: boolean,
+    imgSrc: string,
+    // eslint-disable-next-line
+    successCallback?: (param: string | { urls: string[] }) => void
+}>()
+// eslint-disable-next-line
+const $emit = defineEmits<{
+    (e: 'update:showModal', param: boolean): void
+}>()
 
 // 回显图片
 const { getImgSrc } = useDefaultImg()
@@ -21,19 +32,13 @@ const showImgSrc = computed(() => {
     return getImgSrc($props.imgSrc)
 })
 
-const $props = defineProps<{
-    showModal: boolean,
-    imgSrc: string,
-    // eslint-disable-next-line
-    successCallback?: (param: string) => void
-}>()
-// eslint-disable-next-line
-const $emit = defineEmits<{
-    (e: 'update:showModal', param: boolean): void
-}>()
-
 // 初始的裁剪原图，不刷新页面就不会丢失
 const original = ref(showImgSrc.value)
+
+watch(() => $props.imgSrc, () => { // 修复传入值改变，计算属性数据没有刷新的问题
+    // console.log('传入图片链接更新', value)
+    original.value = showImgSrc.value
+})
 
 let cropper
 watch(() => $props.showModal, (newVal: boolean) => {
@@ -68,9 +73,10 @@ const handleOk = async () => {
     cropper.getCroppedCanvas().toBlob((blob: Blob) => {
         const formData = new FormData()
 
-        // 前端指定好文件名与后缀，修复后端无法识别图片bug
+        // 前端指定好文件名与后缀，修复后端无法识别图片bug（指定后缀）
         // formData.append('file-upload', new File([blob], 'blob-img.png'))
-        formData.append('file-upload', blob, 'blob-img.png') // 前端指定好文件名与后缀，修复后端无法识别图片bug
+        // formData.append('file-upload', blob, 'blob-img.png') // 前端指定好文件名与后缀，修复后端无法识别图片bug
+        formData.append('file', blob, 'blob-img.png')
 
         /*
         当使用 console.log 打印 FormData 对象时，通常会发现无法直接看到 FormData 对象的内容。这是因为 FormData 对象的数据结构比较特殊
@@ -78,8 +84,13 @@ const handleOk = async () => {
                 console.log(pair[0] + ', ' + pair[1])
             }
         */
-        reqUploadFile(formData).then((result) => {
-            $props.successCallback && $props.successCallback(result.data)
+        reqUploadImg(formData).then((result) => {
+            // console.log('截图上传成功')
+            if (typeof result.data === 'string') {
+                $props.successCallback && $props.successCallback(result.data)
+            } else {
+                $props.successCallback && $props.successCallback(result.data.urls[0])
+            }
             $emit('update:showModal', false)
         })
     })

@@ -7,7 +7,8 @@ import type { storeData } from '@/type/store/index'
 import VuexPersistence from 'vuex-persist'
 
 const vuexLocal = new VuexPersistence({
-    storage: window.sessionStorage
+    storage: window.localStorage,
+    modules: ['editorStore', 'userStore']
 })
 
 const store = createStore({
@@ -16,7 +17,9 @@ const store = createStore({
         userStore,
         apiStore
     },
-    plugins: [vuexLocal.plugin]
+    plugins: [
+        vuexLocal.plugin
+    ]
 })
 
 export default store

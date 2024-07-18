@@ -1,5 +1,5 @@
 <template>
-    <div class="content-box shadow-card">
+    <div class="content-box shadow-card ">
         <router-view></router-view>
     </div>
 </template>

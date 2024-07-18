@@ -6,8 +6,11 @@ export default function () {
         return require('@/assets/image/defaultImg.png')
     }
     const getImgSrc = (srcValue: string) => {
+        // return srcValue.length !== 0
+        //     ? $store.state.apiStore.imgEchoApi + srcValue
+        //     : getDefaultImg()
         return srcValue.length !== 0
-            ? $store.state.apiStore.imgEchoApi + srcValue
+            ? srcValue
             : getDefaultImg()
     }
     return {

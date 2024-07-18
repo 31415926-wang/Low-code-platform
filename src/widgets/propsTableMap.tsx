@@ -53,7 +53,7 @@ export const textPropsMap: PropsTableMap = {
         },
         reverseFormat: trimReverseFormat
     },
-    fontSize: {
+    'font-size': {
         components: 'a-input-number',
         label: '字号',
         extraProps: {
@@ -64,7 +64,7 @@ export const textPropsMap: PropsTableMap = {
         },
         reverseFormat: UnitReverseFormat('px')
     },
-    textAlign: {
+    'text-align': {
         components: 'a-radio-group',
         label: '对齐方式',
         extraProps: {
@@ -82,7 +82,7 @@ export const textPropsMap: PropsTableMap = {
             optionType: 'button'
         }
     },
-    fontWeight: {
+    'font-weight': {
         components: 'fields-select',
         label: '字重',
         extraProps: {
@@ -103,7 +103,7 @@ export const textPropsMap: PropsTableMap = {
             ])
         }
     },
-    fontFamily: {
+    'font-family': {
         components: 'fields-select',
         label: '字体类型',
         extraProps: {
@@ -183,6 +183,7 @@ export const commonPropsMap: PropsTableMap = {
         },
         reverseFormat: UnitReverseFormat('px')
     },
+
     opacity: {
         components: 'a-slider',
         label: '透明度',
@@ -366,7 +367,7 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
 
     {
         name: '文本属性',
-        keys: ['textValue', 'titleValue', 'fontSize', 'textAlign', 'fontWeight', 'fontFamily', 'color', 'text-shadow']
+        keys: ['textValue', 'titleValue', 'font-size', 'text-align', 'font-weight', 'font-family', 'color', 'text-shadow']
     },
     {
         name: '图片属性',
@@ -374,7 +375,7 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
     },
     {
         name: '形状与位置',
-        keys: ['top', 'left', 'scale', 'rotate', 'width', 'height', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom']
+        keys: ['top', 'left', 'scale', 'rotate', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom']
     },
     {
         name: '阴影与透明度',

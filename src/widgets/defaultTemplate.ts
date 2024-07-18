@@ -1,6 +1,6 @@
 
 import { widgetTemplate } from '@/type/template/widgetAndprops'
-import { defaultCommonProps, defaultTextProps, defaultImgProps } from '@/widgets/defaultProps'
+import { defaultCommonProps, defaultTextProps, defaultImgProps, defaultShapeProps } from '@/widgets/defaultProps'
 
 // 默认的属性及其值
 const paramTextProps = {
@@ -21,6 +21,12 @@ const paramStyleFontProps = {
     fontSize: '17px',
     paddingLeft: '10px',
     paddingRight: '10px'
+}
+
+const paramShapeProps = { // 图案类型似乎不需要那么多属性
+    ...defaultShapeProps,
+    width: '70px',
+    height: '70px'
 }
 
 // console.log('断点0', paramTextProps)
@@ -88,13 +94,13 @@ export const defaultTemplate: widgetTemplate[] = [
     {
         label: '艺术字体',
         isRenderCard: true,
-        renderStyleKey: 'fontFamily',
+        renderStyleKey: 'font-family',
         widgetList: [
             {
                 name: 'QsStyleFont',
                 props: {
                     ...paramStyleFontProps,
-                    fontFamily: '"KaiTi","STKaiti"',
+                    'font-family': '"KaiTi","STKaiti"',
                     textValue: '楷体标题'
                 },
                 title: '楷体标题'
@@ -104,7 +110,7 @@ export const defaultTemplate: widgetTemplate[] = [
                 name: 'QsStyleFont',
                 props: {
                     ...paramStyleFontProps,
-                    fontFamily: '"Arial", "sans-serif"',
+                    'font-family': '"Arial", "sans-serif"',
                     textValue: 'Arial'
                 },
                 title: 'Arial'
@@ -113,7 +119,7 @@ export const defaultTemplate: widgetTemplate[] = [
                 name: 'QsStyleFont',
                 props: {
                     ...paramStyleFontProps,
-                    fontFamily: '"FangSong","STFangsong"',
+                    'font-family': '"FangSong","STFangsong"',
                     textValue: '仿宋正文'
                 },
                 title: '仿宋正文'
@@ -122,7 +128,7 @@ export const defaultTemplate: widgetTemplate[] = [
                 name: 'QsStyleFont',
                 props: {
                     ...paramStyleFontProps,
-                    fontFamily: '"Comic Sans MS"',
+                    'font-family': '"Comic Sans MS"',
                     textValue: 'Comic Sans'
                 },
                 title: 'Comic Sans'
@@ -131,7 +137,7 @@ export const defaultTemplate: widgetTemplate[] = [
                 name: 'QsStyleFont',
                 props: {
                     ...paramStyleFontProps,
-                    fontFamily: '"Courier New", monospace',
+                    'font-family': '"Courier New", monospace',
                     textValue: 'Courier New'
                 },
                 title: 'Courier New'
@@ -141,7 +147,7 @@ export const defaultTemplate: widgetTemplate[] = [
                 name: 'QsStyleFont',
                 props: {
                     ...paramStyleFontProps,
-                    fontFamily: '"Times New Roman", serif',
+                    'font-family': '"Times New Roman", serif',
                     textValue: 'Times New Roman'
                 },
                 title: 'Times New Roman'
@@ -151,37 +157,44 @@ export const defaultTemplate: widgetTemplate[] = [
     {
         label: '形状图案',
         isRenderCard: true,
+        needRenderWidget: true,
         widgetList: [
             {
-                name: 'QsImg',
+                name: 'QsShape',
                 props: {
-                    ...paramImgProps
+                    ...paramShapeProps,
+                    shapeValue: 'triangle',
+                    'background-color': '#ffc0cb'
                 },
-                icon: 'PictureOutlined',
                 title: '三角形'
             },
             {
-                name: 'QsImg',
+                name: 'QsShape',
                 props: {
-                    ...paramImgProps
+                    ...paramShapeProps,
+                    shapeValue: 'circular',
+                    'background-color': '#5ccac7'
                 },
-                icon: 'PictureOutlined',
                 title: '圆形'
             },
             {
-                name: 'QsImg',
+                name: 'QsShape',
                 props: {
-                    ...paramImgProps
+                    ...paramShapeProps,
+                    shapeValue: 'square',
+                    'background-color': '#56aaee'
                 },
-                icon: 'PictureOutlined',
                 title: '正方形'
             },
             {
-                name: 'QsImg',
+                name: 'QsShape',
                 props: {
-                    ...paramImgProps
+                    ...paramShapeProps,
+                    shapeValue: 'square',
+                    width: '80px',
+                    height: '50px',
+                    'background-color': '#9666d1'
                 },
-                icon: 'PictureOutlined',
                 title: '长方形'
             }
         ]

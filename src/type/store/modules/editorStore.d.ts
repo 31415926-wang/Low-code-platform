@@ -1,4 +1,7 @@
-import type { widgetData, PageDate, historyRecord, commonProps } from '../.././widgets/index'
+import type {
+    widgetData, PageDate, historyRecord,
+    AllWidgetProps, operatePropsLevel
+} from '../.././widgets/index'
 
 export interface editorState {
     // 编辑器已添加的组件/物料列表
@@ -17,4 +20,27 @@ export interface editorState {
     page: PageDate,
     // 中间变量
     cacheValue: any
+}
+
+// 方法的参数
+interface updateWidgetParam {
+    changeKey: keyof AllWidgetProps | keyof widgetData | keyof AllWidgetProps[],
+    changeValue: any,
+    changeType?: operatePropsLevel,
+    widgetId: string,
+    noRecord?: boolean // 如果是历史记录的前进、后退操作的仓库，不加入记录
+}
+interface addWidgetParam {
+    widgetData: widgetData,
+    widgetIndex?: number, // 指定插入的位置
+    entireWidget?: boolean, // 完整插入物料属性
+    noRecord?: boolean
+}
+interface deleteWidgetParam {
+    deleteIndex?: number,
+    noRecord?: boolean
+}
+interface SetListParams {
+    newlist: widgetData[]
+    noRecord?: boolean
 }

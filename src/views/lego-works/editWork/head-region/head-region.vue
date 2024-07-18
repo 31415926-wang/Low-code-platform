@@ -1,14 +1,15 @@
 <template>
-    <div class="question-head-box">
+    <div class="work-head-box">
         <div class="head-left">
             <a-button type="default" size="" href="/">
                 <template #icon>
                     <RollbackOutlined />
                 </template>
             </a-button>
-            <div class="work-name">
+            <div class="work-name ">
                 <IconSvg name="index-work" fill="#f4801a"></IconSvg>
-                <InlineEdit :value="$store.state.editorStore.page.name" @update:value="setPageName"></InlineEdit>
+                <InlineEdit class="InlineEdit" :value="$store.state.editorStore.page.name" @update:value="setPageName">
+                </InlineEdit>
             </div>
         </div>
 
@@ -51,7 +52,7 @@ const setPageName = (val: string) => {
 </script>
 
 <style scoped lang='scss'>
-.question-head-box {
+.work-head-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,6 +70,10 @@ const setPageName = (val: string) => {
 
             svg {
                 font-size: 30px !important;
+            }
+
+            .InlineEdit {
+                max-width: 150px;
             }
         }
     }

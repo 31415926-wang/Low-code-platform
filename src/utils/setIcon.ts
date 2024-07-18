@@ -2,8 +2,8 @@
 import {
     PlusOutlined, PictureOutlined, RollbackOutlined, DeleteOutlined, EyeInvisibleOutlined, LockOutlined, CopyOutlined,
     SnippetsOutlined, UndoOutlined, RedoOutlined, UserOutlined, AppstoreOutlined, UnlockOutlined,
-    BarsOutlined, SettingOutlined, BgColorsOutlined, FontSizeOutlined, DragOutlined, EyeOutlined
-
+    BarsOutlined, SettingOutlined, BgColorsOutlined, FontSizeOutlined, DragOutlined, EyeOutlined, SwapOutlined
+    , TeamOutlined, EllipsisOutlined,FormOutlined
 } from '@ant-design/icons-vue'
 import type { App } from 'vue'
 
@@ -13,6 +13,7 @@ export function setIcons(app: App) {
         CopyOutlined, SnippetsOutlined, UndoOutlined, RedoOutlined, UserOutlined,
         AppstoreOutlined, BarsOutlined, SettingOutlined, BgColorsOutlined, FontSizeOutlined,
         DragOutlined, UnlockOutlined, EyeOutlined
+        , SwapOutlined, TeamOutlined, EllipsisOutlined,FormOutlined
     }
     type keys = keyof typeof iconsList;
     for (const key in iconsList) {

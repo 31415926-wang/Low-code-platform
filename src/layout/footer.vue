@@ -1,6 +1,6 @@
 <template>
     <div class="footer-box flex-center">
-        ✨问卷星低代码平台 ©2024 - present
+        ✨智慧乐高低代码平台 ©2024 - present
     </div>
 </template>
 

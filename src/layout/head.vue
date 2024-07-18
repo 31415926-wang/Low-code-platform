@@ -1,18 +1,18 @@
 <template>
-    <template v-if="$router.fullPath.includes('/home')">
+    <template v-if="!($route.path === '/edit-work')">
         <IndexHead></IndexHead>
     </template>
     <template v-else>
-        <QuestionHead></QuestionHead>
+        <WorkHead></WorkHead>
     </template>
 
 </template>
 
 <script setup lang='ts'>
 import IndexHead from '@/views/home/components/head.vue'
-import QuestionHead from '@/views/question/editQuestion/head-region/head-region.vue'
+import WorkHead from '@/views/lego-works/editWork/head-region/head-region.vue'
 import { useRoute } from 'vue-router'
 
-const $router = useRoute()
+const $route = useRoute()
 
 </script>

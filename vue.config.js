@@ -34,10 +34,22 @@ const configObj = defineConfig({
   css: {
     loaderOptions: {
       scss: {
-        additionalData: '@import "~@/style/scscsVariable.scss";'
+        additionalData: '@import "~@/style/scssVariable.scss";'
       }
     }
   },
+  devServer: {
+    proxy: {
+      [process.env.VUE_APP_BASE_URL]: {
+        target: process.env.VUE_APP_TARGET_URL,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_URL]: ''
+        }
+      }
+    }
+  },
+
   configureWebpack: {
     resolve: {
       alias: {
@@ -49,8 +61,11 @@ const configObj = defineConfig({
         __VUE_PROD_DEVTOOLS__: 'false',
         __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
       })
-    ]
-
+    ],
+    cache: {
+      type: 'filesystem',
+      name: 'vue3-item' // 自定义生成的缓存文件夹名称
+    }
   }
 })
 

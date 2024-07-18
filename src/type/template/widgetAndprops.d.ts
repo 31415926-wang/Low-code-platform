@@ -7,7 +7,8 @@ export declare interface widgetTemplate {
     isRenderCard?: boolean,
     // 物料是否需要带样式显示，指定需要按props的哪个属性
     renderStyleKey?: keyof AllWidgetProps
-
+    // 是否需要将这个物料的初始样式都渲染
+    needRenderWidget?: boolean
 }
 
 // 右侧属性表单项的映射

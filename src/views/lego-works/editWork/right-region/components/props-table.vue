@@ -104,7 +104,7 @@ const update = (goalvalue: string | number, goalkey: string, reverseFn?: (param:
 <style scoped lang='scss'>
 .props-table:not(:first-child) {
     // border: 1px solid red;
-    margin-top: 15px;
+    margin-top: 18px;
 }
 
 .props-item {

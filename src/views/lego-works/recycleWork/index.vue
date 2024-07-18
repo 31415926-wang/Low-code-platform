@@ -1,5 +1,5 @@
 <template>
-    收藏问卷
+    回收列表
 </template>
 
 <script setup lang='ts'>
