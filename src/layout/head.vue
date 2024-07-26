@@ -1,5 +1,5 @@
 <template>
-    <template v-if="!($route.path === '/edit-work')">
+    <template v-if="!($route.path.includes('/edit-work'))">
         <IndexHead></IndexHead>
     </template>
     <template v-else>

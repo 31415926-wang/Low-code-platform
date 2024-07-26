@@ -11,6 +11,7 @@ import { ref, onMounted } from 'vue'
 import type { UploadChangeParam } from 'ant-design-vue'
 import { useStore } from '@/store/index'
 import { AxiosRequestHeaders } from 'axios'
+import { message } from 'ant-design-vue'
 
 const $store = useStore()
 const $props = withDefaults(defineProps<{
@@ -32,8 +33,12 @@ const headers = ref<AxiosRequestHeaders>({} as AxiosRequestHeaders)
 // 上传的文件状态改变时执行
 const handleChange = (info: UploadChangeParam) => {
     if (info.file.status === 'done') {
+        // 后台失败时需要提示
+        if (info.file.response.errno !== 0) {
+            message.error(info.file.response.message)
+            return
+        }
         console.log('上传成功', info.file.response.data)
-        // console.log('上传成功', fileList.value)
         // 回显
         $props.successCallback && $props.successCallback(info.file.response.data)
     }

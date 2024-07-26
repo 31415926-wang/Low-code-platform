@@ -9,9 +9,12 @@ import type {
 } from '@/type/store/modules/editorStore'
 import type { widgetData, AllWidgetProps, operateWidgetList, updateProps, historyRecord } from '@/type/widgets/index'
 import { v4 as uuidv4 } from 'uuid'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, pick, isEqual } from 'lodash-es'
 import { arrayMoveMutable } from 'array-move'
 import { message } from 'ant-design-vue'
+import { reqDetailWork, reqSaveWork } from '@/api/works/workItem'
+import { DetailTemplateOrWork, CreateOrSaveWorkDate } from '@/type/api/work'
+import { PageDate } from '@/type/widgets/index'
 
 const updateHistory = (type: 'changeList' | 'changeProps', state: editorState, data: operateWidgetList | updateProps) => {
     // 判断是否为中途插入，是则清空后面，再插入
@@ -121,18 +124,42 @@ const editorStore: Module<editorState, any> = {
             maxLength: 8
         },
         page: {
-            name: '我的作品',
+            id: 0,
+            title: '我的作品',
+            desc: '',
+            coverImg: '',
             props: {
                 'background-color': '#ffffff',
                 'background-image': ''
             }
         },
-        cacheValue: null
+        cacheValue: null,
+        cacheSaveDate: {}
     },
+    // 若不通过mutations，直接修改，会导致无法持久化本次更新
     mutations: {
-        // 若不通过mutations，直接修改，会导致无法持久化本次更新
+        initWorkInfo(state, params: DetailTemplateOrWork) {
+            const pageInfoKeys: (keyof PageDate)[] = ['title', 'desc', 'id', 'coverImg']
+            state.page = Object.assign(state.page, pick(params, pageInfoKeys))
+            if (params.content) {
+                state.page.props = params.content.props
+                state.components = params.content.components
+            } else {
+                state.page.props = {
+                    'background-color': '#ffffff',
+                    'background-image': ''
+                }
+                state.components = []
+            }
+        },
+        storageCacheSaveDate(state) {
+            state.cacheSaveDate = {
+                components: cloneDeep(state.components),
+                page: cloneDeep(state.page)
+            }
+        },
         setPageName(state, value: string) {
-            state.page.name = value
+            state.page.title = value
         },
         setCacheValue(state, value: any) {
             state.cacheValue = value
@@ -297,6 +324,43 @@ const editorStore: Module<editorState, any> = {
                 state.history.index++
                 currentHistoryUndoOrRedoOperate('redo', context)
             }
+        },
+        // 读取作品
+        async readWork(context, id: number) {
+            try {
+                // 请求读取作品
+                const result = await reqDetailWork(id)
+                // 成功后调用mutation，赋值编辑器
+                context.commit('initWorkInfo', result.data)
+                // 存储当前的作品数据
+                context.commit('storageCacheSaveDate')
+            } catch (error) {
+                return Promise.reject(new Error('error'))
+            }
+        },
+        // 保存作品
+        async saveWork(context) {
+            const { state, commit } = context
+            const { title, desc, coverImg } = state.page
+            try {
+                const formDate: CreateOrSaveWorkDate = {
+                    title,
+                    desc,
+                    coverImg,
+                    content: {
+                        components: state.components,
+                        props: state.page.props
+                    }
+                }
+                await reqSaveWork(state.page.id, formDate)
+                message.success('保存成功!')
+                // 存储当前的作品数据
+                commit('storageCacheSaveDate')
+                return true
+            } catch (error) {
+                message.error('保存失败!')
+                return Promise.reject('error')
+            }
         }
     },
     getters: { // 从源码的ts可以看到，getters并没有指定返回类型，后面返回也无效，需使用时指定
@@ -327,6 +391,10 @@ const editorStore: Module<editorState, any> = {
         allowRedo(state) {
             return state.history.index >= -1 &&
                 state.history.index < state.history.historyRecords.length - 1
+        },
+        isWithoutSave(state) {
+            // 当前作品与存储的作品数据对比
+            return !(isEqual(state.cacheSaveDate?.components, state.components) && isEqual(state.cacheSaveDate?.page, state.page))
         }
     }
 

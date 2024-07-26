@@ -3,7 +3,7 @@ import type { App } from 'vue'
 import {
     Button, ConfigProvider, Menu, Card, Row, Col, Divider, Image, Upload, Modal,
     Tooltip, Avatar, Tabs, Input, Slider, Radio, Select, Tag, InputNumber, Popconfirm,
-    Empty, Collapse, Form, Checkbox, Pagination
+    Empty, Collapse, Form, Checkbox, Pagination, Skeleton, Table, Spin, Tour, Space, Drawer
 } from 'ant-design-vue' // 自动按需引入
 
 export default function antDesignImport(app: App) {
@@ -11,5 +11,6 @@ export default function antDesignImport(app: App) {
         Col).use(Divider).use(Tooltip).use(Avatar).use(Tabs
         ).use(Upload).use(ConfigProvider).use(Input).use(Slider).use(Radio
         ).use(Select).use(Tag).use(InputNumber).use(Popconfirm).use(Image).use(Modal
-        ).use(Empty).use(Collapse).use(Form).use(Checkbox).use(Pagination)
+        ).use(Empty).use(Collapse).use(Form).use(Checkbox).use(Pagination
+        ).use(Skeleton).use(Table).use(Spin).use(Tour).use(Space).use(Drawer)
 }

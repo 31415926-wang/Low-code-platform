@@ -21,19 +21,31 @@
 
     <a-divider class="divider" type="vertical" />
 
+    <TooltipButton icon='BookOutlined' tip="快捷键提示" @click="showKeyboardTip"></TooltipButton>
+    <TooltipButton icon='QuestionOutlined' tip="步骤演示" @click="showTourStep"></TooltipButton>
+
+    <a-divider class="divider" type="vertical" />
+
     <TooltipButton icon='UndoOutlined' @click="undoOrRedo('undo')" :disabled="!$store.getters['editorStore/allowUndo']"
         tip="撤销"></TooltipButton>
     <TooltipButton icon='RedoOutlined' @click="undoOrRedo('redo')" :disabled="!$store.getters['editorStore/allowRedo']"
         tip="重做"></TooltipButton>
 
+    <keyboardTip ref="keyboardTipRef"></keyboardTip>
+    <tourStep ref="tourStepRef"></tourStep>
+
 </template>
 
 <script setup lang='ts'>
 import { useStore } from '@/store/index'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { widgetData } from '@/type/widgets/index'
+import keyboardTip from './keyboard-tip.vue'
+import tourStep from './tour-step.vue'
 
 const $store = useStore()
+const keyboardTipRef = ref()
+const tourStepRef = ref()
 
 const hasSelectWidget = computed(() => {
     return $store.state.editorStore.currentComponent !== ''
@@ -42,6 +54,14 @@ const hasSelectWidget = computed(() => {
 const selectWidget = computed<widgetData | null>(() => {
     return $store.getters['editorStore/selectedWidget']
 })
+
+const showKeyboardTip = () => {
+    keyboardTipRef.value.switchModel = true
+}
+
+const showTourStep = () => {
+    tourStepRef.value.openTour = true
+}
 
 const undoOrRedo = (type: 'undo' | 'redo') => {
     $store.dispatch('editorStore/' + type)

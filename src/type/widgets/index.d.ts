@@ -88,6 +88,9 @@ export declare interface historyRecord {
 
 // page的数据结构
 export declare type PageDate = {
-    name: string,
+    id: number,
+    title: string,
+    desc: string,
+    coverImg: string,
     props: Partial<commonProps> // 样式取自部分公用属性
 }

@@ -1,6 +1,8 @@
 export interface PageParams {
     pageIndex: number,
-    pageSize: number
+    pageSize: number,
+    isTemplate?: number,
+    status?: number
 }
 
 export interface ListResult<T> {

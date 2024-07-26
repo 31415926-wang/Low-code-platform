@@ -1,6 +1,6 @@
 <template>
     <a-pagination v-model:current="current" v-model:page-size="pageSizeRef" :page-size-options="pageSizeOptions"
-        :total="total" show-size-changer @showSizeChange="onShowSizeChange">
+        :total="total" show-size-changer @change="onPageChange">
         <template #buildOptionText="props">
             <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
             <span v-else>全部</span>
@@ -8,16 +8,63 @@
     </a-pagination>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
+import { PageParams } from '@/type/api/index'
+import { WorkListResult, WorkItem } from '@/type/api/work'
+import { ServeData } from '@/utils/request'
 
-const pageSizeOptions = ref<string[]>(['10', '20', '30', '40', '50'])
-const current = ref(1)
-const pageSizeRef = ref(10)
-const total = ref(50)
-const onShowSizeChange = (current: number, pageSize: number) => {
-    console.log(current, pageSize)
-    pageSizeRef.value = pageSize
+/* 接收接口、联动加载状态 */
+
+const $prop = defineProps<{
+    getDataApi: (param: PageParams) => Promise<ServeData<WorkListResult>>,
+    pageParam: PageParams,
+    listData: WorkItem[],
+    loadStatus: boolean
+}>()
+
+const $emit = defineEmits<{
+    (e: 'update:pageParam', parem: PageParams): void
+    (e: 'update:listData', parem: WorkItem[]): void
+    (e: 'update:loadStatus', parem: boolean): void
+}>()
+
+const current = ref($prop.pageParam.pageIndex + 1)
+const pageSizeRef = ref($prop.pageParam.pageSize)
+
+const total = ref(0)
+const pageSizeOptions = ref<string[]>(['8', '12', '16', '20', '24'])
+
+const onPageChange = async (current: number, pageSize: number) => {
+    // 请求的分页参数相应改变
+    $emit('update:pageParam', {
+        ...$prop.pageParam,
+        pageIndex: current - 1,
+        pageSize
+    })
+    await nextTick(() => { // 存在异步情况
+        getListData()
+    })
 }
+
+const getListData = async () => {
+    $emit('update:loadStatus', true)
+    try {
+        const result = await $prop.getDataApi($prop.pageParam)
+        $emit('update:listData', result.data.list)
+        total.value = result.data.count
+    } finally {
+        $emit('update:loadStatus', false)
+    }
+}
+
+onMounted(() => {
+    getListData()
+})
+
+defineExpose({
+    getListData
+})
+
 </script>
 
 <style scoped lang="scss">
