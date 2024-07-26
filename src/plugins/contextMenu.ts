@@ -15,7 +15,7 @@ export default function (menuList: MenuListItem[], selector: string) {
     // 创建并插入菜单虚拟节点，传入列表给菜单组件
     const vnodeContainerDom = document.createElement('div') // 作为渲染Vnode的中介
     const vnode = h(ContextMenu, { menuList }) // h函数将vue组件成创建虚拟节点，打印是一个对象（后续操作可以对该虚拟Dom进行修改，要注意vnode这个对象内部的属性是有异步情况的）
-    render(vnode, vnodeContainerDom) // render函数将虚拟Dom（vn）添加到真实的Dom中
+    render(vnode, vnodeContainerDom) // render函数将虚拟Dom（vn）添加到容器，渲染成真实Dom
     document.body.appendChild(vnodeContainerDom)
 
     // console.log('实验1', ContextMenu)

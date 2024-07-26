@@ -19,7 +19,12 @@ export interface editorState {
     // 页面的全局配置
     page: PageDate,
     // 中间变量
-    cacheValue: any
+    cacheValue: any,
+    // 用于保存后的作品数据，以对比当前作品是否没有保存
+    cacheSaveDate?: {
+        components?: widgetData[],
+        page?: PageDate
+    }
 }
 
 // 方法的参数

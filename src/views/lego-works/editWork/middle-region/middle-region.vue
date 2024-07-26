@@ -1,5 +1,5 @@
 <template>
-    <div class="middle-box custom-scrollbar" :style="{ ...pageStyle }">
+    <div class=" middle-box custom-scrollbar" :style="{ ...pageStyle }">
         <!-- 排序功能暂时屏蔽：海报模式有问题 -->
         <!-- <VueDraggableNext :disabled="true" class="VueDraggableNext" v-model="dragComponentsData" :sort="false"
             :force-fallback="true" group="draggableGroup"> -->
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang='ts'>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useStore } from '@/store/index' // 采用重写后的useStore方法
 import editWrapper from './components/edit-wrapper.vue'
@@ -30,7 +30,6 @@ import type { widgetData } from '@/type/widgets/index'
 import { AllWidgetProps } from '@/type/widgets/index'
 import { parentWrapperStyleKeys } from '@/widgets/defaultProps'
 import { pick } from 'lodash-es'
-import contextMenu, { MenuListItem } from '@/plugins/contextMenu'
 
 const $store = useStore()
 const EditWrapper = ref()
@@ -84,39 +83,6 @@ const dragComponentsData = computed({
         }
     }
 })
-
-// 右键鼠标功能
-const menuList = ref<MenuListItem[]>([
-    {
-        name: '拷贝图层',
-        tip: '⌘C / Ctrl+C',
-        fn: () => {
-            $store.commit('editorStore/copyComponent')
-        }
-    },
-    {
-        name: '粘贴图层',
-        tip: '⌘V / Ctrl+V',
-        fn: () => {
-            $store.commit('editorStore/pasteComponent')
-        }
-    },
-    {
-        name: '删除图层',
-        tip: 'Backspace / Delete',
-        fn: () => {
-            $store.commit('editorStore/deleteWidget', {})
-        }
-    },
-    {
-        name: '取消选中',
-        tip: 'ESC',
-        fn: () => {
-            $store.commit('editorStore/selectWidget', '')
-        }
-    }
-])
-contextMenu(menuList.value, '.edit-wrapper')
 
 </script>
 

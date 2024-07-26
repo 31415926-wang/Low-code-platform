@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 // import { useStore } from 'vuex' //会出现报错
 import store from '@/store/index'
+import { message } from 'ant-design-vue'
 
 const requestInstance: AxiosInstance = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -28,13 +29,21 @@ requestInstance.interceptors.response.use((response: AxiosResponse) => {
     if (response.data.errno === 101004) {
         $store.commit('userStore/clearUser')
         location.reload()
+        return
+    }
+
+    if (response.data.errno !== 0) {
+        message.error('出错：' + response.data.message)
     }
 
     return response.data // 这里的data就是后端返回的ServeData<T>
-}, (err: AxiosError) => Promise.reject(err))
+}, (err: AxiosError) => {
+    message.error('请求出错')
+    return Promise.reject(err)
+})
 
 // 后台服务约好的返回结构
-type ServeData<T> = {
+export type ServeData<T> = {
     errno: number,
     message: string,
     data: T

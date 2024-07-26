@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         // redirect: '/home',
-        redirect: '/home/hot-template',
+        redirect: '/home/my-works/0',
         component: Layout,
         children: [
             {
@@ -16,29 +16,29 @@ const routes: Array<RouteRecordRaw> = [
                 },
                 children: [
                     {
-                        path: 'hot-template',
-                        component: () => import('@/views/lego-works/worksOrTemplate/hotTemplate.vue'),
-                        meta: {
-                            title: '热门模版'
-                        }
-                    },
-                    {
-                        path: 'my-works',
+                        path: 'my-works/:isTemplate',
                         component: () => import('@/views/lego-works/worksOrTemplate/myWorks.vue'),
                         meta: {
                             title: '我的作品'
                         }
                     },
                     {
-                        path: 'my-template',
-                        component: () => import('@/views/lego-works/worksOrTemplate/myTemplate.vue'),
+                        path: 'my-template/:isTemplate',
+                        component: () => import('@/views/lego-works/worksOrTemplate/myWorks.vue'),
                         meta: {
                             title: '个人模版'
                         }
                     },
                     {
-                        path: 'recycle-work',
-                        component: () => import('@/views/lego-works/recycleWork/index.vue'),
+                        path: 'look-template/:id',
+                        component: () => import('@/views/lego-works/worksOrTemplate/detailTemplate.vue'),
+                        meta: {
+                            title: '查看模版'
+                        }
+                    },
+                    {
+                        path: 'recycle-work/:status',
+                        component: () => import('@/views/lego-works/worksOrTemplate/myWorks.vue'),
                         meta: {
                             title: '回收站'
                         }
@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
                 ]
             },
             {
-                path: 'edit-work',
+                path: 'edit-work/:id',
                 component: () => import('@/views/lego-works/editWork/index.vue'),
                 meta: {
                     title: '编辑问卷'

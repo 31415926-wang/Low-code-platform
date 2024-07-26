@@ -31,7 +31,6 @@ const userStore: Module<userStore, any> = {
                 phoneNumber, veriCode
             })
             if (result.errno === 101006) {
-                message.error('验证码不正确')
                 return Promise.reject('验证码不正确')
             } else {
                 // 存储token，跳转首页或者原来要去的路径

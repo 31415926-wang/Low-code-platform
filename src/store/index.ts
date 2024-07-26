@@ -8,7 +8,8 @@ import VuexPersistence from 'vuex-persist'
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage,
-    modules: ['editorStore', 'userStore']
+    // modules: ['editorStore', 'userStore']
+    modules: ['userStore']
 })
 
 const store = createStore({

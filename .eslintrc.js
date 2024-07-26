@@ -25,6 +25,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     'no-empty-function': 'off',
     'no-empty-arrow-function': 'off',
-    'prefer-promise-reject-errors':'off'
+    'prefer-promise-reject-errors':'off',
+    'func-call-spacing':'off'
   }
 }

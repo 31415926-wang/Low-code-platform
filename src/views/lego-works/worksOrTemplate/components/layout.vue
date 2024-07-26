@@ -1,8 +1,8 @@
 <template>
     <div class="container custom-scrollbar">
-        <div class="list-box">
-            <slot name="context"></slot>
-        </div>
+        <slot name="empty"></slot>
+        <slot name="card-context"></slot>
+        <slot name="table-context"></slot>
         <slot name="pagination"></slot>
     </div>
 </template>
@@ -12,22 +12,17 @@
 </script>
 
 <style scoped lang='scss'>
-
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 21px;
     overflow: auto;
     height: 100%;
-    padding: 10px 22px;
+    padding: 7px 22px 0 22px;
 }
 
-.list-box {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-    margin-bottom: 25px;
+::v-deep() .ant-empty .ant-empty-image {
+    height: 170px;
 }
 </style>
