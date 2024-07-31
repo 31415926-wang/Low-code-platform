@@ -1,5 +1,5 @@
 <template>
-    <a-tabs v-model:activeKey="activeKey" :tabBarGutter="14" >
+    <a-tabs class="card-tab" v-model:activeKey="activeKey" :tabBarGutter="14">
         <a-tab-pane :key=1>
             <template #tab>
                 <AppstoreOutlined />组件
@@ -36,4 +36,5 @@ const activeKey = ref(1)
 
 ::v-deep() .ant-tabs-content {
     position: static;
-}</style>
+}
+</style>

@@ -161,6 +161,15 @@ export const textPropsMap: PropsTableMap = {
     }
 }
 export const commonPropsMap: PropsTableMap = {
+    height: {
+        components: 'a-input-number',
+        label: '高度',
+        extraProps: {
+            formatter: InputNumberFormatter('px').NumberEchoRlues, // 添加px
+            parser: InputNumberFormatter('px').NumberEchoRluesParser
+        },
+        reverseFormat: UnitReverseFormat('px')
+    },
     top: {
         components: 'a-input-number',
         label: 'Y轴坐标',
@@ -388,6 +397,10 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
     {
         name: '事件功能',
         keys: ['url']
+    },
+    {
+        name: '全局配置', // 这个tab不会渲染，全局配置的属性单独管理
+        keys: ['height', 'background-color', 'background-image']
     }
 ]
 
@@ -409,7 +422,6 @@ export function propsToFormFn(props: Partial<AllWidgetProps>): PropsTableTitleMa
     template.forEach((item: PropsTableTitleMap) => {
         for (const key in item.build) {
             if (!instancePropsKeys.includes(key)) { // 过滤，当模版物料的props，是实例化物料的props没有时，不要渲染
-                // console.log('断点', key)
                 delete item.build[key as keyof AllWidgetProps]
             } else { // 追加默认值
                 const tempKey = instancePropsKeys.find(i => i === key)

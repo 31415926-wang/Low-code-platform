@@ -6,9 +6,9 @@
         </template>
         <a-form ref="formRef" class="setting-form" :model="formState" :label-col="{ span: 6 }"
             :wrapper-col="{ span: 16 }" autocomplete="off" labelAlign="left">
-            <a-form-item label="扫码预览">
+            <!-- <a-form-item label="扫码预览">
                 <img src="" class="border" />
-            </a-form-item>
+            </a-form-item> -->
 
             <a-form-item label="上传封面" name="coverImg" :rules="[{ required: true, message: '作品封面不能为空!' }]">
                 <FilesUpload :successCallback="successCallback">
@@ -19,10 +19,12 @@
                     </div>
                 </FilesUpload>
 
-                <a-button type="dashed" style="margin-top: 10px;">
+                <a-button type="dashed" :loading="screenshotLoading" @click="onScreenshot" style="margin-top: 10px;">
                     <template #icon>
                         <VideoCameraOutlined />
-                    </template>将作品截图作为封面</a-button>
+                    </template>
+                    将作品截图作为封面
+                </a-button>
                 <a-form-item-rest>
                     <a-input v-model:value="formState.coverImg" style="display:none;" />
                 </a-form-item-rest>
@@ -47,12 +49,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, nextTick } from 'vue'
 import { PageDate } from '@/type/widgets/index'
 import { useStore } from '@/store/index'
 import { pick } from 'lodash-es'
 import { message } from 'ant-design-vue'
-import type { Rule, FormInstance } from 'ant-design-vue/es/form'
+import type { FormInstance } from 'ant-design-vue/es/form'
+import html2canvas from 'html2canvas'
+import canvasUpload from '@/utils/canvasUpload'
 
 const $store = useStore()
 
@@ -63,10 +67,52 @@ const formState = ref<Omit<PageDate, 'id' | 'props'>>({
     coverImg: ''
 })
 const saveLoading = ref(false)
+const screenshotLoading = ref(false)
 const formRef = ref<FormInstance>()
 
 const afterOpenChange = () => {
     formState.value = pick($store.state.editorStore.page, ['title', 'desc', 'coverImg'])
+}
+
+const onScreenshot = async () => {
+    // 转为canvas前，1.得过滤掉插件不支持的css属性 2.取消物料选中 3.关闭网格
+    $store.commit('editorStore/selectWidget', '')
+    $store.commit('editorStore/setOpenGridLine', false)
+
+    await nextTick(() => {
+        const goalDom = document.querySelector('.middle-box') as HTMLElement
+        screenshotLoading.value = true
+        if (goalDom) {
+            html2canvas(goalDom, {
+                // proxy: 'http://localhost:8888/',
+                useCORS: true, // 是否尝试使用CORS从服务器加载图像
+                onclone: (document, element: HTMLElement) => { // 该回调可以在截图之前，获取文档与截图区域，允许做修改，且不影响原数据
+                    const wrapperDoms = [...element.querySelectorAll('.edit-wrapper')]
+                    wrapperDoms.forEach(wrapperDom => {
+                        const widgetDom = wrapperDom.firstElementChild as HTMLElement
+                        if (widgetDom.style.boxShadow) {
+                            widgetDom.style.boxShadow = ''
+                        }
+                    })
+                }
+                // #region
+                /*
+                proxy、useCORS两个选项
+                区别总结：
+                    如果没有自己的代理服务器，可以选择配置 useCORS: true，并确保服务器端设置了正确的 CORS 头部，以允许跨域图片的加载。
+                    如果有自己的代理服务器，并且希望统一通过代理服务器加载图片以确保稳定性和安全性，可以配置 proxy 选项，将图片加载请求转发到代理服务器处理。
+                 */
+                // #endregion
+            }).then((canvas) => {
+                // 将canvas转换为blod或者file，作为图片上传至后台
+                canvasUpload(canvas).then((data) => {
+                    formState.value.coverImg = data.urls[0]
+                }).finally(() => {
+                    screenshotLoading.value = false
+                })
+            })
+        }
+    })
 }
 
 const successCallback = (param: string | { urls: string[] }) => {
@@ -132,8 +178,8 @@ defineExpose({
         cursor: pointer;
 
         .cover-img {
-            width: 180px;
-            height: 220px;
+            width: 170px;
+            height: 200px;
         }
 
         &:hover {

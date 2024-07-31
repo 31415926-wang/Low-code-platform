@@ -7,6 +7,17 @@
 
 @import url(./customAnt.scss);
 
+
+html,
+body,
+#app {
+    height: 100%;
+}
+
+#app {
+    overflow: hidden;
+}
+
 body {
     font-family: 'DDJingBu'; //在此只能修改除ui组件外的字体样式
 }
@@ -49,4 +60,9 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-track {
     background-color: #f5f5f5;
+}
+
+//隐藏滚动条
+.hidden-scrollbar::-webkit-scrollbar {
+    width: 5px;
 }

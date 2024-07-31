@@ -1,5 +1,5 @@
 <template>
-    <a-tabs v-model:activeKey="activeKey" :tabBarGutter="19">
+    <a-tabs class="card-tab" v-model:activeKey="activeKey" :tabBarGutter="19">
         <a-tab-pane :key=1>
             <template #tab>
                 <BgColorsOutlined />属性
@@ -11,7 +11,8 @@
                 <SettingOutlined />全局设置
             </template>
             <div v-for="(propsTypeItem, index) in pagePropsTemplate" :key="index">
-                <PropsTable :propsBuild="propsTypeItem.build" changeType="page"></PropsTable>
+                <PropsTable v-if="propsTypeItem.label === '全局配置'" :propsBuild="propsTypeItem.build" changeType="page">
+                </PropsTable>
             </div>
         </a-tab-pane>
     </a-tabs>

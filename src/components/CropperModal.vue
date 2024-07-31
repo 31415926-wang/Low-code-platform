@@ -14,6 +14,7 @@ import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
 import useDefaultImg from '@/hook/useDefaultImg'
 import { reqUploadImg } from '@/api/common/index'
+import canvasUpload from '@/utils/canvasUpload'
 
 const $props = defineProps<{
     showModal: boolean,
@@ -58,6 +59,7 @@ const handleCropper = async () => {
 }
 
 const handleOk = async () => {
+    // #region
     /*
     cropper.getCroppedCanvas()：获取画布元素
 
@@ -70,29 +72,35 @@ const handleOk = async () => {
      File 是 Blob 的子类： File 对象继承了 Blob 对象的所有方法和属性，并增加了一些文件相关的属性，如文件名、最后修改时间等。
 
      */
-    cropper.getCroppedCanvas().toBlob((blob: Blob) => {
-        const formData = new FormData()
+    /*  cropper.getCroppedCanvas().toBlob((blob: Blob) => {
+         const formData = new FormData()
 
-        // 前端指定好文件名与后缀，修复后端无法识别图片bug（指定后缀）
-        // formData.append('file-upload', new File([blob], 'blob-img.png'))
-        // formData.append('file-upload', blob, 'blob-img.png') // 前端指定好文件名与后缀，修复后端无法识别图片bug
-        formData.append('file', blob, 'blob-img.png')
+         // 前端指定好文件名与后缀，修复后端无法识别图片bug（指定后缀）
+         // formData.append('file-upload', new File([blob], 'blob-img.png'))
+         // formData.append('file-upload', blob, 'blob-img.png') // 前端指定好文件名与后缀，修复后端无法识别图片bug
+         formData.append('file-upload', blob, new Date().getTime() + '.png')
 
-        /*
-        当使用 console.log 打印 FormData 对象时，通常会发现无法直接看到 FormData 对象的内容。这是因为 FormData 对象的数据结构比较特殊
-            for (const pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1])
-            }
-        */
-        reqUploadImg(formData).then((result) => {
-            // console.log('截图上传成功')
-            if (typeof result.data === 'string') {
-                $props.successCallback && $props.successCallback(result.data)
-            } else {
-                $props.successCallback && $props.successCallback(result.data.urls[0])
-            }
-            $emit('update:showModal', false)
-        })
+         // 当使用 console.log 打印 FormData 对象时，通常会发现无法直接看到 FormData 对象的内容。这是因为 FormData 对象的数据结构比较特殊
+         //     for (const pair of formData.entries()) {
+         //         console.log(pair[0] + ', ' + pair[1])
+         //     }
+
+         reqUploadImg(formData).then((result) => {
+             // console.log('截图上传成功')
+             if (typeof result.data === 'string') {
+                 $props.successCallback && $props.successCallback(result.data)
+             } else {
+                 $props.successCallback && $props.successCallback(result.data.urls[0])
+             }
+             $emit('update:showModal', false)
+         })
+     }) */
+
+    // #endregion
+
+    canvasUpload(cropper.getCroppedCanvas()).then((data) => {
+        $props.successCallback && $props.successCallback(data.urls[0])
+        $emit('update:showModal', false)
     })
 }
 

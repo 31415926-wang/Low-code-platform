@@ -1,14 +1,11 @@
 <template>
     <!-- 根据Props表单的模版进行渲染 -->
     <a-collapse accordion class="type-box" v-model:activeKey="collapseActiveKey">
-        <a-collapse-panel :key="index" :header="propsTypeItem.label" v-for="(propsTypeItem, index) in propsTemplate">
-            <PropsTable :propsBuild="propsTypeItem.build" changeType="widgetProps"></PropsTable>
+        <a-collapse-panel :key="index" :header="propsTypeItem.label" v-for="(propsTypeItem, index) in fiterGlobalProps">
+            <PropsTable :propsBuild="propsTypeItem.build" changeType="widgetProps">
+            </PropsTable>
         </a-collapse-panel>
     </a-collapse>
-
-    <!-- <pre>
-        {{ propsTemplate }}
-    </pre> -->
 
 </template>
 
@@ -26,6 +23,13 @@ const propsTemplate = computed(() => {
     return $store.getters['editorStore/selectedWidget']
         ? propsToFormFn($store.getters['editorStore/selectedWidget'].props)
         : []
+})
+
+const fiterGlobalProps = computed(() => {
+    const result = propsTemplate.value.filter((item) => {
+        return item.label !== '全局配置'
+    })
+    return result || []
 })
 
 </script>

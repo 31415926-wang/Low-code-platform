@@ -118,6 +118,7 @@ const editorStore: Module<editorState, any> = {
         components: [],
         currentComponent: '',
         copiedComponent: null,
+        openGridLine: true,
         history: {
             index: -1,
             historyRecords: [],
@@ -129,8 +130,6 @@ const editorStore: Module<editorState, any> = {
             desc: '',
             coverImg: '',
             props: {
-                'background-color': '#ffffff',
-                'background-image': ''
             }
         },
         cacheValue: null,
@@ -147,7 +146,8 @@ const editorStore: Module<editorState, any> = {
             } else {
                 state.page.props = {
                     'background-color': '#ffffff',
-                    'background-image': ''
+                    'background-image': '',
+                    height: '650px'
                 }
                 state.components = []
             }
@@ -163,6 +163,9 @@ const editorStore: Module<editorState, any> = {
         },
         setCacheValue(state, value: any) {
             state.cacheValue = value
+        },
+        setOpenGridLine(state, value: boolean) {
+            state.openGridLine = value
         },
         selectWidget(state, id: string) {
             state.currentComponent = id

@@ -10,6 +10,8 @@ export interface editorState {
     currentComponent: string,
     // 复制选中的物料
     copiedComponent: widgetData | null,
+    // 是否开启网格
+    openGridLine: boolean,
     // 历史记录相关的内容
     history: {
         index: number, // 当前游标位置

@@ -21,6 +21,9 @@
 
     <a-divider class="divider" type="vertical" />
 
+    <TooltipButton icon='BorderlessTableOutlined' :tip="(!$store.state.editorStore.openGridLine ? '开启' : '关闭') + `网格模式`"
+        @click="$store.commit('editorStore/setOpenGridLine', !$store.state.editorStore.openGridLine)">
+    </TooltipButton>
     <TooltipButton icon='BookOutlined' tip="快捷键提示" @click="showKeyboardTip"></TooltipButton>
     <TooltipButton icon='QuestionOutlined' tip="步骤演示" @click="showTourStep"></TooltipButton>
 
