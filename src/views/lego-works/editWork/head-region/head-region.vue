@@ -24,14 +24,14 @@
                 :disabled="!$store.getters['editorStore/isWithoutSave']">
                 保存
             </a-button>
-            <a-button type="primary" @click="openPublishPanel">
+            <a-button type="primary" :loading="publishWorkLoading" @click="openPublishPanel">
                 发布
             </a-button>
         </div>
     </div>
 
     <settingPanel ref="settingPanelRef"></settingPanel>
-    <publishPanel ref="publishPanelRef"></publishPanel>
+    <publishPanel ref="publishPanelRef" :openSettingPanel="openSettingPanel"></publishPanel>
 </template>
 
 <script setup lang='ts'>
@@ -42,6 +42,7 @@ import { ref, onMounted, onUnmounted, provide } from 'vue'
 import { Modal } from 'ant-design-vue'
 import settingPanel from './components/setting-panel.vue'
 import publishPanel from './components/publish-panel.vue'
+import { reqPublishWork } from '@/api/works/workItem'
 
 const headLeftRef = ref()
 const settingPanelRef = ref()
@@ -51,14 +52,24 @@ const $store = useStore()
 const $router = useRouter()
 
 const saveWorkLoading = ref(false)
+const publishWorkLoading = ref(false)
 // 间隔时间自动保存
 let timer: number | null = null
 
 const openSettingPanel = () => {
     settingPanelRef.value.openPanel = true
 }
-const openPublishPanel = () => {
-    publishPanelRef.value.openPanel = true
+const openPublishPanel = async () => {
+    publishWorkLoading.value = true
+    try {
+        await reqPublishWork($store.state.editorStore.page.id)
+        publishPanelRef.value.openPanel = true
+        publishPanelRef.value.changeTab(1)
+    } catch (error) {
+
+    } finally {
+        publishWorkLoading.value = false
+    }
 }
 
 const handleSave = () => {
@@ -97,7 +108,7 @@ timer = setInterval(() => {
     if ($store.getters['editorStore/isWithoutSave']) {
         document.getElementById('saveBt')?.click()
     }
-}, 30000)
+}, 60000) as any
 onUnmounted(() => {
     clearInterval(timer!)
     timer = null

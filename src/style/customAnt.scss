@@ -18,3 +18,11 @@
 .ant-message-notice .anticon {
     font-size: 19px;
 }
+
+
+.card-tab .ant-tabs-tabpane {
+    // height: calc(100% - $head_height - $footer_height - 2px);
+    max-height: calc(100vh - $head_height - $footer_height - 110px);
+    // border: 1px solid red;
+    overflow: auto;
+}

@@ -21,13 +21,12 @@ import Footer from './footer.vue'
 </script>
 
 <style scoped lang='scss'>
-$head_height: 67px;
-$footer_height: 45px;
+
 $box_padding: 16px 20px;
 
 .container {
     background: url('@/assets/image/appBg.svg');
-    height: 100vh;
+    height: 100%;
 
     .heard {
         height: $head_height;
@@ -43,6 +42,7 @@ $box_padding: 16px 20px;
         height: calc(100% - $head_height - $footer_height - 2px);
         padding: $box_padding;
         padding-bottom: 0;
+        overflow: hidden;
     }
 
     .footer {
