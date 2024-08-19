@@ -18,7 +18,7 @@ const app = createApp(App)
 
 setIcons(app)// 按需在全局注册图标
 useGlobalComponent(app)// 统一注册全局组件
-antDesignImport(app)
 
 app.use(store)
+app.use(antDesignImport) // 简写方法，相当于直接调用函数传入app
 app.use(router).mount('#app')

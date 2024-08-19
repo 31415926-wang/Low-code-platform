@@ -23,7 +23,7 @@ import { computed, ref, onMounted, nextTick } from 'vue'
 import { useStore } from '@/store/index' // 采用重写后的useStore方法
 import editWrapper from './components/edit-wrapper.vue'
 import { AllWidgetProps } from '@/type/widgets/index'
-import { parentWrapperStyleKeys } from '@/widgets/defaultProps'
+import { parentWrapperStyleKeys } from '@/widgets/widgetStyleKey'
 import { pick } from 'lodash-es'
 import gridLine from './components/grid-line.vue'
 import adjustChidHieght from '@/utils/adjustChidHieght'

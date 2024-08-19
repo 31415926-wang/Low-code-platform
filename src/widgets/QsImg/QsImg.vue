@@ -6,7 +6,7 @@
 <script setup lang='ts'>
 import useHandleWidget from '@/hook/useHandleWidget'
 import { commonProps, imgProps } from '@/type/widgets/index'
-import { imgStyleKeys } from '@/widgets/defaultProps'
+import { imgStyleKeys } from '@/widgets/widgetStyleKey'
 import useDefaultImg from '@/hook/useDefaultImg'
 import { computed } from 'vue'
 

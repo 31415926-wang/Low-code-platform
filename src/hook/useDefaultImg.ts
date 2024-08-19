@@ -1,7 +1,7 @@
-import { useStore } from '@/store/index'
+// import { useStore } from '@/store/index'
 
 export default function () {
-    const $store = useStore()
+    // const $store = useStore()
     const getDefaultImg = () => {
         return require('@/assets/image/defaultImg.png')
     }

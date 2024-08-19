@@ -14,3 +14,6 @@ export default function antDesignImport(app: App) {
         ).use(Empty).use(Collapse).use(Form).use(Checkbox).use(Pagination
         ).use(Skeleton).use(Table).use(Spin).use(Tour).use(Space).use(Drawer).use(Anchor)
 }
+
+/* 默认暴露的一个方法自动认为是install/{install:xx}，如果直接简写成app.use()，
+ 相当于直接调用函数并传入app */

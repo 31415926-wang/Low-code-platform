@@ -153,7 +153,8 @@ onMounted(() => {
         height: 100%;
         // height: 100vh;
         // padding: 27px 0px;
-        // overflow: auto;
+        overflow-x: visible;
+        overflow-y: auto;
     }
 }
 

@@ -18,7 +18,7 @@
 <script setup lang='ts'>
 import { computed } from 'vue'
 import { shapeProps } from '@/type/widgets/index'
-import { shapeStyleKeys } from '@/widgets/defaultProps'
+import { shapeStyleKeys } from '@/widgets/widgetStyleKey'
 import useHandleWidget from '@/hook/useHandleWidget'
 import { pick } from 'lodash-es'
 
