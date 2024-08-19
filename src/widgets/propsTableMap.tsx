@@ -4,6 +4,8 @@ import { PropsTableMap, PropsTableTitleMap, ExtraProps } from '@/type/template/w
 import type { SelectProps } from 'ant-design-vue'
 import { VNode } from 'vue'
 
+/* 负责右侧属性面板 */
+
 // 赋值前和赋值后对px等单位的处理，值在内部为数值流动
 const UnitReverseFormat = (goalUnit: string) => {
     return (v: number | string) => typeof v === 'number' ? v + goalUnit : Number(String(v).replace(goalUnit, ''))

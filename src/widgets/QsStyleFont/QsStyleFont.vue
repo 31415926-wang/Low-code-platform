@@ -6,7 +6,7 @@
 
 <script setup lang='ts'>
 import { textProps, commonProps } from '@/type/widgets/index'
-import { textStyleKeys } from '@/widgets/defaultProps'
+import { textStyleKeys } from '@/widgets/widgetStyleKey'
 import useHandleWidget from '@/hook/useHandleWidget'
 
 const $props = defineProps<commonProps & textProps & {

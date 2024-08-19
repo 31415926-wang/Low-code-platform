@@ -1,38 +1,23 @@
 <template>
     <div class="out border">
-        <div class="in"></div>
-        <div class="over"></div>
+        <iframe :src="iframeUrl" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe>
     </div>
 </template>
 
 <script setup lang='ts'>
+const iframeUrl = process.env.VUE_APP_BUILD_URL + '/edit/8600'
 
 </script>
 
 <style scoped lang='scss'>
 .out {
-    position: relative;
+    margin: 10px auto;
     height: 667px;
     width: 500px;
-    overflow-x: auto;
-    background-color: pink;
 }
 
-.in {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
+iframe {
     width: 100%;
-    background-color: burlywood
-}
-
-.over {
-    position: absolute;
-    top: 0%;
-    left: 150%;
-    height: 50px;
-    width: 50px;
-    background-color: burlywood
+    height: 100%;
 }
 </style>

@@ -2,6 +2,8 @@
 import { widgetTemplate } from '@/type/template/widgetAndprops'
 import { defaultCommonProps, defaultTextProps, defaultImgProps, defaultShapeProps } from '@/widgets/defaultProps'
 
+/* 负责左侧物料面板 */
+
 // 默认的属性及其值
 const paramTextProps = {
     ...defaultCommonProps,

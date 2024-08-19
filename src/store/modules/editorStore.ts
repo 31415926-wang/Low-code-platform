@@ -7,14 +7,20 @@ import type {
     deleteWidgetParam,
     SetListParams
 } from '@/type/store/modules/editorStore'
-import type { widgetData, AllWidgetProps, operateWidgetList, updateProps, historyRecord } from '@/type/widgets/index'
+import type { AllWidgetProps } from '@/type/widgets/index'
 import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep, pick, isEqual } from 'lodash-es'
 import { arrayMoveMutable } from 'array-move'
 import { message } from 'ant-design-vue'
 import { reqDetailWork, reqSaveWork } from '@/api/works/workItem'
 import { DetailTemplateOrWork, CreateOrSaveWorkDate } from '@/type/api/work'
-import { PageDate } from '@/type/widgets/index'
+import {
+    widgetData,
+    operateWidgetList,
+    updateProps,
+    historyRecord,
+    PageDate
+} from '@/type/store/modules/editorStore'
 
 const updateHistory = (type: 'changeList' | 'changeProps', state: editorState, data: operateWidgetList | updateProps) => {
     // 判断是否为中途插入，是则清空后面，再插入
