@@ -178,7 +178,7 @@ export const defaultTemplate: widgetTemplate[] = [
                     'background-color': '#5ccac7'
                 },
                 title: '圆形'
-            },
+            }, 
             {
                 name: 'QsShape',
                 props: {

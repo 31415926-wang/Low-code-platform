@@ -1,6 +1,8 @@
 <template>
     <div class="middle-box " :style="{ ...pageStyle }">
-        <!-- 网格线 -->
+        <!-- 网格线 
+         
+        -->
         <gridLine v-if="$store.state.editorStore.openGridLine"></gridLine>
 
         <!-- 定位相关样式同时也挂载到父包裹层 -->
