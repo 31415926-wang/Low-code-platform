@@ -32,7 +32,7 @@
                         <li @click="showDeleteConfirm(cardItem.id)">
                             <DeleteOutlined /> <span>删除</span>
                         </li>
-                        <li @click="downloadImg(cardItem.id)">
+                        <li @click="onDownload(cardItem.title, cardItem.coverImg)">
                             <DownloadOutlined /> <span>下载封面</span>
                         </li>
                         <li @click="openDonateWork(cardItem.id)">
@@ -65,6 +65,7 @@ import { Modal, message } from 'ant-design-vue'
 import { reqCopyWork, reqDeleteWork } from '@/api/works/workItem'
 import donateModal from './donateModal.vue'
 import { useRouter } from 'vue-router'
+import onDownload from '@/utils/downloadFile'
 
 defineProps<{
     cardItem: WorkItem,
@@ -103,9 +104,7 @@ const deleteWork = async (id: number) => {
     // 跨级刷新列表
     updateListFn()
 }
-const downloadImg = (id: number) => {
-    //
-}
+
 const openDonateWork = (id: number) => {
     donateModalRef.value.openDonate = true
     donateModalRef.value.formState.id = id

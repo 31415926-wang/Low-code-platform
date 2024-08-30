@@ -12,7 +12,6 @@
 import { ref, computed, nextTick, watch } from 'vue'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
-import useDefaultImg from '@/hook/useDefaultImg'
 import { reqUploadImg } from '@/api/common/index'
 import canvasUpload from '@/utils/canvasUpload'
 
@@ -28,9 +27,8 @@ const $emit = defineEmits<{
 }>()
 
 // 回显图片
-const { getImgSrc } = useDefaultImg()
 const showImgSrc = computed(() => {
-    return getImgSrc($props.imgSrc)
+    return ($props.imgSrc)
 })
 
 // 初始的裁剪原图，不刷新页面就不会丢失

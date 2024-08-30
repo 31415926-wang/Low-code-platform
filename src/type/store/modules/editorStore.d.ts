@@ -1,6 +1,6 @@
 import type {
-    AllWidgetProps
-} from '../.././widgets/index'
+    AllWidgetProps, commonProps
+} from 'question-star-bricks'
 
 // 单个完整物料的数据结构
 export declare interface widgetData {
@@ -57,6 +57,8 @@ export interface editorState {
     copiedComponent: widgetData | null,
     // 是否开启网格
     openGridLine: boolean,
+    // 画布比例
+    canvasRate: number,
     // 历史记录相关的内容
     history: {
         index: number, // 当前游标位置

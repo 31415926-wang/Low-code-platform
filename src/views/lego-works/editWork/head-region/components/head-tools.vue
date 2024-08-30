@@ -42,7 +42,7 @@
 <script setup lang='ts'>
 import { useStore } from '@/store/index'
 import { computed, ref } from 'vue'
-import { widgetData } from '@/type/widgets/index'
+import { widgetData } from '@/type/store/modules/editorStore'
 import keyboardTip from './keyboard-tip.vue'
 import tourStep from './tour-step.vue'
 

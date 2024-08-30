@@ -7,7 +7,7 @@
              -->
         <div :class="item.isRenderCard ? 'widget-card-box' : 'widget-type-box'">
             <a-col :span="11" v-for="(widget, inIndex) in item.widgetList" :key="inIndex">
-                <WidgetWrapper class="widget-item" :widget="widget">
+                <WidgetWrapper class="widget-item " :widget="widget">
                     <template v-if="!item.needRenderWidget">
                         <span v-if="!item.isRenderCard" class="icon-box flex-center">
                             <IconSvg :name='widget.icon'></IconSvg>
@@ -18,7 +18,7 @@
                         </h4>
                     </template>
                     <template v-else>
-                        <component style="transform: scale(0.8)" :is="widget.name"
+                        <component class="" style="transform: scale(0.8)" :is="widget.name"
                             v-bind="{ ...widget.props, widgetTitle: widget.title }">
                         </component>
                     </template>
@@ -36,31 +36,9 @@
 </template>
 
 <script setup lang='ts'>
-import defaultTemplate from '@/widgets/defaultTemplate'
+import defaultTemplate from '@/templateMap/defaultTemplate'
 import WidgetWrapper from './widgetWrapper.vue'
-import { VueDraggableNext } from 'vue-draggable-next'
-import { cloneDeep } from 'lodash-es'
 
-import { useStore } from '@/store/index'
-const $store = useStore()
-
-// 拖拽
-const onDragstart = () => {
-    $store.commit('editorStore/selectWidget', '')
-    console.log('拖拽')
-}
-
-const test = () => {
-    const testStr = cloneDeep($store.state.editorStore.history.historyRecords)
-    testStr.forEach((item) => {
-        // @ts-ignore
-        if (item.data.widgetData) {
-            // @ts-ignore
-            item.data.widgetData = item.data.widgetData.id
-        }
-    })
-    return testStr
-}
 </script>
 
 <style scoped lang='scss'>

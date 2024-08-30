@@ -1,16 +1,18 @@
 <template>
-    <a-row style="height: 100%;">
-        <a-col :span="7" :xl="6" :xxl="4">
+    <a-row style="height: 100%;" @click="judgeClickWidget">
+        <a-col :span="7" :lg="6" :xl="6" :xxl="4">
             <div class="shadow-card left-col relative">
                 <leftRegion></leftRegion>
             </div>
         </a-col>
-        <a-col :span="0" :xl="0" :xxl="2"></a-col>
-        <a-col class="middle-col hidden-scrollbar" :span="10" :xl="12" :xxl="12">
+        <a-col :span="0" :lg="0" :xl="0" :xxl="2">
+        </a-col>
+        <a-col class=" middle-col hidden-scrollbar" :span="10" :lg="12" :xl="12" :xxl="12">
             <a-spin :spinning="readWorkLoading" size="large" tip="读取中">
 
                 <!-- 手机头部 -->
-                <div class="middle-region-wrapper">
+                <div class="middle-region-wrapper" ref="middleRegionWrapper"
+                    :style="{ width: $store.state.editorStore.page.props.width ? $store.state.editorStore.page.props.width : '470px' }">
                     <div ref="iphoneHeadRef" class="iphone-head">
                         <img :src="iphoneHeadImgUrl" alt="">
                     </div>
@@ -22,8 +24,8 @@
                 </div>
             </a-spin>
         </a-col>
-        <a-col :span="0" :xl="0" :xxl="1"></a-col>
-        <a-col :span="7" :xl="6" :xxl="5">
+        <a-col :span="0" :lg="0" :xl="0" :xxl="1"></a-col>
+        <a-col :span="7" :lg="6" :xl="6" :xxl="5">
             <div class="shadow-card right-col relative">
                 <rightRegion></rightRegion>
             </div>
@@ -41,6 +43,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useStore } from '@/store/index'
 import { useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
+// import useClickOutside from '@/hook/useClickOutside'
 // @ts-ignore
 import iphoneHeadImgUrl from '@/assets/image/phone-head.png'
 import { useElementVisibility } from '@vueuse/core'
@@ -49,6 +52,7 @@ addHotKeys() // 为编辑器注册快捷键
 
 const $store = useStore()
 const $route = useRoute()
+// const middleRegionWrapper = ref()
 
 const readWorkLoading = ref(false)
 
@@ -99,6 +103,15 @@ const scrollToTop = () => {
 watch(iphoneHeadVisibility, (val) => {
     displayTopBt.value = !val
 })
+
+// 点击画布外面，取消物料选中
+const judgeClickWidget = (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+    // 点击的内容不要是左右两栏目
+    if (!target.closest('.left-col') && !target.closest('.right-col') && !target.closest('.edit-wrapper')) {
+        $store.state.editorStore.currentComponent && $store.commit('editorStore/selectWidget', '')
+    }
+}
 
 onMounted(() => {
     readWorkLoading.value = true
@@ -165,7 +178,6 @@ onMounted(() => {
 .middle-region-wrapper {
     position: relative;
     width: max-content;
-    width: 470px;
 
     .iphone-head {
         padding: 25px 0 0 1px;
@@ -205,23 +217,6 @@ onMounted(() => {
         &:hover {
             background-color: $theme_color;
         }
-    }
-}
-
-@media screen and (max-width:1600px) {
-    .middle-region-wrapper {
-        width: 440px;
-    }
-}
-@media screen and (max-width:1280px) {
-    .middle-region-wrapper {
-        width: 420px;
-    }
-}
-
-@media screen and (max-width:1024px) {
-    .middle-region-wrapper {
-        width: 360px;
     }
 }
 </style>

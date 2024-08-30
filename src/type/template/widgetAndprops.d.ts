@@ -38,13 +38,17 @@ type ExtraProps = {
     // 数字输入器，内部默认都是希望数字
     formatter?: (param: number) => number | string // 回显的格式
     parser?: (param: number) => number | string // 与formatter搭配
+    // 图片选择器
+    isNeedDelete?: boolean
 }
 
 export type PropsToForm = {
     components: HasFormItemName | HasFormItemName[], // 对应要渲染的组件
     subComponent?: string,
-    isCombinationProp?: boolean, // 需要将传入的属性拆分成多个小属性
-    combinationRules?: (defaultValue: string) => string[]
+    combination?: {
+        isCombinationProp: boolean, // 需要将传入的属性拆分成多个小属性
+        combinationRules: (defaultValue: string) => string[]
+    },
     label: string | string[], // 标签名称
     value?: string, // 表单项对应初始值与存储值的地方，渲染右侧表单时会用来赋初始值
     // 其它需约束表单项的属性，挂载在渲染的组件上

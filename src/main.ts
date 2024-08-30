@@ -4,6 +4,8 @@ import router from './router'
 import { setIcons } from '@/utils/setIcon'
 import { useGlobalComponent } from '@/utils/setComponent'
 import store from '@/store/index'
+import QuestionStarBricks from 'question-star-bricks'
+import 'question-star-bricks/dist/outputScss.css'
 // 引入全局和初始样式
 import '@/style/reset.css'
 import '@/style/index.scss'
@@ -20,5 +22,7 @@ setIcons(app)// 按需在全局注册图标
 useGlobalComponent(app)// 统一注册全局组件
 
 app.use(store)
+/* 当组件库的vue和主项目的vue版本一致时，就不会有app类型问题 */
+app.use(QuestionStarBricks)
 app.use(antDesignImport) // 简写方法，相当于直接调用函数传入app
 app.use(router).mount('#app')

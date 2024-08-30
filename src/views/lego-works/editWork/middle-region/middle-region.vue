@@ -1,13 +1,11 @@
 <template>
-    <div class="middle-box " :style="{ ...pageStyle }">
-        <!-- 网格线 
-         
-        -->
+    <div class="middle-box" :style="pageStyle">
+        <!-- 网格线 -->
         <gridLine v-if="$store.state.editorStore.openGridLine"></gridLine>
 
         <!-- 定位相关样式同时也挂载到父包裹层 -->
-        <editWrapper ref="EditWrapper" v-for="(item, index) in $store.state.editorStore.components" :key="item.id"
-            :widgetId="item.id!" @selectWidget="selectWidget" @updateWidgetProps="updateWidgetProps"
+        <editWrapper ref="EditWrapper" v-for="(item, index) in widgetComponents" :key="item.id" :widgetId="item.id!"
+            @selectWidget="selectWidget" @updateWidgetProps="updateWidgetProps" @getWidget="getWidget"
             :isActive="item.id == $store.state.editorStore.currentComponent && !item.isHidden"
             :style="{ ...getParentWrapperStyle(item.props), 'z-index': index }">
             <template v-if="!item.isHidden">
@@ -17,25 +15,39 @@
         </editWrapper>
     </div>
 
-    <!-- <pre>{{ $store.getters['editorStore/selectedWidget'] }}</pre> -->
 </template>
 
 <script setup lang='ts'>
-import { computed, ref, onMounted, nextTick } from 'vue'
+import { computed, ref, nextTick, StyleValue } from 'vue'
 import { useStore } from '@/store/index' // 采用重写后的useStore方法
 import editWrapper from './components/edit-wrapper.vue'
-import { AllWidgetProps } from '@/type/widgets/index'
-import { parentWrapperStyleKeys } from '@/widgets/widgetStyleKey'
+import type { AllWidgetProps } from 'question-star-bricks'
+import { parentWrapperStyleKeys } from 'question-star-bricks'
 import { pick } from 'lodash-es'
 import gridLine from './components/grid-line.vue'
-import adjustChidHieght from '@/utils/adjustChidHieght'
-import useObserveDomSize from '@/hook/useObserveDomSize'
+import {
+    widgetData
+} from '@/type/store/modules/editorStore'
 
 const $store = useStore()
 const EditWrapper = ref()
 
-const pageStyle = computed<any>(() => {
-    return $store.state.editorStore.page.props
+// 用于判断鼠标是否在画布之外，引入新bug
+// const { isOutside } = useMouseInElement(editorBox)
+
+const widgetComponents = computed(() => {
+    return $store.state.editorStore.components
+})
+
+/* 注意，直接给行内样式赋值，无论是key或者value有一个不合法，都不会使用该属性，调试也看不到 */
+const pageStyle = computed(() => {
+    return {
+        ...$store.state.editorStore.page.props,
+        'background-image': $store.state.editorStore.page.props['background-image']
+            ? `url(${$store.state.editorStore.page.props['background-image']})`
+            : ''
+        // 修复url(undefined)的请求404问题
+    } as StyleValue
 })
 
 const getParentWrapperStyle = (widgetsOwnProps: Partial<AllWidgetProps>) => {
@@ -44,6 +56,9 @@ const getParentWrapperStyle = (widgetsOwnProps: Partial<AllWidgetProps>) => {
 
 const selectWidget = (id: string) => {
     $store.commit('editorStore/selectWidget', id)
+}
+const getWidget = (fn: (params: widgetData) => void) => {
+    fn($store.getters['editorStore/selectedWidget'])
 }
 
 interface updateWidgetPropsParams {
@@ -64,11 +79,11 @@ const updateWidgetProps = ({ Key, Value }: updateWidgetPropsParams) => {
 .middle-box {
     position: relative;
     width: 100%;
-    background-color: white;
+    // background-color: white;
     // padding: 24px 20px;
     // border: 1px solid rgb(241, 203, 193);
     overflow: hidden;
-
+    background-size: cover;
 }
 
 // 确保有拖拽区域

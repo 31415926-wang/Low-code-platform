@@ -7,7 +7,7 @@ import type {
     deleteWidgetParam,
     SetListParams
 } from '@/type/store/modules/editorStore'
-import type { AllWidgetProps } from '@/type/widgets/index'
+import type { AllWidgetProps } from 'question-star-bricks'
 import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep, pick, isEqual } from 'lodash-es'
 import { arrayMoveMutable } from 'array-move'
@@ -125,6 +125,7 @@ const editorStore: Module<editorState, any> = {
         currentComponent: '',
         copiedComponent: null,
         openGridLine: true,
+        canvasRate: 100,
         history: {
             index: -1,
             historyRecords: [],
@@ -150,10 +151,12 @@ const editorStore: Module<editorState, any> = {
                 state.page.props = params.content.props
                 state.components = params.content.components
             } else {
+                /* 初始化的页面属性 */
                 state.page.props = {
                     'background-color': '#ffffff',
                     'background-image': '',
-                    height: '650px'
+                    height: '896px',
+                    width: '414px'
                 }
                 state.components = []
             }

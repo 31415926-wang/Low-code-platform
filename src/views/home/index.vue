@@ -29,7 +29,7 @@ import Content from './components/content.vue'
     .index-content {
         height: 100%;
         margin: 0 auto;
-        width: 71%;
+        width: 75%;
         display: flex;
 
         .ant-row {

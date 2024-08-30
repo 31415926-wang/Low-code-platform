@@ -2,7 +2,7 @@
 
     <div class="props-table" v-for="(propMap, key) in propsBuild" :key="key">
         <template v-if="propMap">
-            <div class="props-item" v-if="!propMap.isCombinationProp">
+            <div class="props-item" v-if="!propMap.combination">
                 <div class="item-label">{{ propMap?.label }}:</div>
                 <div class="item-component">
                     <component :is="propMap.components" v-bind="propMap.extraProps"
@@ -15,12 +15,12 @@
             <template v-else>
                 <div class="props-item props-combiantion-item" v-for="(num) in propMap?.components.length" :key="num">
                     <div class="item-label">{{ propMap.label[num - 1] }}:</div>
-                    <div class="item-component" v-if="propMap.combinationRules">
+                    <div class="item-component">
                         <component :is="propMap.components[num - 1]"
                             v-bind="propMap.extraProps && propMap.extraProps[num - 1] ? propMap.extraProps[num - 1] : undefined"
                             :value="formatValue(
-                                (propMap.combinationRules(propMap.value!))[num - 1], propMap.reverseFormat[num - 1])"
-                            @update:value="update($event, key as string, propMap.reverseFormat[num - 1], propMap.combinationRules, num - 1)">
+                                (propMap.combination.combinationRules(propMap.value!))[num - 1], propMap.reverseFormat[num - 1])"
+                            @update:value="update($event, key as string, propMap.reverseFormat[num - 1], propMap.combination && propMap.combination.combinationRules, num - 1)">
                         </component>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
 import { PropsTableMap } from '@/type/template/widgetAndprops'
 import { useStore } from '@/store/index'
 import debounce from '@/utils/debounce'
-import type { operatePropsLevel } from '@/type/widgets/index'
+import type { operatePropsLevel } from '@/type/store/modules/editorStore'
 
 const $props = defineProps<{
     propsBuild: PropsTableMap,

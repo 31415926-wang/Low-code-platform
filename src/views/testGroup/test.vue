@@ -1,11 +1,14 @@
 <template>
-    <div class="out border">
-        <iframe :src="iframeUrl" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe>
-    </div>
+    <QsText v-bind="{ ...defaultTextProps, ...defaultCommonProps, widgetTitle: 'item.title' }"></QsText>
+    <QsShape
+        v-bind="{ ...defaultShapeProps, 'backgroundColor': '#9666d1', width: '50px', height: '100px', widgetTitle: 'item.title', shapeValue: 'square' }" class="border">
+    </QsShape>
 </template>
 
 <script setup lang='ts'>
-const iframeUrl = process.env.VUE_APP_BUILD_URL + '/edit/8600'
+import { defaultTextProps, defaultCommonProps, defaultShapeProps } from 'question-star-bricks'
+
+console.log('实验', defaultShapeProps)
 
 </script>
 

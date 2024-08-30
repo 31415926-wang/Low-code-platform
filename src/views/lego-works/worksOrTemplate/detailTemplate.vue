@@ -18,7 +18,7 @@
                 <div class="bt-group">
                     <a-button shape="round" size="middle" type='primary'
                         @click="editWork(detailData.id)">使用模版</a-button>
-                    <a-button shape="round" size="middle">
+                    <a-button shape="round" size="middle" @click="onDownload(detailData.title, detailData.coverImg)">
                         <template #icon>
                             <DownloadOutlined />
                         </template>
@@ -26,20 +26,8 @@
                 </div>
                 <div class="">
                     <div class="desc">扫一扫，手机预览</div>
-                    <img src="#" height="200" width="200">
+                    <!-- <img src="#" height="200" width="200"> -->
                 </div>
-
-                <!-- <div class="bt-group">
-                    <a-button shape="round" size="middle" danger :loading="deleteTemplateLoading"
-                        @click="showDeleteConfirm(detailData.id)">
-                        <template #icon>
-                            <DeleteOutlined />
-                        </template>
-                        删除模版</a-button>
-                    <a-button shape="round" size="middle" @click="$router.go(-1)">
-                        <RedoOutlined />返回列表
-                    </a-button>
-                </div> -->
 
                 <div class="bt-group-footer">
                     <a-button shape="round" size="middle" danger :loading="deleteTemplateLoading"
@@ -65,6 +53,7 @@ import { reqDetailWork, reqDeleteWork } from '@/api/works/workItem'
 import { DetailTemplateOrWork } from '@/type/api/work'
 import { message, Modal } from 'ant-design-vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+import onDownload from '@/utils/downloadFile'
 
 const $route = useRoute()
 const $router = useRouter()

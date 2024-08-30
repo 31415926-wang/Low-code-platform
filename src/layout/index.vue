@@ -1,15 +1,14 @@
 <template>
     <div class="container">
         <div class="heard">
-
             <Head></Head>
         </div>
         <div class="main">
             <Main></Main>
         </div>
-        <div class="footer">
+        <!-- <div class="border footer">
             <Footer></Footer>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -21,7 +20,6 @@ import Footer from './footer.vue'
 </script>
 
 <style scoped lang='scss'>
-
 $box_padding: 16px 20px;
 
 .container {
@@ -39,8 +37,12 @@ $box_padding: 16px 20px;
     }
 
     .main {
-        height: calc(100% - $head_height - $footer_height - 2px);
-        padding: $box_padding;
+        // height: calc(100% - $head_height - $footer_height - 2px);
+        height: calc(100% - $head_height - 2px);
+        // max-height: calc(100% - $head_height  - 2px);
+        // padding: $box_padding;
+        padding: 12px 20px;
+        ;
         padding-bottom: 0;
         overflow: hidden;
     }

@@ -1,4 +1,4 @@
-import { AllWidgetProps } from '@/type/widgets/index'
+import type { AllWidgetProps } from 'question-star-bricks'
 import { cloneDeep, pick } from 'lodash-es'
 import { PropsTableMap, PropsTableTitleMap, ExtraProps } from '@/type/template/widgetAndprops'
 import type { SelectProps } from 'ant-design-vue'
@@ -128,14 +128,16 @@ export const textPropsMap: PropsTableMap = {
     'text-shadow': {
         components: ['a-slider', 'a-slider'],
         label: ['阴影大小', '阴影模糊'],
-        isCombinationProp: true,
-        combinationRules: (defaultValue: string) => {
-            if (defaultValue === 'none') {
-                defaultValue = '0px 0px 0px'
+        combination: {
+            isCombinationProp: true,
+            combinationRules: (defaultValue: string) => {
+                if (defaultValue === 'none') {
+                    defaultValue = '0px 0px 0px'
+                }
+                const spitResult = defaultValue.split(' ')
+                const result = [spitResult[0] + ' ' + spitResult[1], spitResult[2]]
+                return result
             }
-            const spitResult = defaultValue.split(' ')
-            const result = [spitResult[0] + ' ' + spitResult[1], spitResult[2]]
-            return result
         },
         extraProps: [
             {
@@ -163,6 +165,16 @@ export const textPropsMap: PropsTableMap = {
     }
 }
 export const commonPropsMap: PropsTableMap = {
+    width: {
+        components: 'a-input-number',
+        label: '宽度',
+        extraProps: {
+            formatter: InputNumberFormatter('px').NumberEchoRlues, // 添加px
+            parser: InputNumberFormatter('px').NumberEchoRluesParser,
+            min: 375
+        },
+        reverseFormat: UnitReverseFormat('px')
+    },
     height: {
         components: 'a-input-number',
         label: '高度',
@@ -207,7 +219,7 @@ export const commonPropsMap: PropsTableMap = {
     },
     'padding-left': {
         components: 'a-slider',
-        label: '内边距右',
+        label: '内边距左',
         extraProps: {
             max: 50,
             step: 1,
@@ -217,7 +229,7 @@ export const commonPropsMap: PropsTableMap = {
     },
     'padding-right': {
         components: 'a-slider',
-        label: '内边距左',
+        label: '内边距右',
         extraProps: {
             max: 50,
             step: 1,
@@ -251,7 +263,10 @@ export const commonPropsMap: PropsTableMap = {
     },
     'background-image': {
         components: 'fields-img',
-        label: '背景图片'
+        label: '背景图片',
+        extraProps: {
+            isNeedDelete: true
+        }
     },
     'border-radius': {
         components: 'a-input-number',
@@ -305,11 +320,13 @@ export const commonPropsMap: PropsTableMap = {
     'box-shadow': {
         components: ['a-slider', 'a-slider', 'fields-color'],
         label: ['阴影大小', '阴影模糊', '阴影颜色'],
-        isCombinationProp: true,
-        combinationRules: (defaultValue: string) => {
-            const spitResult = defaultValue.split(' ')
-            const result = [spitResult[0] + ' ' + spitResult[1], spitResult[2], spitResult[3]]
-            return result
+        combination: {
+            isCombinationProp: true,
+            combinationRules: (defaultValue: string) => {
+                const spitResult = defaultValue.split(' ')
+                const result = [spitResult[0] + ' ' + spitResult[1], spitResult[2], spitResult[3]]
+                return result
+            }
         },
         extraProps: [
             {
@@ -402,7 +419,7 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
     },
     {
         name: '全局配置', // 这个tab不会渲染，全局配置的属性单独管理
-        keys: ['height', 'background-color', 'background-image']
+        keys: ['width', 'height', 'background-color', 'background-image']
     }
 ]
 
@@ -424,6 +441,7 @@ export function propsToFormFn(props: Partial<AllWidgetProps>): PropsTableTitleMa
     template.forEach((item: PropsTableTitleMap) => {
         for (const key in item.build) {
             if (!instancePropsKeys.includes(key)) { // 过滤，当模版物料的props，是实例化物料的props没有时，不要渲染
+                // @ts-ignore
                 delete item.build[key as keyof AllWidgetProps]
             } else { // 追加默认值
                 const tempKey = instancePropsKeys.find(i => i === key)

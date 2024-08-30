@@ -1,6 +1,6 @@
 
 import { widgetTemplate } from '@/type/template/widgetAndprops'
-import { defaultCommonProps, defaultTextProps, defaultImgProps, defaultShapeProps } from '@/widgets/defaultProps'
+import { defaultCommonProps, defaultTextProps, defaultImgProps, defaultShapeProps } from 'question-star-bricks'
 
 /* 负责左侧物料面板 */
 
@@ -13,7 +13,7 @@ const paramImgProps = {
     ...defaultCommonProps,
     paddingTop: '0px',
     paddingBottom: '0px',
-    width: '150px',
+    width: '100px',
     ...defaultImgProps
 }
 
@@ -178,7 +178,7 @@ export const defaultTemplate: widgetTemplate[] = [
                     'background-color': '#5ccac7'
                 },
                 title: '圆形'
-            }, 
+            },
             {
                 name: 'QsShape',
                 props: {
@@ -193,9 +193,9 @@ export const defaultTemplate: widgetTemplate[] = [
                 props: {
                     ...paramShapeProps,
                     shapeValue: 'square',
-                    width: '80px',
-                    height: '50px',
-                    'background-color': '#9666d1'
+                    'background-color': '#9666d1',
+                    width: '100px',
+                    height: '50px'
                 },
                 title: '长方形'
             }

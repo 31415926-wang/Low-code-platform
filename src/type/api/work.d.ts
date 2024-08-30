@@ -1,6 +1,6 @@
 import { ListResult } from './index'
 import { UserInfo } from './user'
-import { widgetData, PageDate, commonProps } from '@/type/widgets/index'
+import { widgetData, commonProps } from 'question-star-bricks'
 
 // 列表中的单个模版/作品
 export interface WorkItem {
@@ -20,7 +20,7 @@ export interface WorkItem {
 export type WorkListResult = ListResult<WorkItem>
 
 // 作品/模版的内容结构
-export type ComponentContext = {
+export type ContextData = {
     components: widgetData[],
     props: Partial<commonProps>,
     setting?: any
@@ -31,14 +31,14 @@ export type CreateOrSaveWorkDate = {
     coverImg: string,
     desc: string,
     title: string,
-    content?: ComponentContext; // 组件详细
+    content?: ContextData; // 组件详细
 }
 
 // 作品、模版的详细数据
 export interface DetailTemplateOrWork {
     author: string;
     channels: any[]; // 渠道
-    content?: ComponentContext; // 组件详细
+    content?: ContextData; // 组件详细
     copiedCount: number;
     coverImg: string;
     createdAt: string;

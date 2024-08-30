@@ -6,8 +6,8 @@ export function useGlobalComponent(app: App) {
     const componentList = require.context('@/components', true, /\.(vue|tsx)$/) // true表示查找子目录
     register(componentList, app)
     // 读取物料
-    const widgetsList = require.context('@/widgets', true, /\.vue$/)
-    register(widgetsList, app)
+    // const widgetsList = require.context('@/widgets', true, /\.vue$/)
+    // register(widgetsList, app)
 }
 
 function register(fileList: any, app: App) {

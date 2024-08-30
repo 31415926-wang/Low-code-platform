@@ -83,6 +83,27 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             title: '测试页面'
         }
+    },
+    {
+        path: '/preview/:id',
+        component: () => import('@/views/lego-works/previewWork/index.vue'),
+        meta: {
+            title: '预览页面'
+        }
+    },
+    {
+        path: '/404',
+        component: () => import('@/views/404/index.vue'),
+        meta: {
+            title: '404'
+        }
+    },
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/404',
+        meta: {
+            hidden: true
+        }
     }
 
 ]

@@ -15,9 +15,15 @@
 
         <div class="head-middle">
             <HeadTools></HeadTools>
-
         </div>
+
         <div class="head-right">
+            <div class="head-dataset">
+                <div>画布大小 <a-input size="small" @change="updatePageProps('width')" v-model:value="canvasWidth" /> *
+                    <a-input size="small" @change="updatePageProps('height')" v-model:value="canvasHeight" />
+                </div>
+                <div class="rate">画布比例 <a-input size="small" :value="100" />%</div>
+            </div>
             <a-button @click="openSettingPanel">预览与设置</a-button>
             <span></span>
             <a-button type="default" id="saveBt" @click="handleSave" :loading="saveWorkLoading"
@@ -38,7 +44,7 @@
 import HeadTools from './components/head-tools.vue'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { useStore } from '@/store/index'
-import { ref, onMounted, onUnmounted, provide } from 'vue'
+import { ref, onMounted, onUnmounted, provide, computed, watch } from 'vue'
 import { Modal } from 'ant-design-vue'
 import settingPanel from './components/setting-panel.vue'
 import publishPanel from './components/publish-panel.vue'
@@ -55,6 +61,25 @@ const saveWorkLoading = ref(false)
 const publishWorkLoading = ref(false)
 // 间隔时间自动保存
 let timer: number | null = null
+
+const canvasWidth = ref(0)
+const canvasHeight = ref(0)
+const pageProps = computed(() => {
+    return $store.state.editorStore.page.props
+})
+watch(() => $store.state.editorStore.page.props, () => {
+    canvasWidth.value = parseInt(pageProps.value.width + '')
+    canvasHeight.value = parseInt(pageProps.value.height + '')
+}, { deep: true })
+
+const updatePageProps = (type: 'width' | 'height') => {
+    $store.commit('editorStore/updateWidget', {
+        changeKey: type,
+        changeValue: type === 'width' ? canvasWidth.value : canvasHeight.value,
+        changeType: 'page'
+    }
+    )
+}
 
 const openSettingPanel = () => {
     settingPanelRef.value.openPanel = true
@@ -162,7 +187,32 @@ provide('headLeftRef', headLeftRef)
 
     .head-right {
         display: flex;
+        align-items: center;
         gap: 13px;
+
+        .head-dataset {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            font-size: 15px;
+            margin-right: 15px;
+            font-weight: normal;
+            color: rgba(0, 0, 0, 0.753);
+
+            .ant-input {
+                width: 57px;
+            }
+
+            .rate .ant-input {
+                width: 42px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1680px) {
+    .head-dataset {
+        display: none !important;
     }
 }
 

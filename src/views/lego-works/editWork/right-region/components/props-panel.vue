@@ -12,7 +12,7 @@
 <script setup lang='ts'>
 import { computed, ref } from 'vue'
 import { useStore } from '@/store/index'
-import { propsToFormFn } from '@/widgets/propsTableMap'
+import { propsToFormFn } from '@/templateMap/propsTableMap'
 import PropsTable from './props-table.vue'
 
 const $store = useStore()

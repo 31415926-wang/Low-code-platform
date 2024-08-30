@@ -22,7 +22,7 @@
 import { ref, computed } from 'vue'
 import propsSection from './components/props-section.vue'
 import { useStore } from '@/store/index'
-import { propsToFormFn } from '@/widgets/propsTableMap'
+import { propsToFormFn } from '@/templateMap/propsTableMap'
 import PropsTable from './components/props-table.vue'
 
 const activeKey = ref(1)
