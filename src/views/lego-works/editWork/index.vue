@@ -11,10 +11,12 @@
             <a-spin :spinning="readWorkLoading" size="large" tip="读取中">
 
                 <!-- 手机头部 -->
-                <div class="middle-region-wrapper" ref="middleRegionWrapper"
-                    :style="{ width: $store.state.editorStore.page.props.width ? $store.state.editorStore.page.props.width : '470px' }">
-                    <div ref="iphoneHeadRef" class="iphone-head">
-                        <img :src="iphoneHeadImgUrl" alt="">
+                <div class="middle-region-wrapper" ref="middleRegionWrapper" :style="{
+                    width: pageWidth ? pageWidth : '470px',
+                    transform: `scale(${$store.state.editorStore.canvasRate})`
+                }">
+                    <div ref="iphoneHeadRef" class="iphone-head" >
+                        <img :src="iphoneHeadImgUrl" alt="" v-if="pageWidth && (parseInt(pageWidth) < 768)">
                     </div>
                     <div class="iphone-tip"></div>
                     <div class="scroll-top" @click="scrollToTop" v-show="displayTopBt">
@@ -39,7 +41,7 @@ import rightRegion from './right-region/right-region.vue'
 import middleRegion from './middle-region/middle-region.vue'
 import addHotKeys from '@/plugins/hotKeys'
 import contextMenu, { MenuListItem } from '@/plugins/contextMenu'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import { useStore } from '@/store/index'
 import { useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
@@ -55,6 +57,10 @@ const $route = useRoute()
 // const middleRegionWrapper = ref()
 
 const readWorkLoading = ref(false)
+
+const pageWidth = computed(() => {
+    return $store.state.editorStore.page.props.width
+})
 
 // 右键鼠标功能
 const menuList = ref<MenuListItem[]>([
@@ -178,9 +184,14 @@ onMounted(() => {
 .middle-region-wrapper {
     position: relative;
     width: max-content;
+    transform-origin: top;
 
     .iphone-head {
         padding: 25px 0 0 1px;
+
+        img {
+            width: 100%;
+        }
     }
 
     .iphone-tip {

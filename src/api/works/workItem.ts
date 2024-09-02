@@ -6,7 +6,8 @@ enum Url {
     CopyWork = '/api/works/copy',
     DonateWork = 'api/works/put-back/',
     BaseWork = '/api/works',
-    PublishWork = '/api/works/publish'
+    PublishWork = '/api/works/publish',
+    PublishTemplate = '/api/works/publish-template',
 }
 
 // 复制
@@ -71,6 +72,14 @@ export const reqSaveWork = (id: number, data: CreateOrSaveWorkDate) => {
 export const reqPublishWork = (id: number) => {
     return request({
         url: Url.PublishWork + '/' + id,
+        method: 'post'
+    })
+}
+
+// 发布作品
+export const reqPublishTemplate = (id: number) => {
+    return request({
+        url: Url.PublishTemplate + '/' + id,
         method: 'post'
     })
 }

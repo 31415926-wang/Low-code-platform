@@ -2,14 +2,14 @@
   <a-modal v-model:open="openPanel" :width="820" :footer="null" title="发布成功" @ok="openPanel = false">
     <div class="model-inner">
       <div class="left">
-        <div>封面图</div>
         <img class="border cover" :src="pageDate.coverImg" alt="封面" v-if="pageDate.coverImg">
         <div class="border cover" v-else>未上传封面<a-button class="to-upload-bt" @click="toUploadImg">去上传</a-button></div>
+        <div class="text-tip">作品封面图</div>
       </div>
       <div class="right">
         <div class="text-info">
-          <div class="title">{{ pageDate.title }}</div>
-          <div class="desc">{{ pageDate.desc }}</div>
+          <div class="title">作品名称：{{ pageDate.title }}</div>
+          <div class="desc" v-show="pageDate.desc && pageDate.desc.length > 0">作品描述：{{ pageDate.desc }}</div>
         </div>
         <a-tabs v-model:activeKey="activeKey" type="card" @change="changeTab">
           <a-tab-pane :key="1" tab="发布为作品">
@@ -23,6 +23,10 @@
                 </div>
               </div>
             </div>
+            <hr>
+            <div class="publish-template">
+              <a-button type="primary" @click="onDownload(pageDate.title, pageDate.coverImg)">下载图片海报</a-button>
+            </div>
           </a-tab-pane>
           <a-tab-pane :key="2" tab="发布为模版">
             <div class="tabPane">
@@ -35,6 +39,10 @@
                 </div>
               </div>
             </div>
+            <hr>
+            <div class="publish-template">
+              <a-button type="primary" @click="onPublishTemplate">发布为模版</a-button>
+            </div>
           </a-tab-pane>
         </a-tabs>
       </div>
@@ -43,24 +51,35 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import { useStore } from '@/store/index'
 import QRCode from 'qrcode'
 import copyText from '@/utils/copyText'
+import { reqPublishTemplate } from '@/api/works/workItem'
+import { message } from 'ant-design-vue'
+import onDownload from '@/utils/downloadFile'
 
 const $props = defineProps<{
   openSettingPanel: () => void
 }>()
 
 const $store = useStore()
+const location = window.location
 
 const activeKey = ref(1)
 const openPanel = ref<boolean>(false)
-const codeUrlWork = ref('http://10.23.103.244:8080/work')
-const codeUrlTemplate = ref('http://10.23.103.244:8080/template')
+const codeUrlWork = ref('')
+const codeUrlTemplate = ref('')
 
 const pageDate = computed(() => {
   return $store.state.editorStore.page
+})
+
+watch(openPanel, (newValue) => {
+  if (newValue) {
+    codeUrlWork.value = `${location.origin}/previewWork/${$store.state.editorStore.page.id}`
+    codeUrlTemplate.value = `${location.origin}/previewTemplate/${$store.state.editorStore.page.id}`
+  }
 })
 
 const toUploadImg = () => {
@@ -70,10 +89,11 @@ const toUploadImg = () => {
 
 const changeTab = async (activeKey: number) => {
   await nextTick(() => {
+    // console.log('changeTab', codeUrlWork.value)
     if (activeKey === 1) {
       renderCode('canvas-work', codeUrlWork.value)
     } else {
-      renderCode('canvas-template', codeUrlWork.value)
+      renderCode('canvas-template', codeUrlTemplate.value)
     }
   })
 }
@@ -85,6 +105,11 @@ const renderCode = (id: string, url: string, callBack?: () => void) => {
     // console.log('success!')
     callBack && callBack()
   })
+}
+
+const onPublishTemplate = async () => {
+  await reqPublishTemplate(pageDate.value.id)
+  message.success('发布模版成功!')
 }
 
 enum targetType {
@@ -108,7 +133,7 @@ defineExpose({
 
 <style lang="scss" scoped>
 .border {
-  border-color: rgba(231, 231, 231, 0.1);
+  border-color: rgba(231, 231, 231, 0.8);
 }
 
 .model-inner {
@@ -117,22 +142,33 @@ defineExpose({
   gap: 45px;
 
   .left {
-    width: 30%;
+    width: 36%;
 
     .cover {
       width: 100%;
       height: 360px;
       text-align: center;
       line-height: 360px;
+      object-fit: contain;
     }
 
     .to-upload-bt {
       margin-left: 6px;
     }
+
+    .text-tip {
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.8;
+    }
   }
 
   .right {
-    width: 62%;
+    width: 64%;
+
+    hr {
+      opacity: 0.4;
+    }
 
     .text-info {
       margin-bottom: 50px;
@@ -170,11 +206,23 @@ defineExpose({
         height: 90px;
       }
     }
+
+    .publish-template {
+      display: flex;
+      justify-content: end;
+    }
   }
 }
 
 ::v-deep() .ant-tabs-nav .ant-tabs-tab {
   font-size: 14px !important;
   border-radius: 20px 20px 0 0 !important;
+}
+</style>
+
+<style lang="scss">
+.ant-modal-title {
+  color: $theme_color !important;
+  font-size: 18px;
 }
 </style>

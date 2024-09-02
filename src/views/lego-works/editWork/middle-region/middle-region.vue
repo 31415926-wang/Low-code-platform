@@ -14,7 +14,7 @@
             </template>
         </editWrapper>
     </div>
-
+    <!-- {{ $store.state.editorStore.page.props }} -->
 </template>
 
 <script setup lang='ts'>

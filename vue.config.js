@@ -65,6 +65,11 @@ const configObj = defineConfig({
     cache: {
       type: 'filesystem',
       name: 'vue3-item' // 自定义生成的缓存文件夹名称
+    },
+    devServer: {
+      client: {
+        overlay: false // 避免错误覆盖全屏
+      }
     }
   }
 })

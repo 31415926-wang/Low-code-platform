@@ -85,10 +85,17 @@ const routes: Array<RouteRecordRaw> = [
         }
     },
     {
-        path: '/preview/:id',
+        path: '/previewWork/:id',
         component: () => import('@/views/lego-works/previewWork/index.vue'),
         meta: {
-            title: '预览页面'
+            title: '预览作品页面'
+        }
+    },
+    {
+        path: '/previewTemplate/:id',
+        component: () => import('@/views/lego-works/previewWork/index.vue'),
+        meta: {
+            title: '预览模版页面'
         }
     },
     {

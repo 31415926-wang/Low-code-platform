@@ -22,9 +22,12 @@
                 <div>画布大小 <a-input size="small" @change="updatePageProps('width')" v-model:value="canvasWidth" /> *
                     <a-input size="small" @change="updatePageProps('height')" v-model:value="canvasHeight" />
                 </div>
-                <div class="rate">画布比例 <a-input size="small" :value="100" />%</div>
+                <div class="rate">画布比例
+                    <a-input-number :min="0.8" :step="0.2" :max="2" size="small" @change="updatePageProps('rate')"
+                        v-model:value="canvasRate" :formatter="formatterInput" :parser="parserInput" />%
+                </div>
             </div>
-            <a-button @click="openSettingPanel">预览与设置</a-button>
+            <a-button @click="openSettingPanel">作品设置</a-button>
             <span></span>
             <a-button type="default" id="saveBt" @click="handleSave" :loading="saveWorkLoading"
                 :disabled="!$store.getters['editorStore/isWithoutSave']">
@@ -64,21 +67,35 @@ let timer: number | null = null
 
 const canvasWidth = ref(0)
 const canvasHeight = ref(0)
+const canvasRate = ref(0)
 const pageProps = computed(() => {
     return $store.state.editorStore.page.props
 })
 watch(() => $store.state.editorStore.page.props, () => {
     canvasWidth.value = parseInt(pageProps.value.width + '')
     canvasHeight.value = parseInt(pageProps.value.height + '')
+    canvasRate.value = $store.state.editorStore.canvasRate
 }, { deep: true })
 
-const updatePageProps = (type: 'width' | 'height') => {
-    $store.commit('editorStore/updateWidget', {
-        changeKey: type,
-        changeValue: type === 'width' ? canvasWidth.value : canvasHeight.value,
-        changeType: 'page'
+const updatePageProps = (type: 'width' | 'height' | 'rate') => {
+    if (type === 'rate') {
+        $store.commit('editorStore/setRate', canvasRate.value)
+    } else {
+        if (canvasWidth.value && canvasHeight.value) {
+            $store.commit('editorStore/updateWidget', {
+                changeKey: type,
+                changeValue: (type === 'width' ? canvasWidth.value : canvasHeight.value) + 'px',
+                changeType: 'page'
+            })
+        }
     }
-    )
+}
+
+const formatterInput = (value: number) => {
+    return (value * 100).toFixed(0)
+}
+const parserInput = (value: number) => {
+    return (value / 100)
 }
 
 const openSettingPanel = () => {
@@ -205,6 +222,10 @@ provide('headLeftRef', headLeftRef)
 
             .rate .ant-input {
                 width: 42px;
+            }
+
+            .ant-input-number {
+                width: 60px;
             }
         }
     }

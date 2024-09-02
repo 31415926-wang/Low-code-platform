@@ -1,5 +1,5 @@
 <template>
-    <a-drawer v-model:open="openPanel" title="设置面板" placement="right" @after-open-change="afterOpenChange" :width="490"
+    <a-drawer v-model:open="openPanel" title="设置面板" placement="right" @after-open-change="afterOpenChange" :width="420"
         :closable="false">
         <template v-slot:extra>
             <CloseOutlined @click="openPanel = false" />
@@ -10,7 +10,12 @@
                 <img src="" class="border" />
             </a-form-item> -->
 
-            <a-form-item label="上传封面" name="coverImg" :rules="[{ required: true, message: '作品封面不能为空!' }]">
+            <a-form-item name="coverImg" :rules="[{ required: true, message: '作品封面不能为空!' }]">
+                <template v-slot:label>
+                    <div class="label-tip">上传封面<br>
+                        <span>(点击上传封面)</span>
+                    </div>
+                </template>
                 <FilesUpload :successCallback="successCallback">
                     <div class="img-echo border">
                         <img class="cover-img" v-if="formState.coverImg && formState.coverImg.length > 0"
@@ -165,6 +170,17 @@ defineExpose({
 }
 
 .setting-form {
+
+    .ant-form-item-label {}
+
+    .label-tip {
+        line-height: 1.2;
+
+        span {
+            font-size: 10px;
+        }
+    }
+
     img {
         width: 120px;
         height: 120px;
@@ -180,6 +196,7 @@ defineExpose({
         .cover-img {
             width: 170px;
             height: 200px;
+            object-fit: contain;
         }
 
         &:hover {

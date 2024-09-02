@@ -125,7 +125,7 @@ const editorStore: Module<editorState, any> = {
         currentComponent: '',
         copiedComponent: null,
         openGridLine: true,
-        canvasRate: 100,
+        canvasRate: 1,
         history: {
             index: -1,
             historyRecords: [],
@@ -175,6 +175,9 @@ const editorStore: Module<editorState, any> = {
         },
         setOpenGridLine(state, value: boolean) {
             state.openGridLine = value
+        },
+        setRate(state, value: number) {
+            state.canvasRate = value
         },
         selectWidget(state, id: string) {
             state.currentComponent = id

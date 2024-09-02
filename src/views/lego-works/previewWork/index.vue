@@ -17,16 +17,20 @@ import { ContextData } from '@/type/api/work'
 
 const $route = useRoute()
 const workData = ref<ContextData>()
+const defaultWidth = ref()
 
 const getWorkDate = async () => {
     const result = await reqDetailWork(Number($route.params.id))
     workData.value = result.data.content
+    // 存储默认宽度
+    defaultWidth.value = parseInt(workData.value?.props.width as string)
 }
 
 // 页面属性
 const pageStyle = computed(() => {
     const { props } = workData.value!
     const propsTemp = processPx(props)
+
     return {
         ...propsTemp,
         'background-image': propsTemp['background-image']
@@ -41,7 +45,7 @@ const processPx = (styleObj: object) => {
     for (const key in styleObj) {
         if (typeof styleObj[key] === 'string' && styleObj[key].includes('px')) {
             // 找出比例
-            const designWidth = workData.value?.props.width ? parseInt(workData.value?.props.width) : 470
+            const designWidth = defaultWidth.value
             const newValue = ((Number(styleObj[key].replace('px', '')) / designWidth) * 100).toFixed(2) + 'vw'
             styleObj[key] = newValue
         }
@@ -63,6 +67,7 @@ body,
 </style>
 <style scoped lang='scss'>
 .container {
+    position: relative;
     background-size: cover;
 }
 
