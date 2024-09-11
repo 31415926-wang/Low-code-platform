@@ -81,11 +81,13 @@ import WidgetWrapper from './widgetWrapper.vue'
 
 .widget-card-box {
     display: flex;
-    gap: 10px;
+    // gap: 10px;
+    row-gap: 20px;
+    column-gap: 5px;
     flex-wrap: wrap;
     border-radius: 7px;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 5px 0 19px 0;
+    padding: 15px 0 19px 0;
 
     .ant-col {
         display: flex;
@@ -99,7 +101,7 @@ import WidgetWrapper from './widgetWrapper.vue'
         align-items: center;
         text-align: center;
         // border: 1px solid red;
-        padding-top: 15px;
+        // padding-top: 15px;
         font-size: 14px;
 
         .title {

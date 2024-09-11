@@ -1,8 +1,10 @@
 <template>
-    <div class="middle-box" :style="pageStyle">
+    <div class="middle-box" :style="pageStyle" @dragover="ondragover" @drop="ondrop">
         <!-- 网格线 -->
         <gridLine v-if="$store.state.editorStore.openGridLine"></gridLine>
 
+        <!-- 贴线与吸附功能 -->
+        <stickLine></stickLine>
         <!-- 定位相关样式同时也挂载到父包裹层 -->
         <editWrapper ref="EditWrapper" v-for="(item, index) in widgetComponents" :key="item.id" :widgetId="item.id!"
             @selectWidget="selectWidget" @updateWidgetProps="updateWidgetProps" @getWidget="getWidget"
@@ -25,12 +27,15 @@ import type { AllWidgetProps } from 'question-star-bricks'
 import { parentWrapperStyleKeys } from 'question-star-bricks'
 import { pick } from 'lodash-es'
 import gridLine from './components/grid-line.vue'
+import stickLine from './components/stickLine.vue'
 import {
     widgetData
 } from '@/type/store/modules/editorStore'
+import useDragWidget from '@/hook/useDragWidget'
 
 const $store = useStore()
 const EditWrapper = ref()
+const { ondragover, ondrop } = useDragWidget()
 
 // 用于判断鼠标是否在画布之外，引入新bug
 // const { isOutside } = useMouseInElement(editorBox)
@@ -84,6 +89,7 @@ const updateWidgetProps = ({ Key, Value }: updateWidgetPropsParams) => {
     // border: 1px solid rgb(241, 203, 193);
     overflow: hidden;
     background-size: cover;
+
 }
 
 // 确保有拖拽区域

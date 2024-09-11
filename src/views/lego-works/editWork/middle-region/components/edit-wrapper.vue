@@ -12,6 +12,10 @@
             <div class="pointC"></div>
             <div class="pointD"></div>
         </div>
+        <!-- 旋转点 -->
+        <div class="rotatePoint" @mousedown.stop="rotateSeriesEvent">
+            <IconSvg name="editor-rotate" fill="#f4801a"></IconSvg>
+        </div>
     </div>
 </template>
 
@@ -179,6 +183,9 @@ const onResizeStart = function (downEvent: MouseEvent) {
         if (params.props.scale !== 1) {
             $emit('updateWidgetProps', { Key: 'scale', Value: 1 })
         }
+        if (params.props.rotate !== '0deg') {
+            $emit('updateWidgetProps', { Key: 'rotate', Value: '0deg' })
+        }
     })
 }
 const onResizeProcess = judgeLockedWrapper(function (moveEvent: MouseEvent, mouseTarget: HTMLElement) {
@@ -292,12 +299,55 @@ const onResizeEnd = function (upEvent: MouseEvent, mouseTarget: HTMLElement) {
 }
 const { mousedownEvent: resizeSeriesEvent } = useMouseGroupEvent(onResizeStart, onResizeProcess, onResizeEnd)
 
+const rotateDate = reactive({
+    center: {
+        X: 0,
+        Y: 0
+    },
+    startDegree: 0,
+    endDegree: 0
+})
+/* 旋转的一系列事件 */
+const onRotateStart = (downEvent: MouseEvent, oldMouseTarget?: HTMLElement) => {
+    downEvent.preventDefault()
+    // 计算物料的中心坐标，旋转角度需相对该坐标
+    let wrapperDom
+    if (oldMouseTarget) {
+        wrapperDom = oldMouseTarget.closest('.edit-wrapper') as HTMLElement
+    } else {
+        wrapperDom = (downEvent.target as HTMLElement).closest('.edit-wrapper') as HTMLElement
+    }
+    const wrapperDomRect = wrapperDom.getBoundingClientRect()
+    rotateDate.center.X = wrapperDomRect.left + wrapperDomRect.width * 1 / 2
+    rotateDate.center.Y = wrapperDomRect.top + wrapperDomRect.height * 1 / 2
+    // 一开始的点击时的角度，Math.atan2返回的是弧度，需转为角度
+    /* 采用了两个强行理解：相对坐标、变化的角度 */
+    rotateDate.startDegree = Math.atan2(downEvent.clientY - rotateDate.center.Y, downEvent.clientX - rotateDate.center.X) * (180 / Math.PI)
+}
+const onRotateProcess = (moveEvent: MouseEvent, mouseTarget: HTMLElement) => {
+    moveEvent.preventDefault()
+    rotateDate.endDegree = Math.atan2(moveEvent.clientY - rotateDate.center.Y, moveEvent.clientX - rotateDate.center.X) * (180 / Math.PI)
+    const wrapperDom = mouseTarget.closest('.edit-wrapper') as HTMLElement
+    wrapperDom.style.rotate = Number(parseFloat(wrapperDom.style.rotate) + rotateDate.endDegree - rotateDate.startDegree) + 'deg'
+    onRotateStart(moveEvent, mouseTarget)
+}
+const onRotateEnd = (upEvent: MouseEvent, mouseTarget: HTMLElement) => {
+    const wrapperDom = mouseTarget.closest('.edit-wrapper') as HTMLElement
+    // 结束时再影响到仓库
+    $emit('updateWidgetProps', { Key: 'rotate', Value: wrapperDom.style.rotate })
+}
+const { mousedownEvent: rotateSeriesEvent } = useMouseGroupEvent(onRotateStart, onRotateProcess, onRotateEnd)
+
 </script>
 
 <style scoped lang='scss'>
 .edit-wrapper {
     cursor: pointer;
     border: 1px solid transparent;
+
+    .rotatePoint {
+        display: none;
+    }
 
     .resize-point {
         display: none;
@@ -373,10 +423,23 @@ const { mousedownEvent: resizeSeriesEvent } = useMouseGroupEvent(onResizeStart, 
 
     }
 
+    .rotatePoint {
+        position: absolute;
+        left: 50%;
+        top: -15px;
+        transform: translateX(-50%) translateY(-50%);
+        font-size: 23px;
+        cursor: grab;
+    }
+
     &.active {
         border: 1px solid $theme_color;
 
         .resize-point {
+            display: block;
+        }
+
+        .rotatePoint {
             display: block;
         }
 

@@ -15,7 +15,7 @@
                     width: pageWidth ? pageWidth : '470px',
                     transform: `scale(${$store.state.editorStore.canvasRate})`
                 }">
-                    <div ref="iphoneHeadRef" class="iphone-head" >
+                    <div ref="iphoneHeadRef" class="iphone-head">
                         <img :src="iphoneHeadImgUrl" alt="" v-if="pageWidth && (parseInt(pageWidth) < 768)">
                     </div>
                     <div class="iphone-tip"></div>

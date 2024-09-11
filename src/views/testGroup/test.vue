@@ -1,7 +1,8 @@
 <template>
-    <QsText v-bind="{ ...defaultTextProps, ...defaultCommonProps, widgetTitle: 'item.title' }"></QsText>
+    <!-- <QsText v-bind="{ ...defaultTextProps, ...defaultCommonProps, widgetTitle: 'item.title' }"></QsText> -->
     <QsShape
-        v-bind="{ ...defaultShapeProps, 'backgroundColor': '#9666d1', width: '50px', height: '100px', widgetTitle: 'item.title', shapeValue: 'square' }" class="border">
+        v-bind="{ ...defaultShapeProps, 'backgroundColor': 'red', width: '100px', height: '100px', widgetTitle: 'item.title', shapeValue: 'circular' }"
+        class="border">
     </QsShape>
 </template>
 
