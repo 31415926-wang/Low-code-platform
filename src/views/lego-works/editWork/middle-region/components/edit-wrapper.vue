@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang='ts'>
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import useMouseGroupEvent from '@/hook/useMouseGroupEvent'
 import { AllWidgetProps } from 'question-star-bricks'
 import {
@@ -28,6 +28,7 @@ import {
 } from '@/type/store/modules/editorStore'
 import { message } from 'ant-design-vue'
 import { throttle } from 'lodash-es'
+import eventBus from '@/utils/eventBus'
 
 const $props = defineProps<{
     widgetId: string,
@@ -42,7 +43,7 @@ interface updateWidgetPropsParams {
 const $emit = defineEmits<{
     (e: 'selectWidget', params: string): void,
     (e: 'updateWidgetProps', params: updateWidgetPropsParams): void,
-    (e: 'getWidget', params: (params: widgetData) => void): void
+    (e: 'getWidget', params: (params: widgetData) => void): void,
 }>()
 
 const selectWidget = () => {
@@ -138,7 +139,7 @@ const onMovestart = function (downEvent: MouseEvent) {
     moveData.start.Y = downEvent.clientY
 }
 const onMoveProcess = judgeLockedWrapper(function (moveEvent: MouseEvent, mouseTarget: HTMLElement) {
-    console.log('onMoveProcess')
+    // console.log('onMoveProcess')
     moveData.moveProgress = true
     // 先考虑右下角，再考虑其它角发现没问题
     moveData.end.X = moveEvent.clientX
@@ -153,6 +154,13 @@ const onMoveProcess = judgeLockedWrapper(function (moveEvent: MouseEvent, mouseT
         goalWrapper.style.top = (goalWrapper.offsetTop + calculateResult.distanceY) + 'px'
     }
 
+    // 标线显示与吸附
+    eventBus.emit('moveWidget', {
+        widgetWrapper: goalWrapper,
+        moveProgress: true,
+        calculateResult: calculateResult
+    })
+
     // 每计算移动一次，初始的坐标就得改
     onMovestart(moveEvent)
 })
@@ -166,6 +174,10 @@ const onMoveEnd = function (upEvent: MouseEvent, mouseTarget: HTMLElement) {
     $emit('updateWidgetProps', { Key: ['left', 'top'], Value: [goalWrapper.style.left, goalWrapper.style.top] })
 
     moveData.moveProgress = false
+    eventBus.emit('moveWidget', {
+        widgetWrapper: goalWrapper,
+        moveProgress: false
+    })
 }
 
 // 将鼠标按下、移动、抬起一系列事件挂载成一个函数
@@ -343,7 +355,7 @@ const { mousedownEvent: rotateSeriesEvent } = useMouseGroupEvent(onRotateStart, 
 <style scoped lang='scss'>
 .edit-wrapper {
     cursor: pointer;
-    border: 1px solid transparent;
+    // border: 1px solid transparent;
 
     .rotatePoint {
         display: none;

@@ -344,10 +344,10 @@ const editorStore: Module<editorState, any> = {
         async readWork(context, id: number) {
             try {
                 // 请求读取作品
-                // const result = await reqDetailWork(id)
+                const result = await reqDetailWork(id)
                 // 成功后调用mutation，赋值编辑器
-                // context.commit('initWorkInfo', result.data)
-                context.commit('initWorkInfo', [])
+                context.commit('initWorkInfo', result.data)
+                // context.commit('initWorkInfo', [])
                 // 存储当前的作品数据
                 context.commit('storageCacheSaveDate')
             } catch (error) {
