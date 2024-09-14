@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, onMounted, createVNode, inject } from 'vue'
+import { ref, onMounted, createVNode } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { reqDetailWork, reqDeleteWork } from '@/api/works/workItem'
 import { DetailTemplateOrWork } from '@/type/api/work'

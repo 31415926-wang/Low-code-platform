@@ -13,9 +13,8 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { reqDonateWork } from '@/api/works/workItem'
-import { message } from 'ant-design-vue'
 
 const openDonate = ref<boolean>(false)
 

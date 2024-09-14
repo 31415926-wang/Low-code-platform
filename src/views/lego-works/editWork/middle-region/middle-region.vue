@@ -4,7 +4,7 @@
         <gridLine v-if="$store.state.editorStore.openGridLine"></gridLine>
 
         <!-- 贴线与吸附功能 -->
-        <stickLine ></stickLine>
+        <stickLine></stickLine>
 
         <!-- 定位相关样式同时也挂载到父包裹层 -->
         <editWrapper ref="EditWrapper" v-for="(item, index) in widgetComponents" :key="item.id" :widgetId="item.id!"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang='ts'>
-import { computed, ref, nextTick, StyleValue } from 'vue'
+import { computed, ref, StyleValue } from 'vue'
 import { useStore } from '@/store/index' // 采用重写后的useStore方法
 import editWrapper from './components/edit-wrapper.vue'
 import type { AllWidgetProps } from 'question-star-bricks'
@@ -36,7 +36,6 @@ import useDragWidget from '@/hook/useDragWidget'
 
 const $store = useStore()
 const EditWrapper = ref()
-const widgetMoveState = ref(false)
 const { ondragover, ondrop } = useDragWidget()
 
 // 用于判断鼠标是否在画布之外，引入新bug

@@ -1,4 +1,4 @@
-import { ref, reactive, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 // 获取验证码时，倒计时功能
 export default function useGenVeriCode() {

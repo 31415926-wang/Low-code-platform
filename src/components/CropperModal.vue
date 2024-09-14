@@ -12,7 +12,7 @@
 import { ref, computed, nextTick, watch } from 'vue'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
-import { reqUploadImg } from '@/api/common/index'
+// import { reqUploadImg } from '@/api/common/index'
 import canvasUpload from '@/utils/canvasUpload'
 
 const $props = defineProps<{
@@ -50,7 +50,7 @@ const handleCropper = async () => {
     const cropperImage = document.getElementById('cropper-image') as HTMLCanvasElement
     cropper = new Cropper(cropperImage, {
         aspectRatio: 16 / 9,
-        crop(event) {
+        crop() {
             // console.log('裁剪', event)
         }
     })

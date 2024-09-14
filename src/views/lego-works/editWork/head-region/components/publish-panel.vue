@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, nextTick, watch } from 'vue'
+import { ref, computed, nextTick, watch } from 'vue'
 import { useStore } from '@/store/index'
 import QRCode from 'qrcode'
 import copyText from '@/utils/copyText'

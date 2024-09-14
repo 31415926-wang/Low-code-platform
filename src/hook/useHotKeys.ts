@@ -1,5 +1,5 @@
 import { onMounted, onUnmounted } from 'vue'
-import hotkeys, { HotkeysEvent, KeyHandler } from 'hotkeys-js'
+import hotkeys, { KeyHandler } from 'hotkeys-js'
 
 type Options = {
     scope?: string;

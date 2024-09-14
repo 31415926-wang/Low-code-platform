@@ -1,6 +1,5 @@
 import { widgetData } from '@/type/store/modules/editorStore'
 import { useStore } from '@/store/index'
-import { ref } from 'vue'
 
 // 这里形成必包，不建议
 /* let originOffestX = 0

@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang='ts'>
-import { reactive, watch, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import eventBus from '@/utils/eventBus'
 import { useStore } from '@/store/index'
 import { widgetData } from '@/type/store/modules/editorStore'
-import { throttle, debounce } from 'lodash-es'
+// import { throttle, debounce } from 'lodash-es'
 
 const $store = useStore()
 
@@ -34,7 +34,7 @@ const lines = reactive({
     yc: false,
     yr: false
 })
-const diff = 20
+const diff = 12
 
 interface AxisData {
     xt: number,

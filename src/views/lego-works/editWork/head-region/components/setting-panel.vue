@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, nextTick } from 'vue'
+import { ref, nextTick } from 'vue'
 import { PageDate } from '@/type/store/modules/editorStore'
 import { useStore } from '@/store/index'
 import { pick } from 'lodash-es'

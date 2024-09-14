@@ -130,6 +130,12 @@ devDependencies:
   eslint-plugin-vue:
     specifier: ^8.0.3
     version: 8.7.1(eslint@7.32.0)
+  loader-utils:
+    specifier: ^2.0.4
+    version: 2.0.4
+  marked:
+    specifier: ^14.1.2
+    version: 14.1.2
   moment:
     specifier: ^2.30.1
     version: 2.30.1
@@ -6739,6 +6745,12 @@ packages:
     dependencies:
       object-visit: 1.0.1
     dev: false
+
+  /marked@14.1.2:
+    resolution: {integrity: sha512-f3r0yqpz31VXiDB/wj9GaOB0a2PRLQl6vJmXiFrniNwjkKdvakqJRULhjFKJpxOchlCRiG5fcacoUZY5Xa6PEQ==}
+    engines: {node: '>= 18'}
+    hasBin: true
+    dev: true
 
   /mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}

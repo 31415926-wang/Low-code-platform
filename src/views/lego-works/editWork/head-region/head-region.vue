@@ -47,7 +47,7 @@
 import HeadTools from './components/head-tools.vue'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { useStore } from '@/store/index'
-import { ref, onMounted, onUnmounted, provide, computed, watch } from 'vue'
+import { ref, onUnmounted, provide, computed, watch } from 'vue'
 import { Modal } from 'ant-design-vue'
 import settingPanel from './components/setting-panel.vue'
 import publishPanel from './components/publish-panel.vue'

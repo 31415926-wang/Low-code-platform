@@ -21,7 +21,7 @@
 import { ref } from 'vue'
 import commonWidgetsList from './components/commonWidgetsList.vue'
 import layerList from './components/layerList.vue'
-import layerListPractice from './components/layerListPractice.vue'
+// import layerListPractice from './components/layerListPractice.vue'
 
 const activeKey = ref(1)
 </script>

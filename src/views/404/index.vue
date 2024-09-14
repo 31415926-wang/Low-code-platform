@@ -46,16 +46,16 @@ onBeforeUnmount(() => {
   clearInterval(state.timer)
 })
 
-function timeChange() {
-  state.timer = setInterval(() => {
-    if (state.jumpTime) {
-      state.jumpTime--
-    } else {
-      router.replace({ path: '/' })
-      clearInterval(state.timer)
-    }
-  }, 1000)
-}
+// function timeChange() {
+//   state.timer = setInterval(() => {
+//     if (state.jumpTime) {
+//       state.jumpTime--
+//     } else {
+//       router.replace({ path: '/' })
+//       clearInterval(state.timer)
+//     }
+//   }, 1000)
+// }
 </script>
 
 <style lang="scss" scoped>

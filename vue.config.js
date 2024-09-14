@@ -6,10 +6,11 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const isProduct = process.env.NODE_ENV === 'production'
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const smp = new SpeedMeasurePlugin()
-
 const smpFn = (config) => {
   return isProduct ? smp.wrap(config) : config
 }
+// const mdLoader = require('./src/views/testGroup/mdLoader')
+const BundleSizeCustomPlugin = require('./src/views/testGroup/BundleSizeCustomPlugin')
 
 const configObj = defineConfig({
   transpileDependencies: true,
@@ -39,6 +40,22 @@ const configObj = defineConfig({
       alias: {
         '@': path.resolve(__dirname, 'src')
       }
+    },
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          exclude: /node_modules/,
+          use: {
+            // loader: './src/views/testGroup/mdLoader',  //两种都可以
+            loader: path.resolve(__dirname, 'src/views/testGroup/mdLoader'),
+            // loader: mdLoader, //报错，可能webpack在这个配置项是按路径来的
+            options: {
+              testProp: true
+            }
+          }
+        }
+      ]
     },
     /* 默认配置中第三方库会打包在一个chunk-vendors中，分割后可以把这部分文件提取出来
     （拓展：chunk-common是多入口时用的） */
@@ -80,8 +97,10 @@ const configObj = defineConfig({
           test: /\.(js|css|html|svg)$/,
           threshold: 10240 // 只有大于 10kb 的文件才会被压缩，插件的作用是生成一份压缩文件，在客户端会请求该压缩文件，以减少流量和等待时间。但是需浏览器支持，所以源文件一般也会保留
         })]
-        : [])
-
+        : []),
+      new BundleSizeCustomPlugin({
+        testProp: true
+      })
     ],
     // moment.js在ant-design-vue被引入，但是没有使用
     // externals: {

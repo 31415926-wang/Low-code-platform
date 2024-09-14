@@ -7,10 +7,10 @@
 </template>
 
 <script setup lang='ts'>
-import { defaultTextProps, defaultCommonProps, defaultShapeProps } from 'question-star-bricks'
+import { defaultShapeProps } from 'question-star-bricks'
+import test from './test.md'
 
-console.log('实验', defaultShapeProps)
-
+console.log('尝试获取md文件内容', test)
 </script>
 
 <style scoped lang='scss'>

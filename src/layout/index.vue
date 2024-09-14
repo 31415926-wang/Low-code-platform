@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="heard">
+
             <Head></Head>
         </div>
         <div class="main">
@@ -15,7 +16,7 @@
 <script setup lang='ts'>
 import Head from './head.vue'
 import Main from './main.vue'
-import Footer from './footer.vue'
+// import Footer from './footer.vue'
 
 </script>
 

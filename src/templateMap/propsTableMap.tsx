@@ -1,6 +1,6 @@
 import type { AllWidgetProps } from 'question-star-bricks'
 import { cloneDeep, pick } from 'lodash-es'
-import { PropsTableMap, PropsTableTitleMap, ExtraProps } from '@/type/template/widgetAndprops'
+import { PropsTableMap, PropsTableTitleMap } from '@/type/template/widgetAndprops'
 import type { SelectProps } from 'ant-design-vue'
 import { VNode } from 'vue'
 

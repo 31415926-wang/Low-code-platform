@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang='ts'>
-import { reactive, watch } from 'vue'
+import { reactive } from 'vue'
 import useMouseGroupEvent from '@/hook/useMouseGroupEvent'
 import { AllWidgetProps } from 'question-star-bricks'
 import {
