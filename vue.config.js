@@ -13,8 +13,8 @@ const smpFn = (config) => {
 const BundleSizeCustomPlugin = require('./src/views/testGroup/BundleSizeCustomPlugin')
 
 const configObj = defineConfig({
+  publicPath: isProduct ? '/Low-code-platform' : '/',
   transpileDependencies: true,
-
   // 解决scss样式传入共享的全局变量找不到的问题，引入的全局变量文件不要包含其它内容（根据vue-cli官网）
   css: {
     loaderOptions: {
