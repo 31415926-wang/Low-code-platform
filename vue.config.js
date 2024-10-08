@@ -24,6 +24,7 @@ const configObj = defineConfig({
       }
     }
   },
+  // 生产环境才有效
   devServer: {
     proxy: {
       [process.env.VUE_APP_BASE_URL]: {
