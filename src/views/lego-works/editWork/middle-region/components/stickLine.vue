@@ -121,10 +121,11 @@ type widgetAxisData = {
     id: string,
     axisData: AxisData
 }
-const handleAllWidgetStickLine = () => {
+const handleAllWidgetStickLine = async () => {
     // 将所有物料的每个物料的6个边界，存起来，以做判断
     const components = $store.state.editorStore.components
     const widgetAxisArr: widgetAxisData[] = [] as widgetAxisData[]
+    await nextTick()
     components.forEach((component: widgetData) => {
         if (component.id === $store.state.editorStore.currentComponent) {
             return
@@ -190,7 +191,6 @@ const onAdsorb = async (key: string, absorbValue: number) => {
     console.log('selectWidgetDom1', $store.state.editorStore.currentComponent)
     console.log('selectWidgetDom2', $store.getters['editorStore/selectWidgetDom'])
     await nextTick()
-
     const currentComponentDom = $store.getters['editorStore/selectWidgetDom'] as HTMLElement
     const currentComponentDomRect = currentComponentDom.getBoundingClientRect()
     const currentComponentDomWrapper = currentComponentDom.closest('.edit-wrapper') as HTMLElement
