@@ -14,6 +14,7 @@
             <template v-if="!item.isHidden">
                 <component :is="item.name" v-bind="{ ...item.props, widgetTitle: item.title }" :id="item.id">
                 </component>
+                --{{item.id}}--
             </template>
         </editWrapper>
     </div>
@@ -61,7 +62,6 @@ const getParentWrapperStyle = (widgetsOwnProps: Partial<AllWidgetProps>) => {
 }
 
 const selectWidget = (id: string) => {
-    console.log('设置id', id)
     $store.commit('editorStore/selectWidget', id)
 }
 const getWidget = (fn: (params: widgetData) => void) => {
