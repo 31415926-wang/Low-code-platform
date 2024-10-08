@@ -58,11 +58,13 @@ import copyText from '@/utils/copyText'
 import { reqPublishTemplate } from '@/api/works/workItem'
 import { message } from 'ant-design-vue'
 import onDownload from '@/utils/downloadFile'
+import { useRouter } from 'vue-router'
 
 const $props = defineProps<{
   openSettingPanel: () => void
 }>()
 
+const $router = useRouter()
 const $store = useStore()
 const location = window.location
 
@@ -75,10 +77,15 @@ const pageDate = computed(() => {
   return $store.state.editorStore.page
 })
 
+const urlPre = computed(() => {
+  const isHash = $router.options.history.base.includes('#')
+  return process.env.VUE_APP_PublicPath! + isHash ? '/#' : ''
+})
+
 watch(openPanel, (newValue) => {
   if (newValue) {
-    codeUrlWork.value = `${location.origin}/previewWork/${$store.state.editorStore.page.id}`
-    codeUrlTemplate.value = `${location.origin}/previewTemplate/${$store.state.editorStore.page.id}`
+    codeUrlWork.value = `${location.origin}${urlPre.value}/previewWork/${$store.state.editorStore.page.id}`
+    codeUrlTemplate.value = `${location.origin}${urlPre.value}/previewTemplate/${$store.state.editorStore.page.id}`
   }
 })
 

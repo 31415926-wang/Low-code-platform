@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkquestion_star"]=self["webpackChunkquestion_star"]||[]).push([[57],{5057:function(e,t,r){r.r(t),r.d(t,{default:function(){return l}});var s=r(1877),u=r(80725),a=r(33984),n=(0,s.pM)({__name:"test",setup(e){return(e,t)=>{const r=(0,s.g2)("QsShape");return(0,s.uX)(),(0,s.Wv)(r,(0,s.v6)({...(0,u.R1)(a.Vv),backgroundColor:"red",width:"100px",height:"100px",widgetTitle:"item.title",shapeValue:"circular"},{class:"border"}),null,16)}}}),c=r(91139);const i=(0,c.A)(n,[["__scopeId","data-v-64a0e25f"]]);var l=i}}]);
-//# sourceMappingURL=57.72fd6b2b.js.map
