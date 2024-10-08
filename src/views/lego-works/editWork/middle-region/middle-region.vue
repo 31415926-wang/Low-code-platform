@@ -14,7 +14,6 @@
             <template v-if="!item.isHidden">
                 <component :is="item.name" v-bind="{ ...item.props, widgetTitle: item.title }" :id="item.id">
                 </component>
-                --{{item.id}}--
             </template>
         </editWrapper>
     </div>
