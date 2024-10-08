@@ -139,7 +139,7 @@ const onMovestart = function (downEvent: MouseEvent) {
     moveData.start.Y = downEvent.clientY
 }
 const onMoveProcess = judgeLockedWrapper(function (moveEvent: MouseEvent, mouseTarget: HTMLElement) {
-    // console.log('onMoveProcess')
+    console.log('onMoveProcess')
     moveData.moveProgress = true
     // 先考虑右下角，再考虑其它角发现没问题
     moveData.end.X = moveEvent.clientX
@@ -153,6 +153,9 @@ const onMoveProcess = judgeLockedWrapper(function (moveEvent: MouseEvent, mouseT
         goalWrapper.style.left = (goalWrapper.offsetLeft + calculateResult.distanceX) + 'px'
         goalWrapper.style.top = (goalWrapper.offsetTop + calculateResult.distanceY) + 'px'
     }
+
+    console.log('移动x', goalWrapper.style.left)
+    console.log('移动y', goalWrapper.style.top)
 
     // 标线显示与吸附
     eventBus.emit('moveWidget', {
