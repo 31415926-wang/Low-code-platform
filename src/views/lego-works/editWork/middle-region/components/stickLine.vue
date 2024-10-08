@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang='ts'>
-import { reactive, ref } from 'vue'
+import { reactive, ref, nextTick } from 'vue'
 import eventBus from '@/utils/eventBus'
 import { useStore } from '@/store/index'
 import { widgetData } from '@/type/store/modules/editorStore'
@@ -186,9 +186,11 @@ const onShowLines = (widgetAxisArr: widgetAxisData[]) => {
     }
 }
 
-const onAdsorb = (key: string, absorbValue: number) => {
+const onAdsorb = async (key: string, absorbValue: number) => {
     console.log('selectWidgetDom1', $store.state.editorStore.currentComponent)
     console.log('selectWidgetDom2', $store.getters['editorStore/selectWidgetDom'])
+    await nextTick()
+
     const currentComponentDom = $store.getters['editorStore/selectWidgetDom'] as HTMLElement
     const currentComponentDomRect = currentComponentDom.getBoundingClientRect()
     const currentComponentDomWrapper = currentComponentDom.closest('.edit-wrapper') as HTMLElement
