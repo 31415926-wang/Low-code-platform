@@ -155,7 +155,7 @@ const onMoveProcess = judgeLockedWrapper(function (moveEvent: MouseEvent, mouseT
         goalWrapper.style.top = (goalWrapper.offsetTop + calculateResult.distanceY) + 'px'
     }
 
-    console.log('移动x', goalWrapper.style.left)
+    // console.log('移动x', goalWrapper.style.left)
     // console.log('移动y', goalWrapper.style.top)
 
     // 标线显示与吸附

@@ -1,6 +1,6 @@
 <template>
     <div class="middle-box" :style="pageStyle" @dragover="ondragover" @drop="ondrop">
-        <!-- 网格线 -->
+        <!-- 网格线  -->
         <gridLine v-if="$store.state.editorStore.openGridLine"></gridLine>
 
         <!-- 贴线与吸附功能 -->
@@ -61,6 +61,7 @@ const getParentWrapperStyle = (widgetsOwnProps: Partial<AllWidgetProps>) => {
 }
 
 const selectWidget = (id: string) => {
+    console.log('设置id', id)
     $store.commit('editorStore/selectWidget', id)
 }
 const getWidget = (fn: (params: widgetData) => void) => {

@@ -187,6 +187,8 @@ const onShowLines = (widgetAxisArr: widgetAxisData[]) => {
 }
 
 const onAdsorb = (key: string, absorbValue: number) => {
+    console.log('selectWidgetDom1', $store.state.editorStore.currentComponent)
+    console.log('selectWidgetDom2', $store.getters['editorStore/selectWidgetDom'])
     const currentComponentDom = $store.getters['editorStore/selectWidgetDom'] as HTMLElement
     const currentComponentDomRect = currentComponentDom.getBoundingClientRect()
     const currentComponentDomWrapper = currentComponentDom.closest('.edit-wrapper') as HTMLElement
