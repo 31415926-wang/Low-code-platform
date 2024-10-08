@@ -1,8 +1,8 @@
 //全局样式
 @font-face {
     font-family: 'DDJingBu';
-    src: url('@/assets/font/钉钉进步体.woff2') format('woff2'),
-        url('@/assets/font/钉钉进步体.woff') format('woff');
+    src: url('../assets/font/钉钉进步体.woff2') format('woff2'),
+        url('../assets/font/钉钉进步体.woff') format('woff');
 }
 
 @import url(./customAnt.scss);

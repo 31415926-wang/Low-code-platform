@@ -17,14 +17,16 @@
 import Head from './head.vue'
 import Main from './main.vue'
 // import Footer from './footer.vue'
-
+/* 或者使用内联的方式 */
+// import imageUrl from '@/assets/image/appBg.svg'
 </script>
 
 <style scoped lang='scss'>
 $box_padding: 16px 20px;
 
 .container {
-    background: url('@/assets/image/appBg.svg');
+    /* 线上会找不到，所以用相对路径 */
+    background: url('../assets/image/appBg.svg');
     height: 100%;
 
     .heard {
