@@ -5,7 +5,9 @@
         class="border">
     </QsShape> -->
     <div ref="EditWrapper" v-for="(item) in widgetComponents" :key="item.id">
-        <span :id="item.id" v-bind="{ widgetTitle: item.title }">{{ item.id }}</span>
+        <div v-bind="{ widgetTitle: item.title }">
+            <img :id="item.id" :src="iphoneHeadImgUrl" alt="">
+        </div>
     </div>
     <hr>
     <div ref="EditWrapper" v-for="(item) in widgetComponents" :key="item.id">
@@ -17,6 +19,7 @@
 <script setup lang='ts'>
 import { computed, ref, StyleValue } from 'vue'
 import { useStore } from '@/store/index'
+import iphoneHeadImgUrl from '@/assets/image/phone-head.png'
 const $store = useStore()
 
 const widgetComponents = computed(() => {
