@@ -14,18 +14,32 @@
         <component :is="item.name" v-bind="{ ...item.props, widgetTitle: item.title }" :id="item.id">
         </component>
     </div>
+
+    <button @click="test">测试</button>
 </template>
 
 <script setup lang='ts'>
 import { computed, ref, StyleValue } from 'vue'
 import { useStore } from '@/store/index'
 import iphoneHeadImgUrl from '@/assets/image/phone-head.png'
+import axios from 'axios'
+
 const $store = useStore()
 
 const widgetComponents = computed(() => {
     return $store.state.editorStore.components
 })
 
+const test = () => {
+    axios.get('https://aspiring-paper-olivine.glitch.me/test')
+        .then(response => {
+            // 处理成功的响应
+            console.log('数据:', response.data)
+        })
+        .catch(error => {
+            console.error('发生错误:', error)
+        })
+}
 </script>
 
 <style scoped lang='scss'>

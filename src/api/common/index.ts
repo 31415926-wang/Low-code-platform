@@ -28,3 +28,10 @@ export const reqUploadImg = (data) => {
         data
     })
 }
+
+export const reqTest = () => {
+    return request({
+        url: 'test',
+        method: 'get'
+    })
+}
