@@ -231,3 +231,16 @@ onMounted(() => {
     }
 }
 </style>
+
+<!-- 修复移动端下的编辑器排版 -->
+<style lang='scss'>
+.container {
+    .heard {
+        min-width: 1200px;
+    }
+
+    .main {
+        min-width: 1200px;
+    }
+}
+</style>
