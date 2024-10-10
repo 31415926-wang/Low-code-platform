@@ -29,9 +29,7 @@ $box_padding: 16px 20px;
     background: url('../assets/image/appBg.svg');
     background-size: cover;
     height: 100%;
-    min-width: 1200px;
-    min-height: 800px;
-    border: 1px solid red;
+    overflow: auto;
 
     .heard {
         height: $head_height;
@@ -52,6 +50,8 @@ $box_padding: 16px 20px;
         ;
         padding-bottom: 0;
         overflow: hidden;
+        min-width: 1200px;
+        min-height: 800px;
     }
 
     .footer {
