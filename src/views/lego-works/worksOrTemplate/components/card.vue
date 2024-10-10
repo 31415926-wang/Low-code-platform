@@ -23,22 +23,24 @@
                 <div @click="editWork(cardItem.id)">
                     <FormOutlined />
                 </div>
-                <div class="operate">
+                <div class="operate ">
                     <EllipsisOutlined />
-                    <ul class="operate-box">
-                        <li @click="copyWork(cardItem.id)">
-                            <CopyOutlined /> <span>复制</span>
-                        </li>
-                        <li @click="showDeleteConfirm(cardItem.id)">
-                            <DeleteOutlined /> <span>删除</span>
-                        </li>
-                        <li @click="onDownload(cardItem.title, cardItem.coverImg)">
-                            <DownloadOutlined /> <span>下载封面</span>
-                        </li>
-                        <li @click="openDonateWork(cardItem.id)">
-                            <GiftOutlined /> <span>转赠</span>
-                        </li>
-                    </ul>
+                    <div class="operate-box">
+                        <ul class="">
+                            <li @click="copyWork(cardItem.id)">
+                                <CopyOutlined /> <span>复制</span>
+                            </li>
+                            <li @click="showDeleteConfirm(cardItem.id)">
+                                <DeleteOutlined /> <span>删除</span>
+                            </li>
+                            <li @click="onDownload(cardItem.title, cardItem.coverImg)">
+                                <DownloadOutlined /> <span>下载封面</span>
+                            </li>
+                            <li @click="openDonateWork(cardItem.id)">
+                                <GiftOutlined /> <span>转赠</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div v-else class="card-title" style="opacity:0.6">
@@ -154,7 +156,7 @@ const updateListFn = inject('updateList') as () => void
     position: relative;
     grid-column: span 1 / span 1;
     background-color: white;
-    // overflow: hidden;
+    overflow: hidden;
     border-radius: 10px;
     box-shadow: 3px 5px 9px rgb(202, 202, 202);
 
@@ -177,7 +179,7 @@ const updateListFn = inject('updateList') as () => void
             inset: 0;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.686);
+            background-color: rgba(0, 0, 0, 0.486);
         }
 
         .img-box {
@@ -251,43 +253,48 @@ const updateListFn = inject('updateList') as () => void
 
         .operate-box {
             display: none;
-            position: absolute;
-            top: 100%;
-            left: 10px;
+            position: fixed;
+            // top: 100%;
+            // left: 10px;
             z-index: 20;
-            width: 100%;
-            background-color: #fff;
-            // border: 1px solid;
-            font-size: 15px;
-            cursor: pointer;
 
-            & li {
-                padding: 7px 7px;
-                opacity: 0.85;
+            ul {
+                position: relative;
+                bottom: 10px;
+                left: 75px;;
 
-                &:hover {
-                    background-color: rgb(235, 218, 188);
-                    color: $theme_color;
+                width: 120px;
+                background-color: #fff;
+                // border: 1px solid;
+                font-size: 15px;
+                cursor: pointer;
+
+                & li {
+                    padding: 4px 7px;
+                    opacity: 0.85;
+
+                    &:hover {
+                        background-color: rgb(235, 218, 188);
+                        color: $theme_color;
+                    }
+                }
+
+                & span {
+                    margin-left: 5px;
                 }
             }
-
-            & span {
-                margin-left: 5px;
-            }
         }
-
+        }
     }
-}
 
-@media screen and (max-width:1550px) {
-    .card .img-container .img-box {
-        height: 300px;
+    @media screen and (max-width:1550px) {
+        .card .img-container .img-box {
+            height: 300px;
+        }
     }
-}
 
-@media screen and (max-width:1280px) {
-    .card .img-container .img-box {
-        height: 250px;
-    }
-}
-</style>
+    @media screen and (max-width:1280px) {
+        .card .img-container .img-box {
+            height: 250px;
+        }
+    }</style>

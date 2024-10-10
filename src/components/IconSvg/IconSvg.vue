@@ -1,7 +1,7 @@
 <template>
     <!-- ant库的图标 -->
     <component v-if="isAntImg" :is="name"></component>
-    <svg v-else aria-hidden="true" :width="width" :height="height" :fill="fill">
+    <svg v-else  :width="width" :height="height" :fill="fill">
         <use :xlink:href="`#icon-${$props.name}`"></use>
     </svg>
 </template>

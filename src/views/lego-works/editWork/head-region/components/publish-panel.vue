@@ -1,5 +1,6 @@
 <template>
-  <a-modal v-model:open="openPanel" :width="820" :footer="null" title="发布成功" @ok="openPanel = false">
+  <a-modal v-model:open="openPanel" :width="width > 768 ? 820 : 330" :footer="null" title="发布成功"
+    @ok="openPanel = false">
     <div class="model-inner">
       <div class="left">
         <img class="border cover" :src="pageDate.coverImg" alt="封面" v-if="pageDate.coverImg">
@@ -59,7 +60,9 @@ import { reqPublishTemplate } from '@/api/works/workItem'
 import { message } from 'ant-design-vue'
 import onDownload from '@/utils/downloadFile'
 import { useRouter } from 'vue-router'
+import { useWindowSize } from '@vueuse/core'
 
+const { width, height } = useWindowSize()
 const $props = defineProps<{
   openSettingPanel: () => void
 }>()
@@ -79,14 +82,8 @@ const pageDate = computed(() => {
 
 const urlPre = computed(() => {
   const isHash = $router.options.history.base.includes('#')
-  return process.env.VUE_APP_PublicPath! + isHash ? '/#' : ''
-})
-
-watch(openPanel, (newValue) => {
-  if (newValue) {
-    codeUrlWork.value = `${location.origin}${urlPre.value}/previewWork/${$store.state.editorStore.page.id}`
-    codeUrlTemplate.value = `${location.origin}${urlPre.value}/previewTemplate/${$store.state.editorStore.page.id}`
-  }
+  // console.log('环境变量', process.env.VUE_APP_PublicPath)
+  return process.env.VUE_APP_PublicPath! + (isHash ? '/#' : '')
 })
 
 const toUploadImg = () => {
@@ -95,8 +92,10 @@ const toUploadImg = () => {
 }
 
 const changeTab = async (activeKey: number) => {
+  // console.log('changeTab')
+  if (!codeUrlWork.value) codeUrlWork.value = `${location.origin}${urlPre.value}/previewWork/${$store.state.editorStore.page.id}`
+  if (!codeUrlTemplate.value) codeUrlTemplate.value = `${location.origin}${urlPre.value}/previewTemplate/${$store.state.editorStore.page.id}`
   await nextTick(() => {
-    // console.log('changeTab', codeUrlWork.value)
     if (activeKey === 1) {
       renderCode('canvas-work', codeUrlWork.value)
     } else {
@@ -138,9 +137,39 @@ defineExpose({
 })
 </script>
 
+<style>
+@media screen and (max-width:768px) {
+  .ant-modal {
+    top: 50px !important;
+  }
+}
+</style>
 <style lang="scss" scoped>
 .border {
   border-color: rgba(231, 231, 231, 0.8);
+}
+
+/* 修复手机端排版 */
+
+@media screen and (max-width:768px) {
+
+  .model-inner {
+    flex-direction: column-reverse;
+
+    .left,
+    .right {
+      width: 100% !important;
+    }
+
+    .right .tabPane .input-code {
+      display: block !important;
+    }
+  }
+
+  .code {
+    width: 108px !important;
+    height: 108px !important;
+  }
 }
 
 .model-inner {

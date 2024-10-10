@@ -1,12 +1,12 @@
 <template>
-    <a-drawer v-model:open="openPanel" title="设置面板" placement="right" @after-open-change="afterOpenChange" :width="420"
-        :closable="false">
+    <a-drawer v-model:open="openPanel" title="设置面板" placement="right" @after-open-change="afterOpenChange"
+        :width="width > 768 ? 420 : 280" :closable="false">
         <template v-slot:extra>
             <CloseOutlined @click="openPanel = false" />
         </template>
         <a-form ref="formRef" class="setting-form" :model="formState" :label-col="{ span: 6 }"
             :wrapper-col="{ span: 16 }" autocomplete="off" labelAlign="left">
-            <!-- <a-form-item label="扫码预览">
+            <!-- <a-form-item label="扫码预览 ">
                 <img src="" class="border" />
             </a-form-item> -->
 
@@ -62,6 +62,9 @@ import { message } from 'ant-design-vue'
 import type { FormInstance } from 'ant-design-vue/es/form'
 import html2canvas from 'html2canvas'
 import canvasUpload from '@/utils/canvasUpload'
+import { useWindowSize } from '@vueuse/core'
+
+const { width, height } = useWindowSize()
 
 const $store = useStore()
 
