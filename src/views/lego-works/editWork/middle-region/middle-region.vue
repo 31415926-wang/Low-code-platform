@@ -12,6 +12,7 @@
             :isActive="item.id == $store.state.editorStore.currentComponent && !item.isHidden"
             :style="{ ...getParentWrapperStyle(item.props), 'z-index': index }">
             <template v-if="!item.isHidden">
+                <!--widgetTitle、id挂载后都是props直接子属性-->
                 <component :is="item.name" v-bind="{ ...item.props, widgetTitle: item.title }" :id="item.id">
                 </component>
             </template>

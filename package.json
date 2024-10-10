@@ -20,7 +20,7 @@
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.1",
     "qrcode": "^1.5.3",
-    "question-star-bricks": "^1.2.32",
+    "question-star-bricks": "^1.2.33",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.0",
     "svg-sprite-loader": "^6.0.11",
