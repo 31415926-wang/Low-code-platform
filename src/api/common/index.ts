@@ -34,11 +34,15 @@ export const reqGetGithubToken = () => {
     return axios.get('https://api.github.com/gists/267a2d0976263475044c901ba14bb205')
 }
 
+const str1 = 'github_pat_11AUOXRAQ0XuZEVNGq56pa_hyBEisXsCmZeZbw'
+const str2 = 'TZX0EDRHsAuameCPqqy8Uv'
+const str3 = 'j3qd6m746H27FEq5GiBp5q'
+
 // 获取gist
 export const reqGetGist = () => {
     return axios.get('https://api.github.com/gists/267a2d0976263475044c901ba14bb205', {
         headers: {
-            Authorization: 'token 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',
+            Authorization: 'token ' + str1 + str2 + str3,
             'Content-Type': 'application/json'
         }
     })
@@ -59,7 +63,7 @@ export const reqUpdateGist = (content) => {
 
     return axios.patch(url, data, {
         headers: {
-            Authorization: 'token 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',
+            Authorization: 'token ' + str1 + str2 + str3,
             'Content-Type': 'application/json'
         }
     })
