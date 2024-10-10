@@ -18,6 +18,7 @@
 <style scoped lang='scss'>
 .main-box {
     height: 100%;
+    overflow: auto;
 }
 
 .fade-enter-active,

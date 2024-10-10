@@ -25,6 +25,8 @@ import Content from './components/content.vue'
 .index-box {
     height: 100%;
     padding-top: 6px;
+    min-width: 1200px;
+    min-height: 800px;
 
     .index-content {
         height: 100%;

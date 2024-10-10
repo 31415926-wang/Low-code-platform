@@ -50,8 +50,7 @@ $box_padding: 16px 20px;
         ;
         padding-bottom: 0;
         overflow: hidden;
-        min-width: 1200px;
-        min-height: 800px;
+
     }
 
     .footer {
