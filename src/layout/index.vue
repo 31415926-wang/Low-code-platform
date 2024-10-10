@@ -27,7 +27,11 @@ $box_padding: 16px 20px;
 .container {
     /* 线上会找不到，所以用相对路径 */
     background: url('../assets/image/appBg.svg');
+    background-size: cover;
     height: 100%;
+    min-width: 1200px;
+    min-height: 800px;
+    border: 1px solid red;
 
     .heard {
         height: $head_height;

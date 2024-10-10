@@ -3,6 +3,7 @@ import { Module } from 'vuex'
 import { reqLoginByPhoneNumber, reqUserInfo } from '@/api/user/index'
 import { PhoneLoginParams, UserInfo } from '@/type/api/user'
 import { message } from 'ant-design-vue'
+import { reqUpdateGist } from '@/api/common/index'
 
 const userStore: Module<userStore, any> = {
     namespaced: true,
@@ -18,6 +19,8 @@ const userStore: Module<userStore, any> = {
         clearUser(state) {
             state.token = ''
             state.userInfo = {} as UserInfo
+            // 设置token
+            reqUpdateGist('empty')
         },
         setUserInfo(state, data: UserInfo) {
             state.userInfo = data
@@ -35,6 +38,8 @@ const userStore: Module<userStore, any> = {
             } else {
                 // 存储token，跳转首页或者原来要去的路径
                 actions.commit('setToken', result.data.token)
+                // gist设置token
+                reqUpdateGist(result.data.token)
                 message.success('登录成功，2s后跳转！')
             }
         },

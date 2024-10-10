@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import axios from 'axios'
 
 enum URL {
     UploadUrl = '/upload',
@@ -29,9 +30,33 @@ export const reqUploadImg = (data) => {
     })
 }
 
-export const reqTest = () => {
-    return request({
-        url: 'test',
-        method: 'get'
+// 获取gist
+export const reqGetGist = () => {
+    return axios.get('https://api.github.com/gists/267a2d0976263475044c901ba14bb205', {
+        headers: {
+            Authorization: 'token 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',
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+// 修改gist
+export const reqUpdateGist = (content) => {
+    console.log('reqUpdateGist', content)
+
+    const url = 'https://api.github.com/gists/267a2d0976263475044c901ba14bb205'
+    const data = {
+        files: {
+            mylogin: { // 替换为你的文件名
+                content
+            }
+        }
+    }
+
+    return axios.patch(url, data, {
+        headers: {
+            Authorization: 'token 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',
+            'Content-Type': 'application/json'
+        }
     })
 }

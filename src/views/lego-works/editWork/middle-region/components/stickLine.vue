@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang='ts'>
-import { reactive, ref, nextTick } from 'vue'
+import { reactive, ref } from 'vue'
 import eventBus from '@/utils/eventBus'
 import { useStore } from '@/store/index'
 import { widgetData } from '@/type/store/modules/editorStore'

@@ -12,7 +12,7 @@
                     <a-input v-model:value="formData.veriCode" />
                 </a-form-item>
 
-                <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
+                <a-form-item :wrapper-col="{ sm: { offset: 8, span: 16 } }">
                     <a-button type="primary" @click="submitForm">登录</a-button>
                     <a-button style="margin-left: 10px" @click="genVeriCode" :disabled="timeSwitch">
                         <span v-if="!timeSwitch">
@@ -53,7 +53,7 @@ const rules: Record<string, Rule[]> = {
 
 const formRef = ref<FormInstance>()
 const formData = reactive<PhoneLoginParams>({
-    phoneNumber: '15975228030',
+    phoneNumber: '',
     veriCode: ''
 })
 

@@ -20,6 +20,7 @@ import { } from 'vue'
     height: 100%;
 
     .card-form {
+        min-width: 290px;
         position: absolute;
         top: 50%;
         left: 50%;

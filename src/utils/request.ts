@@ -27,6 +27,7 @@ requestInstance.interceptors.response.use((response: AxiosResponse) => {
     // 如果是请求后响应为token过期、没有token
     // 清空token、个人信息。然后原地刷新页面
     if (response.data.errno === 101004) {
+        console.log('出错101004')
         $store.commit('userStore/clearUser')
         location.reload()
         return
