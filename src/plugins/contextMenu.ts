@@ -27,6 +27,7 @@ export default function (menuList: MenuListItem[], selector: string) {
             // console.log('点中目标', e)
             // 显示列表、并定位其位置
             console.log('实验', vnode)
+
             // @ts-ignore
             vnode.component.setupState.showMenu = true
             const menuDom = document.querySelector('.menu-list') as HTMLElement
