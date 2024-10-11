@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkquestion_star"]=self["webpackChunkquestion_star"]||[]).push([[143],{13524:function(t,e,n){n.r(e),n.d(e,{default:function(){return d}});var u=n(1877),s=(0,u.pM)({__name:"propsTest",setup(t){return(t,e)=>((0,u.uX)(),(0,u.CE)("div",null,"子组件"))}});const a=s;var r=a,p=(0,u.pM)({__name:"test",setup(t){return(t,e)=>((0,u.uX)(),(0,u.CE)("div",null,[(0,u.bF)(r,{id:123456,widgeTitle:"图片","padding-top-a":"边距"})]))}}),i=n(91139);const c=(0,i.A)(p,[["__scopeId","data-v-32899c0c"]]);var d=c}}]);
+//# sourceMappingURL=143.069861e4.js.map
