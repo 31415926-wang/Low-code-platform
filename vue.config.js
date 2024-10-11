@@ -10,7 +10,7 @@ const smpFn = (config) => {
   return isProduct ? smp.wrap(config) : config
 }
 // const mdLoader = require('./src/views/testGroup/mdLoader')
-const BundleSizeCustomPlugin = require('./src/views/testGroup/BundleSizeCustomPlugin')
+const BundleSizeCustomPlugin = require('./src/views/testGroup/BundleSizeCustomPlugin.js')
 
 const configObj = defineConfig({
   publicPath: isProduct ? process.env.VUE_APP_PublicPath : '/',

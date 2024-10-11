@@ -41,3 +41,9 @@ jobs:
     - name: Build
       run: pnpm run build  # 如果你有构建步骤
 
+
+   - name: Deploy to GitHub Pages
+    uses: peaceiris/actions-gh-pages@v3
+    with:
+      github_token: ${{ secrets.GIT_HAB_TOKEN }}
+      publish_dir: ./docs  # 替换为你的构建输出目录
