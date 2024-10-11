@@ -24,6 +24,13 @@ jobs:
         node-version: '16'
       # 作用: 这一步骤设置 Node.js 环境，指定 Node.js 的版本。对于使用 Node.js 的项目（如使用 npm 的项目），这是必需的步骤。你可以根据你的项目需要指定不同的 Node.js 版本。
 
+
+    - name: Install pnpm
+            run: npm install -g pnpm
+
+    - name: Verify pnpm installation
+      run: pnpm --version  # 确保 pnpm 安装成功
+
     - name: Install dependencies
       run: pnpm install
       # 作用: 这一步骤安装 package.json 中列出的所有依赖。对于大多数 Node.js 项目，这一步是必需的，因为没有安装依赖的项目无法正常构建或运行。
