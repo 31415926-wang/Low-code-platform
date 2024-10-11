@@ -1,0 +1,33 @@
+name: Build Item Wain
+
+on:
+  push:
+    branches:
+      - master  # 设置为你的主要分支
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      # 作用: 这一步骤将你的代码从 GitHub 仓库检出到 GitHub Actions 运行器的工作目录中。这是大多数工作流中必不可少的步骤，因为后续的步骤（如安装依赖、构建、测试等）需要在检出的代码基础上执行
+
+    - name: List files
+      run: ls -la
+      # 作用: 这一步骤用于调试，打印当前工作目录中的文件和目录。这可以帮助你确认 package.json 是否在正确的位置，特别是在你遇到问题时。这不是必需的，但在调试时非常有用。
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+      # 作用: 这一步骤设置 Node.js 环境，指定 Node.js 的版本。对于使用 Node.js 的项目（如使用 npm 的项目），这是必需的步骤。你可以根据你的项目需要指定不同的 Node.js 版本。
+
+    - name: Install dependencies
+      run: npm install
+      # 作用: 这一步骤安装 package.json 中列出的所有依赖。对于大多数 Node.js 项目，这一步是必需的，因为没有安装依赖的项目无法正常构建或运行。
+
+    - name: Build
+      run: npm run build  # 如果你有构建步骤
+

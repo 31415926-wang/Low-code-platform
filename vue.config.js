@@ -160,18 +160,18 @@ const configObj = defineConfig({
       .end()
 
     // 生产环境下不输出
-    if (isProduct) {
-      config.optimization.minimizer('terser').tap(args => { // 一般数组的第一项表示原配置内容
-        // const terserOptions = args[0].terserOptions || {}
-        if (args[0] && args[0].terserOptions) {
-          args[0].terserOptions.compress = {
-            ...args[0].terserOptions.compress,
-            drop_console: true // 移除 console.log
-          }
-        }
-        return args
-      })
-    }
+    // if (isProduct) {
+    //   config.optimization.minimizer('terser').tap(args => { // 一般数组的第一项表示原配置内容
+    //     // const terserOptions = args[0].terserOptions || {}
+    //     if (args[0] && args[0].terserOptions) {
+    //       args[0].terserOptions.compress = {
+    //         ...args[0].terserOptions.compress,
+    //         drop_console: true // 移除 console.log
+    //       }
+    //     }
+    //     return args
+    //   })
+    // }
   }
 })
 
