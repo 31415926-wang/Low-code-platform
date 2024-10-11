@@ -26,7 +26,10 @@ jobs:
 
 
     - name: Install pnpm
-            run: npm install -g pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest  # 或者指定具体版本，例如 '6.14.8'
+
 
     - name: Verify pnpm installation
       run: pnpm --version  # 确保 pnpm 安装成功
