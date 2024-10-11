@@ -14,7 +14,7 @@ const BundleSizeCustomPlugin = require('./src/views/testGroup/BundleSizeCustomPl
 
 const configObj = defineConfig({
   publicPath: isProduct ? process.env.VUE_APP_PublicPath : '/',
-  outputDir: isProduct ? 'docs' : 'dist',
+  outputDir: 'dist',
   transpileDependencies: true,
   // 解决scss样式传入共享的全局变量找不到的问题，引入的全局变量文件不要包含其它内容（根据vue-cli官网）
   css: {
