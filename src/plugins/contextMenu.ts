@@ -40,7 +40,7 @@ export default function (menuList: MenuListItem[], selector: string) {
         appDom.appendChild(vnodeContainerDom)
     })
     onUnmounted(() => {
-        // 移除相关的虚拟节点
+        // 移除相关的虚拟节 点
         document.body.removeChild(vnodeContainerDom)
     })
 }
