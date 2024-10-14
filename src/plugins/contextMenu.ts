@@ -21,8 +21,6 @@ export default function (menuList: MenuListItem[], selector: string) {
      const menuFn = function (e: MouseEvent) {
          e.preventDefault()
          if (isInContainOrEqual(e.target as HTMLElement, selector)) {
-             // 显示列表、并定位其位置
-             // @ts-ignore
              // 官网建议不直接修改vnode，实践发现生产环境下没有响应式
              // vnode.component.setupState.showMenu = true
              const clonevnode = cloneVNode(vnode, { showMenu: true })
