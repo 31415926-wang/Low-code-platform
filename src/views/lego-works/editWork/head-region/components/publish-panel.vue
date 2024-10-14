@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, nextTick, watch } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useStore } from '@/store/index'
 import QRCode from 'qrcode'
 import copyText from '@/utils/copyText'
@@ -62,7 +62,7 @@ import onDownload from '@/utils/downloadFile'
 import { useRouter } from 'vue-router'
 import { useWindowSize } from '@vueuse/core'
 
-const { width, height } = useWindowSize()
+const { width } = useWindowSize()
 const $props = defineProps<{
   openSettingPanel: () => void
 }>()

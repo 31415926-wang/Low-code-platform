@@ -3,6 +3,7 @@ import { createStore, useStore as vuexUseStore } from 'vuex'
 import editorStore from './modules/editorStore'
 import userStore from './modules/userStore'
 import apiStore from './modules/apiStore'
+import menuStore from './modules/menuStore'
 import type { storeData } from '@/type/store/index'
 import VuexPersistence from 'vuex-persist'
 
@@ -16,7 +17,8 @@ const store = createStore({
     modules: {
         editorStore,
         userStore,
-        apiStore
+        apiStore,
+        menuStore
     },
     plugins: [
         vuexLocal.plugin

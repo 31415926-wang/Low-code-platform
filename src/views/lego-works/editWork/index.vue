@@ -33,6 +33,7 @@
             </div>
         </a-col>
     </a-row>
+
 </template>
 
 <script setup lang='ts'>
@@ -62,7 +63,6 @@ const pageWidth = computed(() => {
     return $store.state.editorStore.page.props.width
 })
 
-// 右键鼠标功能
 const menuList = ref<MenuListItem[]>([
     {
         name: '拷贝图层',
