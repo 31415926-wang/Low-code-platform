@@ -64,7 +64,7 @@ import html2canvas from 'html2canvas'
 import canvasUpload from '@/utils/canvasUpload'
 import { useWindowSize } from '@vueuse/core'
 
-const { width, height } = useWindowSize()
+const { width } = useWindowSize()
 
 const $store = useStore()
 

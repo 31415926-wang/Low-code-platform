@@ -8,36 +8,65 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, watch } from 'vue'
+import { ref, watch, onUnmounted, onMounted } from 'vue'
 import { MenuListItem } from '@/plugins/contextMenu'
 import useClickOutside from '@/hook/useClickOutside'
+import { isInContainOrEqual } from '@/utils/tools'
+import { useStore } from '@/store/index'
 
-defineProps<{
-    menuList: MenuListItem[]
+// const $store = useStore()
+// console.log('menu组件初始化1', $store)
+// 如果是通过render函数，再将组件插入到页面，在这里引入store会有问题
+
+const $props = defineProps<{
+    menuList: MenuListItem[],
+    selector: string // 决定右键哪个元素可以出发显示菜单
 }>()
 
 const menu = ref(null)
 const showMenu = ref(false)
 
 const wrapperMenuFn = (fn: any) => {
-    // 隐藏菜单列表
-    showMenu.value = false
+    closeFn()
     fn()
 }
 
 const { isOpenListenOut } = useClickOutside(menu, () => {
-    // 隐藏菜单列表
-    showMenu.value = false
+    closeFn()
 })
 
+const closeFn = () => {
+    // 隐藏菜单列表
+    showMenu.value = false
+}
+
+const menuFn = function (e: MouseEvent) {
+    e.preventDefault()
+    // 显示列表、并定位其位置
+    if (isInContainOrEqual(e.target as HTMLElement, $props.selector)) {
+        showMenu.value = true
+
+        const menuDom = document.querySelector('.menu-list') as HTMLElement
+        menuDom.style.top = e.clientY + 'px'
+        menuDom.style.left = e.clientX + 'px'
+    }
+}
+
 watch(showMenu, (val) => {
-    // console.log('监测到showMenu改变')
+    console.log('监测到showMenu改变')
     if (val) {
         isOpenListenOut.value = true
     } else {
         isOpenListenOut.value = false
     }
-}, { immediate: true })
+})
+
+onMounted(() => {
+    document.addEventListener('contextmenu', menuFn)
+})
+onUnmounted(() => {
+    document.removeEventListener('contextmenu', menuFn)
+})
 
 </script>
 

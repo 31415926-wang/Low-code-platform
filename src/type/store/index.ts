@@ -6,5 +6,6 @@ import type { userStore } from './modules/userStore'
 export interface storeData {
     editorStore: editorState,
     userStore: userStore,
-    apiStore: apiState
+    apiStore: apiState,
+    menuStore: { showMenu: boolean }
 }
