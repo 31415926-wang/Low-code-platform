@@ -5,16 +5,17 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CompressionPlugin = require('compression-webpack-plugin')
 const isProduct = process.env.NODE_ENV === 'production'
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+// const mdLoader = require('./src/views/testGroup/mdLoader')
+// 确保在 CI/CD 环境中，文件路径的大小写与本地一致。有些操作系统（如 Windows）对文件名不区分大小写，而其他（如 Linux）则区分。因此，即使在本地运行正常，CI/CD 中可能会因为路径不匹配而出错。
+const BundleSizeCustomPlugin = require('./src/views/testGroup/bundleSizeCustomPlugin')
 const smp = new SpeedMeasurePlugin()
 const smpFn = (config) => {
   return isProduct ? smp.wrap(config) : config
 }
-// const mdLoader = require('./src/views/testGroup/mdLoader')
-const BundleSizeCustomPlugin = require('./src/views/testGroup/BundleSizeCustomPlugin.js')
 
 const configObj = defineConfig({
   publicPath: isProduct ? process.env.VUE_APP_PublicPath : '/',
-  outputDir: isProduct ? 'docs' : 'dist',
+  outputDir: 'dist',
   transpileDependencies: true,
   // 解决scss样式传入共享的全局变量找不到的问题，引入的全局变量文件不要包含其它内容（根据vue-cli官网）
   css: {
