@@ -15,7 +15,7 @@ export default function (menuList: MenuListItem[], selector: string) {
     const vnodeContainerDom = document.createElement('div') // 作为渲染Vnode的中介
     // const vcomponent = resolveComponent('ContextMenu')
     const vnode = h(ContextMenu, { menuList, selector }) // h函数将vue组件成创建虚拟节点，打印是一个对象
-    render(vnode, vnodeContainerDom) // render函数将虚拟Dom（vn）添加到容器，渲染成真实Dom
+    render(vnode, vnodeContainerDom) //  render函数将虚拟Dom（vn）添加到容器，渲染成真实Dom
 
     /*  // 控制菜单是否出现，应该由菜单本身去做决定才好处理
      const menuFn = function (e: MouseEvent) {
