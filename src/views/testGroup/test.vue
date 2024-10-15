@@ -10,7 +10,7 @@
 
     <ContextMenu :menuList="[
         {
-            name: '拷贝图层',
+            name: '拷贝图层 ',
             tip: '⌘C / Ctrl+C',
             fn: () => {
             }
