@@ -93,7 +93,8 @@ const updateWidgetProps = ({ Key, Value }: updateWidgetPropsParams) => {
     // padding: 24px 20px;
     // border: 1px solid rgb(241, 203, 193);
     overflow: hidden;
-    background-size: cover;
+    // background-size: cover;
+    // background-size: contain;
 
 }
 

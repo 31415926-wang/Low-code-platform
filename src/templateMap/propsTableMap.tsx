@@ -292,6 +292,20 @@ export const commonPropsMap: PropsTableMap = {
             isNeedDelete: true
         }
     },
+    'background-size': {
+        components: 'fields-select',
+        label: '背景大小',
+        extraProps: {
+            options: [
+                {
+                    label: 'contain', value: 'contain'
+                },
+                {
+                    label: 'cover', value: 'cover'
+                }
+            ]
+        }
+    },
     'border-radius': {
         components: 'a-input-number',
         label: '边框圆角',
@@ -435,7 +449,7 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
     },
     {
         name: '边框与背景',
-        keys: ['border-radius', 'border-color', 'border-style', 'border-width', 'background-color', 'background-image']
+        keys: ['border-radius', 'border-color', 'border-style', 'border-width', 'background-color', 'background-image', 'background-size']
     },
     {
         name: '事件功能',
@@ -443,7 +457,7 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
     },
     {
         name: '全局配置', // 这个tab不会渲染，全局配置的属性单独管理
-        keys: ['width', 'height', 'background-color', 'background-image']
+        keys: ['width', 'height', 'background-color', 'background-size', 'background-image']
     }
 ]
 

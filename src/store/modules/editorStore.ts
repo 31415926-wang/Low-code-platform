@@ -155,8 +155,9 @@ const editorStore: Module<editorState, any> = {
                 state.page.props = {
                     'background-color': '#ffffff',
                     'background-image': '',
-                    height: '896px',
-                    width: '450px'
+                    'background-size': 'cover',
+                    height: '1000px',
+                    width: '560px'
                 }
                 state.components = []
             }
