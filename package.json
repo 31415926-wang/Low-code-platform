@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "fix": "vue-cli-service  lint --fix"
@@ -20,7 +20,7 @@
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.1",
     "qrcode": "^1.5.3",
-    "question-star-bricks": "^1.2.34",
+    "question-star-bricks": "^1.2.37",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.0",
     "svg-sprite-loader": "^6.0.11",

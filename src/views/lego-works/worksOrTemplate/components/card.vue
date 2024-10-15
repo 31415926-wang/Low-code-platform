@@ -44,7 +44,8 @@
                 </div>
             </div>
             <div v-else class="card-title" style="opacity:0.6">
-                <div>作者： {{ cardItem.author }}</div>
+                <!-- <div>作者： {{ cardItem.author }}</div> -->
+                <div>作者：admin</div>
                 <div>
                     <UserOutlined />&nbsp;{{ cardItem.copiedCount }}
                 </div>
@@ -261,7 +262,8 @@ const updateListFn = inject('updateList') as () => void
             ul {
                 position: relative;
                 bottom: 10px;
-                left: 75px;;
+                left: 75px;
+                ;
 
                 width: 120px;
                 background-color: #fff;
@@ -284,17 +286,18 @@ const updateListFn = inject('updateList') as () => void
                 }
             }
         }
-        }
     }
+}
 
-    @media screen and (max-width:1550px) {
-        .card .img-container .img-box {
-            height: 300px;
-        }
+@media screen and (max-width:1550px) {
+    .card .img-container .img-box {
+        height: 300px;
     }
+}
 
-    @media screen and (max-width:1280px) {
-        .card .img-container .img-box {
-            height: 250px;
-        }
-    }</style>
+@media screen and (max-width:1280px) {
+    .card .img-container .img-box {
+        height: 250px;
+    }
+}
+</style>

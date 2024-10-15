@@ -1,6 +1,6 @@
 
 export default function debounceFn(fn: (...x: any) => void, duration: number) {
-    let timer: number | null = null
+    let timer: any = null
 
     return function (...arg: any) {
         if (timer) {

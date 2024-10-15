@@ -41,9 +41,7 @@
 <script setup lang='ts'>
 import propsTest from './propsTest.vue'
 import { computed } from 'vue'
-const test = () => {
-    //
-}
+
 const prop = computed(() => {
     // @ts-ignore
     return document.querySelector('.menu-list').style.display

@@ -12,7 +12,6 @@ import { ref, watch, onUnmounted, onMounted } from 'vue'
 import { MenuListItem } from '@/plugins/contextMenu'
 import useClickOutside from '@/hook/useClickOutside'
 import { isInContainOrEqual } from '@/utils/tools'
-import { useStore } from '@/store/index'
 
 // const $store = useStore()
 // console.log('menu组件初始化1', $store)

@@ -19,6 +19,9 @@
         </editWrapper>
     </div>
     <!-- {{ $store.state.editorStore.page.props }} -->
+    <!-- <pre>
+    {{ widgetComponents }}
+</pre> -->
 </template>
 
 <script setup lang='ts'>

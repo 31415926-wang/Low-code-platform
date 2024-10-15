@@ -105,6 +105,30 @@ export const textPropsMap: PropsTableMap = {
             ])
         }
     },
+    'line-height': {
+        components: 'fields-select',
+        label: '行高',
+        extraProps: {
+            options: renderVnodeOptions('line-height', [
+                {
+                    label: 'none', value: 1
+                },
+                {
+                    label: 'tight', value: 1.25
+                },
+                {
+                    label: 'normal', value: 1.5
+                },
+                {
+                    label: 'relaxed', value: 1.625
+                },
+                {
+                    label: 'loose', value: 2
+                }
+
+            ])
+        }
+    },
     'font-family': {
         components: 'fields-select',
         label: '字体类型',
@@ -395,7 +419,7 @@ const propsTableKeyGroup: { name: string, keys: (keyof AllWidgetProps)[] }[] = [
 
     {
         name: '文本属性',
-        keys: ['textValue', 'titleValue', 'font-size', 'text-align', 'font-weight', 'font-family', 'color', 'text-shadow']
+        keys: ['textValue', 'titleValue', 'font-size', 'text-align', 'font-weight', 'line-height', 'font-family', 'color', 'text-shadow']
     },
     {
         name: '图片属性',

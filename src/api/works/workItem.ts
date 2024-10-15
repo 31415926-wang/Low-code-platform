@@ -12,7 +12,7 @@ enum Url {
 
 // 复制
 export const reqCopyWork = (id: number) => {
-    return request({
+    return request<DetailTemplateOrWork>({
         url: Url.CopyWork + '/' + id,
         method: 'post'
     })

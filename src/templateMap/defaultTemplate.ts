@@ -2,7 +2,7 @@
 import { widgetTemplate } from '@/type/template/widgetAndprops'
 import { defaultCommonProps, defaultTextProps, defaultImgProps, defaultShapeProps } from 'question-star-bricks'
 
-/* 负责左侧物料面板 */
+/* 负责左侧物料面板  */
 
 // 默认的属性及其值
 const paramTextProps = {
@@ -11,8 +11,8 @@ const paramTextProps = {
 }
 const paramImgProps = {
     ...defaultCommonProps,
-    paddingTop: '0px',
-    paddingBottom: '0px',
+    'padding-top': '0px',
+    'padding-bottom': '0px',
     width: '100px',
     ...defaultImgProps
 }
@@ -20,9 +20,9 @@ const paramImgProps = {
 const paramStyleFontProps = {
     ...defaultCommonProps,
     ...defaultTextProps,
-    fontSize: '17px',
-    paddingLeft: '10px',
-    paddingRight: '10px'
+    'font-size': '18px',
+    'padding-left': '10px',
+    'padding-right': '10px'
 }
 
 const paramShapeProps = { // 图案类型似乎不需要那么多属性

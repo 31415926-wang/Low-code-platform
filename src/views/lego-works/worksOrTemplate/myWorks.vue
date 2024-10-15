@@ -1,7 +1,7 @@
 <template>
     <layout>
         <template v-slot:empty>
-            <div class="empty-row" v-if="listData.length === 0 && !loadStatus">
+            <div class="empty-row" v-if="listData.length === 0 && !loadStatus && $route.params.isTemplate === '0'">
                 <a-empty description="暂无数据"></a-empty>
             </div>
         </template>

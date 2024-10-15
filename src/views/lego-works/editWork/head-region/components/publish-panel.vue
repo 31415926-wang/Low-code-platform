@@ -54,8 +54,8 @@
 <script lang="ts" setup>
 import { ref, computed, nextTick } from 'vue'
 import { useStore } from '@/store/index'
-import QRCode from 'qrcode'
 import copyText from '@/utils/copyText'
+import renderCode from '@/utils/renderCode'
 import { reqPublishTemplate } from '@/api/works/workItem'
 import { message } from 'ant-design-vue'
 import onDownload from '@/utils/downloadFile'
@@ -82,7 +82,6 @@ const pageDate = computed(() => {
 
 const urlPre = computed(() => {
   const isHash = $router.options.history.base.includes('#')
-  // console.log('环境变量', process.env.VUE_APP_PublicPath)
   return process.env.VUE_APP_PublicPath! + (isHash ? '/#' : '')
 })
 
@@ -101,15 +100,6 @@ const changeTab = async (activeKey: number) => {
     } else {
       renderCode('canvas-template', codeUrlTemplate.value)
     }
-  })
-}
-
-const renderCode = (id: string, url: string, callBack?: () => void) => {
-  const canvas = document.getElementById(id)
-  QRCode.toCanvas(canvas, url, function (error) {
-    if (error) console.error(error)
-    // console.log('success!')
-    callBack && callBack()
   })
 }
 

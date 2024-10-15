@@ -12,12 +12,13 @@
                         <UserOutlined />
                     </span>
                     <span>该模版由</span>
-                    <span>{{ detailData.author }}</span>
+                    <!-- <span>{{ detailData.author }}</span> -->
+                    <span>admin</span>
                     <span>创作</span>
                 </div>
                 <div class="bt-group">
                     <a-button shape="round" size="middle" type='primary'
-                        @click="editWork(detailData.id)">使用模版</a-button>
+                        @click="editWork(detailData.id)">编辑模版</a-button>
                     <a-button shape="round" size="middle" @click="onDownload(detailData.title, detailData.coverImg)">
                         <template #icon>
                             <DownloadOutlined />
@@ -25,8 +26,8 @@
                         下载封面</a-button>
                 </div>
                 <div class="">
-                    <div class="desc">扫一扫，手机预览</div>
-                    <!-- <img src="#" height="200" width="200"> -->
+                    <div class="desc" style="padding-bottom: 6px;">扫一扫，手机预览</div>
+                    <canvas id="canvas-work" class="code"></canvas>
                 </div>
 
                 <div class="bt-group-footer">
@@ -47,13 +48,14 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, onMounted, createVNode } from 'vue'
+import { ref, onMounted, createVNode, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { reqDetailWork, reqDeleteWork } from '@/api/works/workItem'
 import { DetailTemplateOrWork } from '@/type/api/work'
 import { message, Modal } from 'ant-design-vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import onDownload from '@/utils/downloadFile'
+import renderCode from '@/utils/renderCode'
 
 const $route = useRoute()
 const $router = useRouter()
@@ -61,6 +63,11 @@ const $router = useRouter()
 const spinning = ref<boolean>(false)
 const detailData = ref<DetailTemplateOrWork>({} as DetailTemplateOrWork)
 const deleteTemplateLoading = ref(false)
+
+const urlPre = computed(() => {
+    const isHash = $router.options.history.base.includes('#')
+    return process.env.VUE_APP_PublicPath! + (isHash ? '/#' : '')
+})
 
 onMounted(async () => {
     spinning.value = true
@@ -71,6 +78,8 @@ onMounted(async () => {
             $router.go(-1)
         } else {
             detailData.value = result.data
+            // 加载二维码
+            renderCode('canvas-work', `${location.origin}${urlPre.value}/previewTemplate/${detailData.value.id}`)
         }
     } catch (error) {
         $router.go(-1)
@@ -79,7 +88,10 @@ onMounted(async () => {
     }
 })
 
-const editWork = (id: number) => {
+const editWork = async (id: number) => {
+    // 先复制，再访问
+    // const result = await reqCopyWork(id)
+    // $router.push('/edit-work/' + result.data.id)
     $router.push('/edit-work/' + id)
 }
 

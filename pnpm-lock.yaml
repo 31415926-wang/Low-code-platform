@@ -39,8 +39,8 @@ dependencies:
     specifier: ^1.5.3
     version: 1.5.3
   question-star-bricks:
-    specifier: ^1.2.34
-    version: 1.2.34(@vue/compiler-sfc@3.4.38)(sass@1.75.0)(vue@3.4.38)
+    specifier: ^1.2.37
+    version: 1.2.37(@vue/compiler-sfc@3.4.38)(sass@1.75.0)(vue@3.4.38)
   sass:
     specifier: ^1.75.0
     version: 1.75.0
@@ -8183,8 +8183,8 @@ packages:
       strict-uri-encode: 1.1.0
     dev: false
 
-  /question-star-bricks@1.2.34(@vue/compiler-sfc@3.4.38)(sass@1.75.0)(vue@3.4.38):
-    resolution: {integrity: sha512-XPHH/ll6Be3wkMp1m+1LYFhGGuO5QsrO39n3rwmAG30zbp9wqI83VVg4vUmfmYuOJIgQ57Jhd2gcwslZ0lGHkA==}
+  /question-star-bricks@1.2.37(@vue/compiler-sfc@3.4.38)(sass@1.75.0)(vue@3.4.38):
+    resolution: {integrity: sha512-SsKdZIjA0Q1pnL2cwnzKccY9x3EtGKRoyNGVPpLoK35qxopzpZr1IMPfMy5UgbF8GgRVek0xkEJVGZBJ4tfxqw==}
     peerDependencies:
       vue: ^3.4.38
     dependencies:

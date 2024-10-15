@@ -1,7 +1,7 @@
 
 // 全局方法，给指定的选择器容器添加右键事件
 
-import { onMounted, onUnmounted, h, render, resolveComponent, cloneVNode } from 'vue'
+import { onMounted, onUnmounted, h, render } from 'vue'
 import ContextMenu from '@/components/ContextMenu.vue'
 
 export declare interface MenuListItem {
@@ -38,7 +38,8 @@ export default function (menuList: MenuListItem[], selector: string) {
         appDom.appendChild(vnodeContainerDom)
     })
     onUnmounted(() => {
-        // 移除相关的虚拟节 点
-        document.body.removeChild(vnodeContainerDom)
+        // 移除相关的虚拟节点
+        const appDom = document.querySelector('#app') as HTMLElement // 也可以挂载在指定容器
+        appDom.removeChild(vnodeContainerDom)
     })
 }
