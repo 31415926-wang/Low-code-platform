@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="card">
             <div class="img-container">
-                <div class="img-box" :style="{ backgroundImage: `url(${cardItem.coverImg})` }">
+                <div class="img-box" :style="{ backgroundImage: `url(${(cardItem.coverImg).replace('https','http')})` }">
                 </div>
                 <div class="mask">
                     <a-button type="primary" shape="round" v-if="!isTemplate"

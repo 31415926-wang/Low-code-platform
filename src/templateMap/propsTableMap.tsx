@@ -114,7 +114,7 @@ export const textPropsMap: PropsTableMap = {
                     label: 'none', value: 1
                 },
                 {
-                    label: 'tight', value: 1.25
+                    label: 'tight', value: 1.20
                 },
                 {
                     label: 'normal', value: 1.5

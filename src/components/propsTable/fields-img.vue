@@ -6,7 +6,8 @@
             <FilesUpload :success-callback="handleChange">
                 <a-button :icon="h(CloudUploadOutlined)">上传图片</a-button>
             </FilesUpload>
-            <CropperModal v-model:showModal="showModal" :imgSrc="$props.value" :success-callback="handleChange">
+            <CropperModal v-model:showModal="showModal" :imgSrc="$props.value.replace('https', 'http')"
+                :success-callback="handleChange">
                 <a-button :icon="h(ScissorOutlined)" @click="showModal = true"
                     :disabled="value.length === 0">裁剪图片</a-button>
             </CropperModal>
@@ -32,7 +33,7 @@ const showModal = ref<boolean>(false)
 // 回显图片
 const imgSrc = computed(() => {
     // return $props.isNeedDelete ? $props.value : getImgSrc($props.value)
-    return $props.value
+    return ($props.value).replace('https', 'http')
 })
 
 const imgWidthSize = computed(() => {
@@ -45,9 +46,9 @@ const $emit = defineEmits<{
 
 const handleChange = (param: string | { urls: string[] }) => {
     if (typeof param !== 'string') {
-        $emit('update:value', param.urls[0])
+        $emit('update:value', param.urls[0].replace('https', 'http'))
     } else {
-        $emit('update:value', param)
+        $emit('update:value', param.replace('https', 'http'))
     }
 }
 

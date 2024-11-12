@@ -10,7 +10,7 @@
                 <div class="picture-row">
                     <FilesUpload :successCallback="successCallback">
                         <div class="img-echo">
-                            <img v-if="hasImg" :src="formState.picture" class="img" alt="">
+                            <img v-if="hasImg" :src="(formState.picture).replace('https','http')" class="img" alt="">
                             <div v-else class="img"></div>
                         </div>
                     </FilesUpload>

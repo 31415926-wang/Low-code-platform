@@ -54,7 +54,7 @@ const pageStyle = computed(() => {
     return {
         ...$store.state.editorStore.page.props,
         'background-image': $store.state.editorStore.page.props['background-image']
-            ? `url(${$store.state.editorStore.page.props['background-image']})`
+            ? `url(${($store.state.editorStore.page.props['background-image']).replace('https', 'http')})`
             : ''
         // 修复url(undefined)的请求404问题
     } as StyleValue
