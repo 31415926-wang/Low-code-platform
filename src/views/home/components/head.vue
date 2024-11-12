@@ -6,7 +6,7 @@
         <div class="user" v-if="!isLoginPage" @mouseenter="showMenu = true" @mouseleave="showMenu = false">
             <a-avatar :size="40">
                 <template #icon>
-                    <img :src="($store.state.userStore.userInfo.picture).replace('https','http')" alt=""
+                    <img :src="($store.state.userStore.userInfo.picture)" alt=""
                         v-if="$store.state.userStore.userInfo.picture">
                     <UserOutlined v-else></UserOutlined>
                 </template>

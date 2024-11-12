@@ -19,7 +19,7 @@
                 <FilesUpload :successCallback="successCallback">
                     <div class="img-echo border">
                         <img class="cover-img" v-if="formState.coverImg && formState.coverImg.length > 0"
-                            :src="(formState.coverImg).replace('https', 'http')" alt="作品封面">
+                            :src="(formState.coverImg)" alt="作品封面">
                         <div class="cover-img" v-else src=""></div>
                     </div>
                 </FilesUpload>
